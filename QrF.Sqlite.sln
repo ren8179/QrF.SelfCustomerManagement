@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sqlite", "Sqlite", "{69D5C105-20A8-4F21-B350-738491753C73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QrF.Sqlite", "Sqlite\QrF.Sqlite\QrF.Sqlite.csproj", "{16C9BCF8-09A5-4B29-899B-AB326BFCF893}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Lib", "_Lib", "{F1D63C96-9C1B-4E1A-8EB6-C97D87AA9CC9}"
+	ProjectSection(SolutionItems) = preProject
+		_Lib\QrF.Core.dll = _Lib\QrF.Core.dll
+		_Lib\QrF.Framework.dll = _Lib\QrF.Framework.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16C9BCF8-09A5-4B29-899B-AB326BFCF893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16C9BCF8-09A5-4B29-899B-AB326BFCF893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16C9BCF8-09A5-4B29-899B-AB326BFCF893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16C9BCF8-09A5-4B29-899B-AB326BFCF893}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{16C9BCF8-09A5-4B29-899B-AB326BFCF893} = {69D5C105-20A8-4F21-B350-738491753C73}
+	EndGlobalSection
+EndGlobal

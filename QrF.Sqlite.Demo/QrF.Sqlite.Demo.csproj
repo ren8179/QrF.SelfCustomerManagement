@@ -41,9 +41,21 @@
       <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Nancy.Authentication.Forms, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Authentication.Forms.1.4.1\lib\net40\Nancy.Authentication.Forms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Nancy.Hosting.Self, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nancy.Hosting.Self.1.4.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="QrF.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Lib\QrF.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="QrF.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Lib\QrF.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -63,6 +75,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormsAuthBootstrapper.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="NancySelfHost.cs" />
     <Compile Include="Program.cs" />
@@ -84,6 +98,12 @@
     <Content Include="Config\Log4net.xml" />
     <Content Include="Views\Home\index.html" />
     <Content Include="Views\Home\login.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sqlite\QrF.Sqlite\QrF.Sqlite.csproj">
+      <Project>{16c9bcf8-09a5-4b29-899b-ab326bfcf893}</Project>
+      <Name>QrF.Sqlite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

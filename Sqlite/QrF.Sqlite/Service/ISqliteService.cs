@@ -9,6 +9,32 @@ namespace QrF.Sqlite.Service
 {
     public interface ISqliteService
     {
+        #region User
+        /// <summary>
+        /// 查询单个对象
+        /// </summary>
+        User GetUser(int id);
+        User GetUser(Guid id);
+        User GetUser(string name, string password);
+        /// <summary>
+        /// 查询列表(未分页)
+        /// </summary>
+        IEnumerable<User> GetUserList(UserRequest request = null);
+        /// <summary>
+        /// 查询列表(分页)
+        /// </summary>
+        IEnumerable<User> GetUserPageList(UserRequest request = null);
+        /// <summary>
+        /// 编辑保存
+        /// </summary>
+        void SaveUser(User model);
+        /// <summary>
+        /// 删除
+        /// </summary>
+        void DeleteUser(List<int> ids);
+
+        #endregion
+
         #region Customer
         /// <summary>
         /// 查询单个对象

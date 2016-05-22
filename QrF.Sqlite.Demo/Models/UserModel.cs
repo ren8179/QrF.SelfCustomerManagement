@@ -3,19 +3,14 @@ using Nancy.Authentication.Forms;
 using QrF.Core.Service;
 using QrF.Sqlite.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using Nancy.Security;
 
 namespace QrF.Sqlite.Demo.Models
 {
     public class UserModel : IUserMapper
     {
-        public virtual ISqliteService SqliteService
+        public static ISqliteService SqliteService
         {
             get
             {
@@ -32,7 +27,7 @@ namespace QrF.Sqlite.Demo.Models
                        : new ClaimsPrincipal(new GenericIdentity(userRecord.UserName));
         }
 
-        public Guid? ValidateUser(string username, string password)
+        public static Guid? ValidateUser(string username, string password)
         {
             var userRecord = SqliteService.GetUser(username,password);
 
@@ -42,11 +37,6 @@ namespace QrF.Sqlite.Demo.Models
             }
 
             return userRecord.Token;
-        }
-
-        IUserIdentity IUserMapper.GetUserFromIdentifier(Guid identifier, NancyContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }

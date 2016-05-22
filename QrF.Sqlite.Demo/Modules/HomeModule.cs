@@ -1,4 +1,9 @@
 ﻿using Nancy;
+using Nancy.Authentication.Forms;
+using Nancy.Extensions;
+using Nancy.Security;
+using QrF.Sqlite.Demo.Models;
+using System;
 
 namespace QrF.Sqlite.Demo.Modules
 {
@@ -6,24 +11,12 @@ namespace QrF.Sqlite.Demo.Modules
     {
         public HomeModule()
         {
-            Get["/"] = _ =>
-            {
+            this.RequiresAuthentication();
+
+            Get("/", args => {
                 return View["index"];
-            };
-            Get["/login"] = _ =>
-            {
-                return View["login"];
-            };
-            //Post["/login"] = _ =>
-            //{
-            //    var loginUser = this.Bind<SystemUser>();
-            //    SystemUser user = GetValidUser(loginUser.SystemUserName, loginUser.SystemUserPassword);
-            //    if (user == null)
-            //    {
-            //        return Response.AsText("出错了", "text/html;charset=UTF-8");
-            //    }
-            //    return this.LoginAndRedirect(user.SystemUserId, fallbackRedirectUrl: "/secure");
-            //};
+            });
+           
         }
     }
 }

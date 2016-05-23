@@ -5,6 +5,7 @@ using QrF.Sqlite.EntityFramework;
 using QrF.Sqlite.Service;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                return dbContext.Find<User>(id);
+                return dbContext.Users.FirstOrDefault(o=>o.ID==id);
             }
         }
         public User GetUser(Guid id)
@@ -73,11 +74,15 @@ namespace QrF.Sqlite.Service
             {
                 if (model.ID > 0)
                 {
-                    dbContext.Update<User>(model);
+                    var set =dbContext.Set<User>();
+                    set.Attach(model);
+                    dbContext.Entry<User>(model).State = EntityState.Modified;
+                    dbContext.SaveChanges();
                 }
                 else
                 {
-                    dbContext.Insert<User>(model);
+                    dbContext.Set<User>().Add(model);
+                    dbContext.SaveChanges();
                 }
             }
         }
@@ -101,7 +106,7 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                return dbContext.Find<Customer>(id);
+                return dbContext.Customers.FirstOrDefault(o => o.ID == id);
             }
         }
         /// <summary>
@@ -139,11 +144,15 @@ namespace QrF.Sqlite.Service
             {
                 if (model.ID > 0)
                 {
-                    dbContext.Update<Customer>(model);
+                    var set = dbContext.Set<Customer>();
+                    set.Attach(model);
+                    dbContext.Entry<Customer>(model).State = EntityState.Modified;
+                    dbContext.SaveChanges();
                 }
                 else
                 {
-                    dbContext.Insert<Customer>(model);
+                    dbContext.Set<Customer>().Add(model);
+                    dbContext.SaveChanges();
                 }
             }
         }

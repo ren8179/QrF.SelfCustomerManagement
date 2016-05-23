@@ -21,10 +21,10 @@ namespace QrF.Sqlite.Demo
 
         private Response ErrorHandler(NancyContext ctx, Exception ex)
         {
-            if (ex!=null)
-            {
-                return "DB can't connect.";
-            }
+            //if (ex!=null)
+            //{
+            //    return "DB can't connect.";
+            //}
             return null;
         }
 

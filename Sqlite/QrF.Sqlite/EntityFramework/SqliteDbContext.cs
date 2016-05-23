@@ -9,11 +9,14 @@ using System.Reflection;
 
 namespace QrF.Sqlite.EntityFramework
 {
-    public class SqliteDbContext : DbContextBase
+    public class SqliteDbContext : DbContext
     {
         public SqliteDbContext()
             //: base(@"Data Source=WIN-NRSLQON20B9\SQLEXPRESS;Initial Catalog=QrF.Account;Persist Security Info=True;User ID=sa;Password=pass", new LogDbContext()){}
-            : base(CachedConfigContext.Current.DaoConfig.Sqlite, new LogDbContext()) { }
+            : base("Sqlite") {
+            Configuration.ProxyCreationEnabled = true;
+            Configuration.LazyLoadingEnabled = true;
+        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<SqliteDbContext>(null);
@@ -26,6 +29,9 @@ namespace QrF.Sqlite.EntityFramework
                 modelBuilder.Configurations.Add(configurationInstance);
             }
             base.OnModelCreating(modelBuilder);
+
+            var initializer = new SqliteDbInitializer(modelBuilder);
+            Database.SetInitializer(initializer);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }

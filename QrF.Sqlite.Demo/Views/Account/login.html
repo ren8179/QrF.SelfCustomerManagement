@@ -1,14 +1,54 @@
 ﻿<!DOCTYPE html>
-<html>
+<!--[if IE 8]> <html lang="zh-CN" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="zh-CN" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh-CN" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
 <head>
-    <title></title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <title>QeF | 系统登录</title>
+    <link href="../../content/css/animate.min.css" rel="stylesheet" />
+    <link href="../../content/css/normalize.css" rel="stylesheet" />
+    <link href="../../content/css/styles.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="favicon.ico" />
 </head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
 <body>
-    <form method="post" action="/login">
-        <label>姓名：</label><input type="text" name="SystemUserName" /><br />
-        <label>密码：</label><input type="password" name="SystemUserPassword" /><br />
-        <input type="submit" />
-    </form>
+    <div class="panel-lite">
+        <div class="thumbur">
+            <div class="icon-lock"></div>
+        </div>
+        <h4>用户登录</h4>
+        <form id="loginForm" class="form-edit" autocomplete="off">
+            <div class="form-group">
+                <input class="form-control form-field" name="Username" data-type="text" type="text" required="required">
+                <label class="form-label">用户名</label>
+            </div>
+            <div class="form-group">
+                <input class="form-control form-field" name="Password" data-type="text" type="password" required="required">
+                <label class="form-label">密　码</label>
+            </div>
+            <button id="btn-save" data-loading-text="登录中..." type="submit" class="floating-btn"><i class="icon-arrow"></i></button>
+        </form>
+    </div>
+    <!-- END LOGIN -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="../../content/js/lib/respond.min.js"></script>
+    <script src="../../content/js/lib/excanvas.js"></script>
+        <![endif]-->
+    <script src="../../content/js/lib/sea.js"></script>
+    <script src="../../content/js/common.js"></script>
+    <script>
+        seajs.use('js/app/login.js');
+    </script>
 </body>
+<!-- END BODY -->
 </html>

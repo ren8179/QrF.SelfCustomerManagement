@@ -10,7 +10,7 @@ namespace QrF.Sqlite.Demo.Modules
 {
     public class BaseNancyModule : NancyModule
     {
-        protected readonly ISqliteService _sqliteService;
+        
 
     }
 }

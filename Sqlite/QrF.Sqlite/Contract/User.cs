@@ -1,14 +1,8 @@
-﻿using QrF.Framework.Contract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace QrF.Sqlite.Contract
 {
-    [Auditable]
-    public class User : ModelBase
+    public class User : IEntity
     {
         public string UserName { get; set; }
         public string Password { get; set; }

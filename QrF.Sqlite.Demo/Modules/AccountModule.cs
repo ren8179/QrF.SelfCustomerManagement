@@ -10,27 +10,26 @@ namespace QrF.Sqlite.Demo.Modules
     {
         public AccountModule() : base("/login")
         {
-            Get("/", args => {
+            Get("/", args =>
+            {
                 return View["login"];
             });
-            Post("/", args => {
+            Post("/", args =>
+            {
                 var userGuid = UserModel.ValidateUser((string)this.Request.Form.Username, (string)this.Request.Form.Password);
-
                 if (userGuid == null)
-                {
-                    return this.Context.GetRedirect("~/login?error=true&username=" + (string)this.Request.Form.Username);
-                }
-
+                    return Response.AsJson(new { code = 400, error = "用户名或密码错误！" });
                 DateTime? expiry = null;
-                if (this.Request.Form.RememberMe.HasValue)
+                if (Request.Form.RememberMe.HasValue)
                 {
                     expiry = DateTime.Now.AddDays(7);
                 }
-
-                return this.LoginAndRedirect(userGuid.Value, expiry);
+                this.Login(userGuid.Value, expiry);
+                return Response.AsJson(new { code = 200 });
             });
 
-            Get("/logout", args => {
+            Get("/logout", args =>
+            {
                 return this.LogoutAndRedirect("~/");
             });
         }

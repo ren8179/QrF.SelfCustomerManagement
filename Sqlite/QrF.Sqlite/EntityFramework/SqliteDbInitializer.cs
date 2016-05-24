@@ -17,13 +17,16 @@ namespace QrF.Sqlite.EntityFramework
 
         protected override void Seed(SqliteDbContext context)
         {
-            context.Set<User>().Add(new User
+            context.Users.Add(new User
             {
                 UserName = "Admin",
-                Password = "123456"
+                Password = "123456",
+                Token = Guid.NewGuid(),
+                CreateTime = DateTime.Now,
+                ID=1
             });
 
-            context.Set<Customer>().Add(new Customer
+            context.Customers.Add(new Customer
             {
                 BuyTime = DateTime.Now,
                 Name = "测试",
@@ -32,7 +35,9 @@ namespace QrF.Sqlite.EntityFramework
                 Product="测试产品",
                 Card="",
                 CarrayDate=DateTime.Now,
-                DueDate=DateTime.Now
+                DueDate=DateTime.Now,
+                CreateTime=DateTime.Now,
+                ID=1
             });
         }
     }

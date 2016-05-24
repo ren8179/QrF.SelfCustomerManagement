@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Contract\Customer.cs" />
     <Compile Include="Contract\CustomHistory.cs" />
+    <Compile Include="Contract\IEntity.cs" />
     <Compile Include="Contract\Requests.cs" />
     <Compile Include="Contract\User.cs" />
     <Compile Include="EntityFramework\SqliteDbContext.cs" />

@@ -1,6 +1,4 @@
-﻿using QrF.Core.Config;
-using QrF.Framework.DAL;
-using QrF.Sqlite.Contract;
+﻿using QrF.Sqlite.Contract;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;

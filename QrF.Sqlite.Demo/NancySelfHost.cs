@@ -13,17 +13,15 @@ namespace QrF.Sqlite.Demo
         {
             _log.Info("QrFNancy Host Starting...");
             const string uriStr = "http://localhost:666/";
-            _nancyHost = new NancyHost(new Uri(uriStr));
-            _nancyHost.Start();
             try
             {
-                System.Diagnostics.Process.Start(uriStr);
+                _nancyHost = new NancyHost(new Uri(uriStr));
+                _nancyHost.Start();
             }
             catch (Exception ex)
             {
-                _log.Info("Error:"+ ex.Message);
+                _log.Error("Error:"+ ex.Message);
             }
-            _log.Info("QrFNancy Host Started");
             _log.Info("监听ing - " + uriStr);
         }
 

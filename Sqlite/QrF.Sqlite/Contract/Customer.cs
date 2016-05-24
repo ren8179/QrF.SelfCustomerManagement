@@ -1,10 +1,8 @@
-﻿using QrF.Framework.Contract;
-using System;
+﻿using System;
 
 namespace QrF.Sqlite.Contract
 {
-    [Auditable]
-    public class Customer : ModelBase
+    public class Customer : IEntity
     {
         /// <summary>
         /// 购买日期

@@ -1,7 +1,7 @@
 # QrF.SelfCustomerManagement
 基于Topshelf及Nancy构建的自托管Web小型客户信息管理平台，使用SQLite提供数据支持，不需要IIS的支持，可很方便的发布使用。
 
-
+![img_login](https://github.com/ren8179/QrF.SelfCustomerManagement/blob/master/img_login.png)
 
 ### Topshelf
 >一个开源的跨平台的宿主服务框架，支持Windows和Mono，只需要几行代码就可以构建一个很方便使用的服务宿主。Topshelf通过将服务视为控制台应用程序并将其作为服务进行托管，简化了服务开发。在要部署时，Topshelf会将应用程序作为Windows服务自动处理它的安装和启动（完全免去了处理InstallUtil 的开销）；自动处理服务项目和服务组件的细微差别；以及在出错时将调试器附加到服务。Topshelf还允许在代码中指定多个参数或在通过命令行进行安装的过程中配置多个参数（如服务名称）

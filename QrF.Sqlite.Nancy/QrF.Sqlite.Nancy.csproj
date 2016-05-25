@@ -140,15 +140,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="content\fonts\icomoon.eot">
+    <None Include="content\font\icomoon.eot">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="content\fonts\icomoon.ttf">
+    <None Include="content\font\icomoon.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="content\fonts\icomoon.woff">
+    <None Include="content\font\icomoon.woff">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="content\font\roboto\Roboto-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Regular.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Regular.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\js\lib\sweetalert\themes\facebook\facebook.scss" />
+    <None Include="content\js\lib\sweetalert\themes\google\google.scss" />
+    <None Include="content\js\lib\sweetalert\themes\twitter\twitter.scss" />
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -162,16 +174,16 @@
     <Content Include="Config\Log4net.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\css\animate.min.css">
+    <Content Include="content\css\materialize.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\css\normalize.css">
+    <Content Include="content\css\materialize.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\css\login.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\fonts\icomoon.svg">
+    <Content Include="content\font\icomoon.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\app\login.js">
@@ -207,6 +219,16 @@
     <Content Include="content\js\lib\sea.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\lib\sweetalert\sweetalert-dev.js" />
+    <Content Include="content\js\lib\sweetalert\sweetalert.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\sweetalert\sweetalert.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\sweetalert\themes\facebook\facebook.css" />
+    <Content Include="content\js\lib\sweetalert\themes\google\google.css" />
+    <Content Include="content\js\lib\sweetalert\themes\twitter\twitter.css" />
     <Content Include="content\js\mod\ajax.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -247,9 +269,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\mod\formMap.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="content\js\mod\notification.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\mod\url.js">

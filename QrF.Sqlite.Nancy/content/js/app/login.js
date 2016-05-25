@@ -3,7 +3,7 @@
     //引入依赖的组件
     var $ = require('jquery'),
         Url = require('mod/url'),
-        Notification = require('mod/notification');
+        SweetAlert = require('sweetalert');
 
     //定义常量及组件初始化
     var BUTTONS = {
@@ -20,7 +20,7 @@
         formData.Username = INPUTS.USERNAME.val();
         formData.Password = INPUTS.PASSWORD.val();
         if (!formData.Username || !formData.Password) {
-            Notification.showRightBottom("提示", "请输入用户名或密码！");
+            SweetAlert({ title: "提示", text: "请输入用户名或密码！", timer: 3000, showConfirmButton: false });
             e.preventDefault();
         }
     });

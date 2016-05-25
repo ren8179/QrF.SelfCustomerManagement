@@ -29,7 +29,7 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                return dbContext.Users.FirstOrDefault(o => o.Token.ToString() == id.ToString());
+                return dbContext.Users.ToList().FirstOrDefault(o => o.Token.ToString() == id.ToString());
             }
         }
         public User GetUser(string name,string password)

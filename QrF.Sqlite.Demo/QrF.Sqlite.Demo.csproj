@@ -168,7 +168,7 @@
     <Content Include="content\css\normalize.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\css\styles.css">
+    <Content Include="content\css\login.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\fonts\icomoon.svg">

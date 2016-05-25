@@ -18,14 +18,13 @@ namespace QrF.Sqlite.Demo.Modules
             {
                 var userGuid = UserModel.ValidateUser((string)this.Request.Form.Username, (string)this.Request.Form.Password);
                 if (userGuid == null)
-                    return Response.AsJson(new { code = 400, error = "用户名或密码错误！" });
+                    return this.Context.GetRedirect("~/login?error=true&username=" + (string)this.Request.Form.Username);
                 DateTime? expiry = null;
                 if (Request.Form.RememberMe.HasValue)
                 {
                     expiry = DateTime.Now.AddDays(7);
                 }
-                this.Login(userGuid.Value, expiry);
-                return Response.AsJson(new { code = 200 });
+                return this.LoginAndRedirect(userGuid.Value, expiry);
             });
 
             Get("/logout", args =>

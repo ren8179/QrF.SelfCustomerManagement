@@ -13,21 +13,6 @@ namespace QrF.Sqlite.Demo
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {
-        protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
-        {
-            base.ApplicationStartup(container, pipelines);
-            pipelines.OnError += ErrorHandler;
-        }
-
-        private Response ErrorHandler(NancyContext ctx, Exception ex)
-        {
-            //if (ex!=null)
-            //{
-            //    return "DB can't connect.";
-            //}
-            return null;
-        }
-
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
             // We don't call "base" here to prevent auto-discovery of

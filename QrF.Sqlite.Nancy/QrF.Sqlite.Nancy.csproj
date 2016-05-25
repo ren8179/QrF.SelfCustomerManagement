@@ -7,8 +7,8 @@
     <ProjectGuid>{F7809D33-6D7C-405B-A9B5-B87C2953CE1B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QrF.Sqlite.Demo</RootNamespace>
-    <AssemblyName>QrF.Sqlite.Demo</AssemblyName>
+    <RootNamespace>QrF.Sqlite.Nancy</RootNamespace>
+    <AssemblyName>QrF.Sqlite.Nancy</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>

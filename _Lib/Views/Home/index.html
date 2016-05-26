@@ -1,12 +1,157 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+<!-- BEGIN HEAD -->
 <head>
-    <title></title>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <title>QeF | 首页</title>
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!-- CORE CSS-->
+    <link href="../../content/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../content/css/style.min.css" rel="stylesheet" />
+    <!-- INCLUDED LIB CSS ON PAGE -->
+    <link href="../../content/js/lib/sweetalert/sweetalert.css" rel="stylesheet" />
 </head>
 <body>
-    <h2>Nancy之基于Forms authentication的简单使用</h2>
-    <p>访问需要权限的页面</p>
-    <a href="/secure">secure</a>
+    <!-- Start Page Loading -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <!-- End Page Loading -->
+    <!-- START MAIN -->
+    <div id="main">
+        <!-- START WRAPPER -->
+        <div class="wrapper">
+            <!-- START LEFT SIDEBAR NAV-->
+            <aside id="left-sidebar-nav">
+                <ul id="slide-out" class="side-nav fixed leftside-navigation">
+                    <li>
+                        <!-- start header nav-->
+                        <div class="navbar-fixed">
+                            <nav class="navbar-color">
+                                <div class="nav-wrapper">
+                                    <ul class="left">
+                                        <li><h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="images/materialize-logo.png" alt="materialize logo"></a> <span class="logo-text">Materialize</span></h1></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <!-- end header nav-->
+                    </li>
+                    <li class="user-details cyan darken-2">
+                        <div class="row">
+                            <div class="col col s4 m4 l4">
+                                <img src="/content/images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                            </div>
+                            <div class="col col s8 m8 l8">
+                                <ul id="profile-dropdown" class="dropdown-content">
+                                    <li>
+                                        <a href="#"><i class="mdi-action-face-unlock"></i> Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="mdi-action-settings"></i> Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="mdi-communication-live-help"></i> Help</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#"><i class="mdi-action-lock-outline"></i> Lock</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                                    </li>
+                                </ul>
+                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">John Doe<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                <p class="user-roal">Administrator</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="bold">
+                        <a href="index.html" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> 首页</a>
+                    </li>
+                    <li class="no-padding">
+                        <ul class="collapsible collapsible-accordion">
+                            <li class="bold">
+                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-view-carousel"></i> Layouts</a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li>
+                                            <a href="layout-fullscreen.html">Full Screen</a>
+                                        </li>
+                                        <li>
+                                            <a href="layout-horizontal-menu.html">Horizontal Menu</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="bold">
+                        <a href="app-calendar.html" class="waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Calender</a>
+                    </li>
+                    <li class="li-hover"><div class="divider"></div></li>
+                </ul>
+                <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
+            </aside>
+            <!-- END LEFT SIDEBAR NAV-->
+            <!-- START CONTENT -->
+            <section id="content">
+                <!--breadcrumbs start-->
+                <div id="breadcrumbs-wrapper">
+                    <!-- Search for small screen -->
+                    <div class="header-search-wrapper grey hide-on-large-only">
+                        <i class="mdi-action-search active"></i>
+                        <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s12 m12 l12">
+                                <h5 class="breadcrumbs-title">Calendar</h5>
+                                <ol class="breadcrumbs">
+                                    <li>
+                                        <a href="index.html">Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Pages</a>
+                                    </li>
+                                    <li class="active">Calendar</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--breadcrumbs end-->
+                <!--start container-->
+                <div class="container">
+                    <div class="section">
+                        <p class="caption">Widgets allow users to turn personal content into dynamic web apps that can be shared on websites where the code can be installed.</p>
+                        <div class="divider"></div>
+
+                    </div>
+                </div>
+                <!--end container-->
+            </section>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END WRAPPER -->
+    </div>
+    <!--[if lt IE 9]>
+    <script src="../../content/js/lib/respond.min.js"></script>
+    <script src="../../content/js/lib/excanvas.js"></script>
+        <![endif]-->
+    <script src="../../content/js/lib/sea.js"></script>
+    <script src="../../content/js/common.js"></script>
+    <script>
+        seajs.use('js/app/index.js');
+    </script>
 </body>
 </html>

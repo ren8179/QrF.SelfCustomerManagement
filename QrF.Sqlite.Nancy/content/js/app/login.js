@@ -20,7 +20,7 @@
         formData.Username = INPUTS.USERNAME.val();
         formData.Password = INPUTS.PASSWORD.val();
         if (!formData.Username || !formData.Password) {
-            SweetAlert({ title: "提示", text: "请输入用户名或密码！", timer: 3000, showConfirmButton: false });
+            SweetAlert({ title: "提示", text: "请输入用户名或密码！", type: "warning", timer: 3000 });
             e.preventDefault();
         }
     });

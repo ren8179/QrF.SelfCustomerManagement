@@ -149,6 +149,36 @@
     <None Include="content\font\icomoon.woff">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="content\font\material-design-icons\Material-Design-Icons.eot">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\material-design-icons\Material-Design-Icons.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\material-design-icons\Material-Design-Icons.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\material-design-icons\Material-Design-Icons.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Light.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Light.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Medium.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Medium.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Medium.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="content\font\roboto\Roboto-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -183,7 +213,25 @@
     <Content Include="content\css\login.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\css\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\css\style.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\font\icomoon.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\font\material-design-icons\Material-Design-Icons.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\images\avatar.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\images\user-bg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\app\index.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\app\login.js">
@@ -219,7 +267,9 @@
     <Content Include="content\js\lib\sea.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\js\lib\sweetalert\sweetalert-dev.js" />
+    <Content Include="content\js\lib\sweetalert\sweetalert-dev.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\lib\sweetalert\sweetalert.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -276,7 +326,7 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Views\Home\index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Account\login.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

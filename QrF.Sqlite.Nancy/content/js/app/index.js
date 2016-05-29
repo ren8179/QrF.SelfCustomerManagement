@@ -2,7 +2,9 @@
 
     //引入依赖的组件
     var $ = require('jquery'),
+        Easing = require('mod/easing'),
         Url = require('mod/url'),
+        Dropdown = require('mod/dropdown'),
         SweetAlert = require('sweetalert');
 
     $(window).load(function () {
@@ -12,6 +14,7 @@
     });
 
     $(function () {
-        
+        $.extend($.easing, Easing);
+        Dropdown.init();
     });
 });

@@ -291,6 +291,12 @@
     <Content Include="content\js\mod\datepicker.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\mod\easing.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\mod\dropdown.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\mod\eventBase.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

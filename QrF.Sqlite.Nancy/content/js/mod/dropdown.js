@@ -1,4 +1,7 @@
-﻿define(function (require, exports, module) {
+﻿/*
+ * 下拉组件
+ */
+define(function (require, exports, module) {
     var $ = require('jquery'),
        dropdown = (function (el,option) {
            var c = {

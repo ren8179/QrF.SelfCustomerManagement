@@ -1,4 +1,7 @@
-﻿define(function (require, exports, module) {
+﻿/*
+ * 自定义动画效果
+ */
+define(function (require, exports, module) {
     var $ = require('jquery'),
     easing = {
         def: "easeOutQuad",

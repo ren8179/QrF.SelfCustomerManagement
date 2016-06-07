@@ -52,7 +52,7 @@
                             <div class="col col s8 m8 l8">
                                 <ul id="profile-dropdown" class="dropdown-content">
                                     <li>
-                                        <a href="#"><i class="mdi-action-face-unlock"></i> 信息</a>
+                                        <a href="#"><i class="mdi-action-face-unlock"></i> 个人信息</a>
                                     </li>
                                     <li>
                                         <a href="#"><i class="mdi-action-settings"></i> 设置</a>
@@ -72,12 +72,12 @@
                     </li>
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
-                            <li class="bold">
-                                <a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-view-carousel"></i> 系统管理</a>
+                            <li class="bold active">
+                                <a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-editor-insert-comment"></i> 系统管理</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li>
-                                            <a href="/sys/menu">菜单管理</a>
+                                        <li class="active">
+                                            <a href="layout-fullscreen.html">菜单管理</a>
                                         </li>
                                         <li>
                                             <a href="layout-horizontal-menu.html">角色管理</a>
@@ -89,9 +89,6 @@
                                 </div>
                             </li>
                         </ul>
-                    </li>
-                    <li class="bold">
-                        <a href="app-calendar.html" class="waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Calender</a>
                     </li>
                     <li class="li-hover"><div class="divider"></div></li>
                 </ul>
@@ -110,15 +107,15 @@
                     <div class="container">
                         <div class="row">
                             <div class="col s12 m12 l12">
-                                <h5 class="breadcrumbs-title">Calendar</h5>
+                                <h5 class="breadcrumbs-title">菜单管理</h5>
                                 <ol class="breadcrumbs">
                                     <li>
-                                        <a href="index.html">Dashboard</a>
+                                        <a href="index.html">首页</a>
                                     </li>
                                     <li>
-                                        <a href="#">Pages</a>
+                                        <a href="#">系统管理</a>
                                     </li>
-                                    <li class="active">Calendar</li>
+                                    <li class="active">菜单管理</li>
                                 </ol>
                             </div>
                         </div>
@@ -128,9 +125,25 @@
                 <!--start container-->
                 <div class="container">
                     <div class="section">
-                        <p class="caption">Widgets allow users to turn personal content into dynamic web apps that can be shared on websites where the code can be installed.</p>
-                        <div class="divider"></div>
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <i class="mdi-action-account-circle prefix"></i>
+                                        <input id="icon_prefix3" type="text" class="validate">
+                                        <label for="icon_prefix3" class="">First Name</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <i class="mdi-communication-phone prefix"></i>
+                                        <input id="icon_telephone" type="tel" class="validate">
+                                        <label for="icon_telephone">Telephone</label>
+                                    </div>
+                                    <div class="input-field col s4">
 
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <!--end container-->
@@ -146,7 +159,7 @@
     <script src="../../content/js/lib/sea.js"></script>
     <script src="../../content/js/common.js"></script>
     <script>
-        seajs.use('js/app/index.js');
+        seajs.use('js/app/menu.js');
     </script>
 </body>
 </html>

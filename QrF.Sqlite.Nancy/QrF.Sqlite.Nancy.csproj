@@ -133,6 +133,7 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Modules\AccountModule.cs" />
     <Compile Include="Modules\BaseNancyModule.cs" />
+    <Compile Include="Modules\SysModule.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="NancySelfHost.cs" />
     <Compile Include="Program.cs" />
@@ -237,6 +238,9 @@
     <Content Include="content\images\user-bg.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\app\menu.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\app\index.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -289,6 +293,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\mod\class.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\mod\formMaterialize.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\mod\collapsible.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\mod\datepicker.js">
@@ -347,6 +357,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Account\login.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Sys\menu.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

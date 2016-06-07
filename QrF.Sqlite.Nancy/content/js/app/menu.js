@@ -8,6 +8,7 @@
         Dropdown = require('mod/dropdown'),
         SweetAlert = require('sweetalert');
     require('mod/collapsible')($);
+    require('mod/formMaterialize')($);
 
     $(window).load(function () {
         setTimeout(function () {

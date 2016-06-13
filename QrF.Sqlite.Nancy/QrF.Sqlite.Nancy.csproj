@@ -162,6 +162,15 @@
     <None Include="content\font\material-design-icons\Material-Design-Icons.woff2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="content\font\roboto\Roboto-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Bold.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Bold.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="content\font\roboto\Roboto-Light.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -250,6 +259,18 @@
     <Content Include="content\js\common.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\lib\bootstrap-table\bootstrap-table.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\bootstrap-table\bootstrap-table.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\bootstrap-table\bootstrap-table.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\bootstrap-table\bootstrap-table.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\lib\bootstrap.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -289,6 +310,12 @@
     <Content Include="content\js\lib\sweetalert\themes\facebook\facebook.css" />
     <Content Include="content\js\lib\sweetalert\themes\google\google.css" />
     <Content Include="content\js\lib\sweetalert\themes\twitter\twitter.css" />
+    <Content Include="content\js\mod\dropdown.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\mod\global.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\mod\ajax.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -311,9 +338,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\mod\easing.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="content\js\mod\dropdown.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\mod\eventBase.js">

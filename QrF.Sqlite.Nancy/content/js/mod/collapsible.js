@@ -69,6 +69,9 @@
                     });
                 });
             }
+            $(function () {
+                $(".collapsible").collapsible();
+            });
         })(jquery);
     }
 })

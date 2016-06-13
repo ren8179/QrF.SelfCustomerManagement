@@ -1,4 +1,5 @@
 ﻿define(function (require, exports, moudles) {
+    var Global = require('mod/global');
     return function (jquery) {
         (function(a) {
                 a(document).ready(function() {
@@ -125,7 +126,7 @@
                             var e = d.attr("multiple") ? !0 : !1, f = d.data("select-id");
                             if (f && (d.parent().find("span.caret").remove(), d.parent().find("input").remove(), 
                             d.unwrap(), a("ul#select-options-" + f).remove()), "destroy" === b) return void d.data("select-id", null).removeClass("initialized");
-                            var g = Materialize.guid();
+                            var g = Global.guid();
                             d.data("select-id", g);
                             var h = a('<div class="select-wrapper"></div>');
                             h.addClass(d.attr("class"));
@@ -199,6 +200,7 @@
                         }
                     });
                 };
+                a(function () { $('select').material_select(); });
         })(jquery);
     }
 })

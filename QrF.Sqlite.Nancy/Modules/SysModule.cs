@@ -16,7 +16,11 @@ namespace QrF.Sqlite.Demo.Modules
             Get("/menu", args => {
                 return View["menu"];
             });
-           
+
+            Get("/UserMenus", args => {
+                return View["menu"];
+            });
+
         }
     }
 }

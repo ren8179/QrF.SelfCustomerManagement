@@ -168,5 +168,8 @@ namespace QrF.Sqlite.Service
         }
         #endregion
 
+#region Menu
+
+#endregion
     }
 }

@@ -19,6 +19,7 @@
     <link href="../../content/css/customer.css" rel="stylesheet" />
     <!-- INCLUDED LIB CSS ON PAGE -->
     <link href="../../content/js/lib/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../../content/js/lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
 </head>
 <body>
     <!-- Start Page Loading -->
@@ -129,20 +130,40 @@
                             <form class="col s12">
                                 <div class="row">
                                     <div class="input-field col s4">
-                                        <i class="mdi-action-account-circle prefix"></i>
+                                        <select>
+                                            <option value="" disabled selected>所有菜单</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field col s4">
                                         <input id="icon_prefix3" type="text" class="validate">
-                                        <label for="icon_prefix3" class="">First Name</label>
+                                        <label for="icon_prefix3" class="">菜单名称</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <i class="mdi-communication-phone prefix"></i>
-                                        <input id="icon_telephone" type="tel" class="validate">
-                                        <label for="icon_telephone">Telephone</label>
-                                    </div>
-                                    <div class="input-field col s4">
-
+                                        <button class="btn cyan waves-effect waves-light right query_btn" type="button" name="action">
+                                            查询
+                                            <i class="mdi-action-search right"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
+                            <div class="col s12">
+                                <table class="mdl-data-table mdl-js-data-table dataTable table-data">
+                                    <thead>
+                                        <tr>
+                                            <th>编号</th>
+                                            <th>菜单名称</th>
+                                            <th>父级菜单</th>
+                                            <th>描述信息</th>
+                                            <th>页面地址</th>
+                                            <th>菜单图标</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

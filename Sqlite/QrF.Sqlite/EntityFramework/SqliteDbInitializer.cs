@@ -26,6 +26,18 @@ namespace QrF.Sqlite.EntityFramework
                 ID=1
             });
 
+            context.Menus.Add(new Menu {
+                ID=1,
+                Name= "所有菜单",
+                Url="",
+                Info="",
+                Code="",
+                Permission="",
+                Icon="",
+                Orderby ="1",
+                CreateTime=DateTime.Now
+            });
+
             context.Customers.Add(new Customer
             {
                 BuyTime = DateTime.Now,
@@ -39,6 +51,7 @@ namespace QrF.Sqlite.EntityFramework
                 CreateTime=DateTime.Now,
                 ID=1
             });
+
         }
     }
 }

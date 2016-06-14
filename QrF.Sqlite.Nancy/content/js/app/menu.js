@@ -2,7 +2,8 @@
 
     //引入依赖的组件
     var $ = require('jquery'),
-        Url = require('mod/url');
+        Url = require('mod/url'),
+        Global=require('mod/global');
     require('mod/easing')($);
     require('mod/waves')($);
     require('bootstrap-table')($);
@@ -19,26 +20,29 @@
 
     $(function () {
         $(".query_btn").on("click", function (e) {
-            //Metronic.initDataTable({
-            //    columns: [
-            //        { data: 'orderby' },
-            //        { data: 'name' },
-            //        { data: 'parent.name' },
-            //        { data: 'info' },
-            //        { data: 'url' },
-            //        {
-            //            data: 'icon',
-            //            render: function (data, type, row, meta) {
-            //                return '<i class="' + (row.parentId == 1 ? 'icon-' : 'fa fa-') + data + '"></i>';
-            //            }
-            //        },
-            //        {
-            //            render: function (data, type, row, meta) {
-            //                return Index.btnEdit('./views/account/menu/menu-edit.html', row.id) + Index.btnDel(row.id);
-            //            }
-            //        }
-            //    ]
-            //});
+            Global.initDataTable({
+                ajax: {
+                    url: "/sys/menuList?" + $(".query_form").serialize(),
+                },
+                columns: [
+                    { data: 'orderby' },
+                    { data: 'name' },
+                    { data: 'parent.name' },
+                    { data: 'info' },
+                    { data: 'url' },
+                    {
+                        data: 'icon',
+                        render: function (data, type, row, meta) {
+                            return '<i class="' + (row.parentId == 1 ? 'icon-' : 'fa fa-') + data + '"></i>';
+                        }
+                    },
+                    {
+                        render: function (data, type, row, meta) {
+                            return Global.btnEdit('./views/account/menu/menu-edit.html', row.id) + Global.btnDel(row.id);
+                        }
+                    }
+                ]
+            });
             e.preventDefault();
         });
         $(".query_btn").click();

@@ -12,8 +12,10 @@ using System.Threading.Tasks;
 
 namespace QrF.Sqlite.Service
 {
-   public class SqliteService: ISqliteService
+    public class SqliteService : ISqliteService
     {
+        private readonly int _RootMenuId = 1;
+
         #region User
         /// <summary>
         /// 查询单个对象
@@ -22,7 +24,7 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                return dbContext.Users.FirstOrDefault(o=>o.ID==id);
+                return dbContext.Users.FirstOrDefault(o => o.ID == id);
             }
         }
         public User GetUser(Guid id)
@@ -32,11 +34,11 @@ namespace QrF.Sqlite.Service
                 return dbContext.Users.ToList().FirstOrDefault(o => o.Token.ToString() == id.ToString());
             }
         }
-        public User GetUser(string name,string password)
+        public User GetUser(string name, string password)
         {
             using (var dbContext = new SqliteDbContext())
             {
-                return dbContext.Users.FirstOrDefault(o => o.UserName==name && o.Password==password);
+                return dbContext.Users.FirstOrDefault(o => o.UserName == name && o.Password == password);
             }
         }
         /// <summary>
@@ -74,7 +76,7 @@ namespace QrF.Sqlite.Service
             {
                 if (model.ID > 0)
                 {
-                    var set =dbContext.Set<User>();
+                    var set = dbContext.Set<User>();
                     set.Attach(model);
                     dbContext.Entry<User>(model).State = EntityState.Modified;
                     dbContext.SaveChanges();
@@ -118,7 +120,7 @@ namespace QrF.Sqlite.Service
             using (var dbContext = new SqliteDbContext())
             {
                 IQueryable<Customer> queryList = dbContext.Customers;
-                
+
                 return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
@@ -131,7 +133,7 @@ namespace QrF.Sqlite.Service
             using (var dbContext = new SqliteDbContext())
             {
                 IQueryable<Customer> queryList = dbContext.Customers;
-                
+
                 return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
@@ -168,8 +170,53 @@ namespace QrF.Sqlite.Service
         }
         #endregion
 
-#region Menu
+        #region Menu
+        /// <summary>
+        /// 查询单个对象
+        /// </summary>
+        public Menu GetMenu(int id)
+        {
+            using (var dbContext = new SqliteDbContext())
+            {
+                return dbContext.Menus.Include("Parent").FirstOrDefault(o => o.ID == id);
+            }
+        }
+        /// <summary>
+        /// 查询列表(未分页)
+        /// </summary>
+        public IEnumerable<Menu> GetMenuList(MenuRequest request = null)
+        {
+            request = request ?? new MenuRequest();
+            using (var dbContext = new SqliteDbContext())
+            {
+                IQueryable<Menu> queryList = dbContext.Menus.Include("Parent").Where(o => o.ID != _RootMenuId);
 
-#endregion
+                if (!string.IsNullOrEmpty(request.Name))
+                    queryList = queryList.Where(o => o.Name.Contains(request.Name));
+                if (request.ParentId.HasValue)
+                    queryList = queryList.Where(o => o.ParentId == request.ParentId);
+
+                return queryList.OrderBy(u => u.Orderby).ToPagedList(request.PageIndex, request.PageSize);
+            }
+        }
+        /// <summary>
+        /// 查询列表(分页)
+        /// </summary>
+        public IEnumerable<Menu> GetMenuPageList(MenuRequest request = null)
+        {
+            request = request ?? new MenuRequest();
+            using (var dbContext = new SqliteDbContext())
+            {
+                IQueryable<Menu> queryList = dbContext.Menus.Include("Parent").Where(o => o.ID != _RootMenuId);
+
+                if (!string.IsNullOrEmpty(request.Name))
+                    queryList = queryList.Where(o => o.Name.Contains(request.Name));
+                if (request.ParentId.HasValue)
+                    queryList = queryList.Where(o => o.ParentId == request.ParentId);
+
+                return queryList.OrderBy(u => u.Orderby).ToPagedList(request.PageIndex, request.PageSize);
+            }
+        }
+        #endregion
     }
 }

@@ -1,16 +1,11 @@
 ﻿using Nancy;
+using QrF.Core.Service;
 using QrF.Sqlite.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace QrF.Sqlite.Demo.Modules
+namespace QrF.Sqlite.Nancy.Modules
 {
     public class BaseNancyModule : NancyModule
     {
-        
 
     }
 }

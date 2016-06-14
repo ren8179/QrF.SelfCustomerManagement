@@ -5,7 +5,7 @@ using Nancy.Security;
 using QrF.Sqlite.Demo.Models;
 using System;
 
-namespace QrF.Sqlite.Demo.Modules
+namespace QrF.Sqlite.Nancy.Modules
 {
     public class HomeModule : NancyModule
     {

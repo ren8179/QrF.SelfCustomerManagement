@@ -56,7 +56,23 @@ namespace QrF.Sqlite.Service
         /// 删除
         /// </summary>
         void DeleteCustomer(List<int> ids);
-        
+
+        #endregion
+
+        #region Menu
+        /// <summary>
+        /// 查询单个对象
+        /// </summary>
+        Menu GetMenu(int id);
+        /// <summary>
+        /// 查询列表(未分页)
+        /// </summary>
+        IEnumerable<Menu> GetMenuList(MenuRequest request = null);
+        /// <summary>
+        /// 查询列表(分页)
+        /// </summary>
+        IEnumerable<Menu> GetMenuPageList(MenuRequest request = null);
+
         #endregion
 
     }

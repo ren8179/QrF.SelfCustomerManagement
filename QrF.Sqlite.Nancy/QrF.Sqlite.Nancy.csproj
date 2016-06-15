@@ -283,10 +283,19 @@
     <Content Include="content\js\lib\excanvas.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\lib\hammer.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\lib\html5shiv.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\lib\jquery.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\materialize\materialize.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\materialize\materialize.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\lib\respond.min.js">
@@ -310,6 +319,9 @@
     <Content Include="content\js\lib\sweetalert\themes\facebook\facebook.css" />
     <Content Include="content\js\lib\sweetalert\themes\google\google.css" />
     <Content Include="content\js\lib\sweetalert\themes\twitter\twitter.css" />
+    <Content Include="content\js\lib\velocity.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\mod\dropdown.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

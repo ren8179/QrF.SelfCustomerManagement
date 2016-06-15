@@ -11,7 +11,9 @@
         'bootstrap-datepicker.zh-CN': 'lib/datepicker/bootstrap-datepicker.zh-CN.js?v=20160524',
         'bootstrap-table': 'lib/bootstrap-table/bootstrap-table.js?v=20160610',
         'bootstrap': 'lib/bootstrap.js?v=20160524',
-        'sweetalert': 'lib/sweetalert/sweetalert-dev.js?v=20160525'
+        'sweetalert': 'lib/sweetalert/sweetalert-dev.js?v=20160525',
+        'hammer': 'lib/hammer.min.js?v=20160615',
+        'velocity': 'lib/velocity.min.js?v=20160615'
         
     }
 });

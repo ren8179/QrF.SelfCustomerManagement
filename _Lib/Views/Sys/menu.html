@@ -74,17 +74,17 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li class="bold active">
-                                <a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-editor-insert-comment"></i> 系统管理</a>
+                                <a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-action-settings"></i> 系统管理</a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li class="active">
-                                            <a href="layout-fullscreen.html">菜单管理</a>
+                                            <a href="/sys/menu"><i class="mdi-navigation-menu"></i> 菜单管理</a>
                                         </li>
                                         <li>
-                                            <a href="layout-horizontal-menu.html">角色管理</a>
+                                            <a href="/sys/role"><i class="mdi-social-group"></i> 角色管理</a>
                                         </li>
                                         <li>
-                                            <a href="layout-horizontal-menu.html">用户管理</a>
+                                            <a href="/sys/user"><i class="mdi-social-person"></i> 用户管理</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -129,39 +129,28 @@
                         <div class="row">
                             <form class="col s12 query_form">
                                 <div class="row">
-                                    <div class="input-field col s4">
-                                        <select>
-                                            <option value="" disabled selected>所有菜单</option>
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="3">Option 3</option>
+                                    <div class="input-field col s3">
+                                        <select name="ParentId">
+                                            <option disabled selected>所有菜单</option>
                                         </select>
                                     </div>
-                                    <div class="input-field col s4">
-                                        <input id="icon_prefix3" type="text" class="validate">
+                                    <div class="input-field col s3">
+                                        <input name="Name" type="text" class="validate">
                                         <label for="icon_prefix3" class="">菜单名称</label>
                                     </div>
-                                    <div class="input-field col s4">
-                                        <button class="btn cyan waves-effect waves-light right query_btn" type="button" name="action">
-                                            查询
-                                            <i class="mdi-action-search right"></i>
+                                    <div class="input-field col s6">
+                                        <button class="btn cyan waves-effect waves-light left query_btn" type="button" name="action">
+                                            <i class="mdi-action-search"></i> 查询
+                                        </button>
+                                        <button class="btn teal waves-effect waves-light right edit_btn" type="button" name="action">
+                                            <i class="mdi-content-add"></i> 新增
                                         </button>
                                     </div>
                                 </div>
                             </form>
                             <div class="col s12">
-                                <table class="mdl-data-table mdl-js-data-table dataTable table-data">
-                                    <thead>
-                                        <tr>
-                                            <th>编号</th>
-                                            <th>菜单名称</th>
-                                            <th>父级菜单</th>
-                                            <th>描述信息</th>
-                                            <th>页面地址</th>
-                                            <th>菜单图标</th>
-                                            <th>操作</th>
-                                        </tr>
-                                    </thead>
+                                <table class="responsive-table hoverable centered  striped table-data">
+
                                 </table>
                             </div>
                         </div>
@@ -180,7 +169,7 @@
     <script src="../../content/js/lib/sea.js"></script>
     <script src="../../content/js/common.js"></script>
     <script>
-        seajs.use('js/app/menu.js');
+        var menu=seajs.use('js/app/menu.js');
     </script>
 </body>
 </html>

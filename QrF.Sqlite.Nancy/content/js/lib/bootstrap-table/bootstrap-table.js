@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @author zhixin wen <wenzhixin2010@gmail.com>
  * version: 1.10.1
  * https://github.com/wenzhixin/bootstrap-table/
@@ -452,31 +452,31 @@ define(function (require, exports, moudles) {
 
             BootstrapTable.LOCALES['zh-CN'] = {
                 formatLoadingMessage: function () {
-                    return 'ÕıÔÚÅ¬Á¦µØ¼ÓÔØÊı¾İÖĞ£¬ÇëÉÔºò¡­¡­';
+                    return 'æ­£åœ¨åŠªåŠ›åœ°åŠ è½½æ•°æ®ä¸­ï¼Œè¯·ç¨å€™â€¦â€¦';
                 },
                 formatRecordsPerPage: function (pageNumber) {
-                    return 'Ã¿Ò³ÏÔÊ¾ ' + pageNumber + ' Ìõ¼ÇÂ¼';
+                    return 'æ¯é¡µæ˜¾ç¤º ' + pageNumber + ' æ¡è®°å½•';
                 },
                 formatShowingRows: function (pageFrom, pageTo, totalRows) {
-                    return 'ÏÔÊ¾µÚ ' + pageFrom + ' µ½µÚ ' + pageTo + ' Ìõ¼ÇÂ¼£¬×Ü¹² ' + totalRows + ' Ìõ¼ÇÂ¼';
+                    return 'æ˜¾ç¤ºç¬¬ ' + pageFrom + ' åˆ°ç¬¬ ' + pageTo + ' æ¡è®°å½•ï¼Œæ€»å…± ' + totalRows + ' æ¡è®°å½•';
                 },
                 formatSearch: function () {
-                    return 'ËÑË÷';
+                    return 'æœç´¢';
                 },
                 formatNoMatches: function () {
-                    return 'Ã»ÓĞÕÒµ½Æ¥ÅäµÄ¼ÇÂ¼';
+                    return 'æ²¡æœ‰æ‰¾åˆ°åŒ¹é…çš„è®°å½•';
                 },
                 formatPaginationSwitch: function () {
-                    return 'Òş²Ø/ÏÔÊ¾·ÖÒ³';
+                    return 'éšè—/æ˜¾ç¤ºåˆ†é¡µ';
                 },
                 formatRefresh: function () {
-                    return 'Ë¢ĞÂ';
+                    return 'åˆ·æ–°';
                 },
                 formatToggle: function () {
-                    return 'ÇĞ»»';
+                    return 'åˆ‡æ¢';
                 },
                 formatColumns: function () {
-                    return 'ÁĞ';
+                    return 'åˆ—';
                 }
             };
 

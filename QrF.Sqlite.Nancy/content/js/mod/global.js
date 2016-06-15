@@ -1,63 +1,141 @@
-define(function (require, exports, module) {
+ï»¿define(function (require, exports, module) {
+    var $ = require('jquery'),
+        Hammer = require('hammer'),
+        Vel = require('velocity');
+    var startLoading = function () {
+        var html = '<div class="progress"><div class="indeterminate"></div></div>';
+        $(".container").prepend(html);
+    }, stopLoading=function () {
+        $(".container").find(".progress").remove();
+    },toast=function (message, displayLength, className, completeCallback) {
+        className = className || "";
 
-    var handleDataTable = function (options) {
-        if ($().dataTable) {
-            var table;
-            var defaults = {
-                "pageLength": 10,
-                "searching": false,
-                "ordering": false,
-                "processing": true,
-                "language": {
-                    "sProcessing": "´¦ÀíÖÐ...",
-                    "sLengthMenu": "Ã¿Ò³ _MENU_ Ìõ¼ÇÂ¼",
-                    "sZeroRecords": "Ã»ÓÐÆ¥Åä½á¹û",
-                    "sInfo": "µÚ _PAGE_ Ò³ ( ¹² _PAGES_ Ò³ )",
-                    "sInfoEmpty": "ÎÞ¼ÇÂ¼",
-                    "sInfoFiltered": "(´Ó _MAX_ Ìõ¼ÇÂ¼¹ýÂË)",
-                    "sInfoPostFix": "",
-                    "sSearch": "ËÑË÷:",
-                    "sUrl": "",
-                    "sEmptyTable": "±íÖÐÊý¾ÝÎª¿Õ",
-                    "sLoadingRecords": "ÔØÈëÖÐ...",
-                    "sInfoThousands": ",",
-                    "oPaginate": {
-                        "sFirst": "Ê×Ò³",
-                        "sPrevious": "ÉÏÒ³",
-                        "sNext": "ÏÂÒ³",
-                        "sLast": "Ä©Ò³"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": ÒÔÉýÐòÅÅÁÐ´ËÁÐ",
-                        "sSortDescending": ": ÒÔ½µÐòÅÅÁÐ´ËÁÐ"
+        var container = document.getElementById('toast-container');
+
+        // Create toast container if it does not exist
+        if (container === null) {
+            // create notification container
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            document.body.appendChild(container);
+        }
+
+        // Select and append toast
+        var newToast = createToast(message);
+
+        // only append toast if message is not undefined
+        if (message) {
+            container.appendChild(newToast);
+        }
+
+        newToast.style.top = '35px';
+        newToast.style.opacity = 0;
+
+        // Animate toast in
+        Vel(newToast, { "top": "0px", opacity: 1 }, {
+            duration: 300,
+            easing: 'easeOutCubic',
+            queue: false
+        });
+        // Allows timer to be pause while being panned
+        var timeLeft = displayLength;
+        var counterInterval = setInterval(function () {
+            if (newToast.parentNode === null)
+                window.clearInterval(counterInterval);
+            // If toast is not being dragged, decrease its time remaining
+            if (!newToast.classList.contains('panning')) {
+                timeLeft -= 20;
+            }
+            if (timeLeft <= 0) {
+                // Animate toast out
+                Vel(newToast, { "opacity": 0, marginTop: '-40px' }, {
+                    duration: 375,
+                    easing: 'easeOutExpo',
+                    queue: false,
+                    complete: function () {
+                        // Call the optional callback
+                        if (typeof (completeCallback) === "function")
+                            completeCallback();
+                        // Remove toast after it times out
+                        this[0].parentNode.removeChild(this[0]);
                     }
-                },
-                serverSide: true,
-                ajax: {
-                    url: '',
-                    type: 'GET',
-                    cache: false,
-                    contentType: "application/json; charset=UTF-8",
-                    crossDomain: true,
-                    dataType: "json"
+                });
+                window.clearInterval(counterInterval);
+            }
+        }, 20);
+
+        function createToast(html) {
+
+            // Create toast
+            var toast = document.createElement('div');
+            toast.classList.add('toast');
+            if (className) {
+                var classes = className.split(' ');
+
+                for (var i = 0, count = classes.length; i < count; i++) {
+                    toast.classList.add(classes[i]);
                 }
-            };
-            options = $.extend(true, defaults, options);
-            if ($.fn.dataTable.isDataTable('.table-data')) {
-                if (options.ajax) {
-                    var url = options.ajax.url;
-                    table = $('.table-data').DataTable().ajax.url(url).load();
-                } else {
-                    table = $('.table-data').dataTable(options);
-                }
+            }
+            // If type of parameter is HTML Element
+            if (typeof HTMLElement === "object" ? html instanceof HTMLElement : html && typeof html === "object" && html !== null && html.nodeType === 1 && typeof html.nodeName === "string") {
+                toast.appendChild(html);
+            }
+            else if (html instanceof jQuery) {
+                // Check if it is jQuery object
+                toast.appendChild(html[0]);
             }
             else {
-                table = $('.table-data').dataTable(options);
+                // Insert as text;
+                toast.innerHTML = html;
             }
-            //table.destroy();
+            // Bind hammer
+            var hammerHandler = new Hammer(toast, { prevent_default: false });
+            hammerHandler.on('pan', function (e) {
+                var deltaX = e.deltaX;
+                var activationDistance = 80;
+
+                // Change toast state
+                if (!toast.classList.contains('panning')) {
+                    toast.classList.add('panning');
+                }
+
+                var opacityPercent = 1 - Math.abs(deltaX / activationDistance);
+                if (opacityPercent < 0)
+                    opacityPercent = 0;
+
+                Vel(toast, { left: deltaX, opacity: opacityPercent }, { duration: 50, queue: false, easing: 'easeOutQuad' });
+
+            });
+
+            hammerHandler.on('panend', function (e) {
+                var deltaX = e.deltaX;
+                var activationDistance = 80;
+
+                // If toast dragged past activation point
+                if (Math.abs(deltaX) > activationDistance) {
+                    Vel(toast, { marginTop: '-40px' }, {
+                        duration: 375,
+                        easing: 'easeOutExpo',
+                        queue: false,
+                        complete: function () {
+                            if (typeof (completeCallback) === "function") {
+                                completeCallback();
+                            }
+                            toast.parentNode.removeChild(toast);
+                        }
+                    });
+                } else {
+                    toast.classList.remove('panning');
+                    Vel(toast, { left: 0, opacity: 1 }, {// Put toast back into original position
+                        duration: 300,
+                        easing: 'easeOutExpo',
+                        queue: false
+                    });
+                }
+            });
+            return toast;
         }
     };
-
     return {
         guid: (function () {
             function s4() {
@@ -82,16 +160,60 @@ define(function (require, exports, module) {
             });
             return isFixed;
         },
-        initDataTable: function (options) {
-            handleDataTable(options);
+        initBootstrapTable: function (el, options) {
+            if ($.fn.bootstrapTable) {
+                el.bootstrapTable('destroy').bootstrapTable($.extend({}, {
+                    contentType: 'application/json',
+                    method: 'post',
+                    queryParamsType: '',
+                    rowStyle: function (row, index) {
+                        if (index % 2 === 1) {
+                            return { classes: 'light-info' };
+                        }
+                        return {};
+                    }
+                }, options));
+                el.bootstrapTable('resetView');
+            }
         },
-        //±à¼­°´Å¥
+        //ç¼–è¾‘æŒ‰é’®
         btnEdit: function (url, id) {
-            return '<a class="btn green btn-sm edit_btn" href="' + url + '?id=' + id + '"><i class="fa fa-edit"></i> ±à¼­</a>';
+            return '<a class="btn-floating waves-effect waves-light teal margin-right-5 edit_btn" href="' + url + '?id=' + id + '"><i class="mdi-image-edit"></i></a>';
         },
-        //É¾³ý°´Å¥
-        btnDel: function (id) {
-            return '<a class="btn red btn-sm delete_btn" href="' + Index.apiUrl('Delete') + '?id=' + id + '"><i class="fa fa-trash"></i> É¾³ý</a>';
+        //åˆ é™¤æŒ‰é’®
+        btnDel: function (url, id) {
+            return '<a class="btn-floating waves-effect waves-light red margin-right-5 delete_btn" href="' + url + '?id=' + id + '"><i class="mdi-action-delete"></i></a>';
+        },
+
+        startLoading: startLoading,
+        stopLoading: stopLoading,
+        toast: toast,
+        loadAjaxData: function (url, template, type, data, async) {
+            type = type || "GET";
+            startLoading();
+            $.ajax({
+                type: type,
+                contentType: "application/json; charset=UTF-8",
+                url: url,
+                async: !async,
+                data: data,
+                crossDomain: true,
+                dataType: "json",
+                success: function (result) {
+                    stopLoading();
+                    template(result);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    stopLoading();
+                    if (thrownError === "Unauthorized")
+                        window.location.href = "/login.html";
+                    var json = JSON.parse(xhr.responseText);
+                    var message = thrownError;
+                    if (json.message)
+                        message = json.message;
+                    toast('é”™è¯¯è¯¦æƒ…ï¼š<small>' + message + '</small>', 4000);
+                }
+            });
         },
     }
 });

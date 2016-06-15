@@ -26,17 +26,11 @@ namespace QrF.Sqlite.EntityFramework
                 ID=1
             });
 
-            context.Menus.Add(new Menu {
-                ID=1,
-                Name= "所有菜单",
-                Url="",
-                Info="",
-                Code="",
-                Permission="",
-                Icon="",
-                Orderby ="1",
-                CreateTime=DateTime.Now
-            });
+            context.Menus.Add(new Menu {ID=1,Name= "所有菜单",Url="",Info="",Code="",Permission="",Icon="",Orderby ="1",CreateTime=DateTime.Now});
+            context.Menus.Add(new Menu{ID = 2,Name = "系统管理",Url = "",Info = "",Code = "",Permission = "",Icon = "mdi-action-settings", ParentId=1,Orderby = "101",CreateTime = DateTime.Now});
+            context.Menus.Add(new Menu{ID = 3,Name = "菜单管理",Url = "/sys/menu",Info = "",Code = "",Permission = "",Icon = "mdi-navigation-menu", ParentId = 2,Orderby = "10101",CreateTime = DateTime.Now});
+            context.Menus.Add(new Menu { ID = 4, Name = "角色管理", Url = "/sys/role", Info = "", Code = "", Permission = "", Icon = "mdi-social-group", ParentId = 2, Orderby = "10102", CreateTime = DateTime.Now });
+            context.Menus.Add(new Menu { ID = 5, Name = "用户管理", Url = "/sys/user", Info = "", Code = "", Permission = "", Icon = "mdi-social-person", ParentId = 2, Orderby = "10103", CreateTime = DateTime.Now });
 
             context.Customers.Add(new Customer
             {

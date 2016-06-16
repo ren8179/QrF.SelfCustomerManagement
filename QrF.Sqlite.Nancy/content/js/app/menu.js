@@ -4,10 +4,12 @@
     var $ = require('jquery'),
         Url = require('mod/url'),
         Global = require('mod/global');
+    require('jquery.validate')($);
     require('mod/easing')($);
     require('mod/waves')($);
     require('bootstrap-table')($);
     require('mod/dropdown')($);
+    require('mod/leanModal')($);
     require('mod/collapsible')($);
     require('mod/formMaterialize')($);
 
@@ -63,5 +65,26 @@
         });
         $(".query_btn").click();
 
+        $("#formValidate").validate({
+            rules: {
+                Name: {
+                    required: true
+                }
+            },
+            messages: {
+                Name: {
+                    required: "请填写菜单名称"
+                }
+            },
+            errorElement: 'div',
+            errorPlacement: function (error, element) {
+                var placement = $(element).data('error');
+                if (placement) {
+                    $(placement).append(error)
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
     });
 });

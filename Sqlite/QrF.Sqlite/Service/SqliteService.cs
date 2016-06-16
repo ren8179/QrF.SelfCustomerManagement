@@ -217,6 +217,54 @@ namespace QrF.Sqlite.Service
                 return queryList.OrderBy(u => u.Orderby).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
+        /// <summary>
+        /// 编辑保存
+        /// </summary>
+        public void SaveMenu(Menu model)
+        {
+            using (var dbContext = new SqliteDbContext())
+            {
+                model.ParentId = model.ParentId ?? _RootMenuId;
+                if (model.ID > 0)
+                {
+                    var set = dbContext.Set<Menu>();
+                    set.Attach(model);
+                    dbContext.Entry<Menu>(model).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    model.Orderby = MaxOrderNumber(model.Parent ?? GetMenu(model.ParentId.Value));
+                    dbContext.Set<Menu>().Add(model);
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        public void DeleteMenu(List<int> ids)
+        {
+            using (var dbContext = new SqliteDbContext())
+            {
+                dbContext.Menus.Where(u => ids.Contains(u.ID)).Delete();
+            }
+        }
+
+        /// <summary>
+        /// 自动生成排序编号
+        /// </summary>
+        private string MaxOrderNumber(Menu parent)
+        {
+            using (var dbContext = new SqliteDbContext())
+            {
+                var orderNum = parent.Orderby;
+                var count = dbContext.Menus.Where(o => o.ParentId == parent.ID).Count() + 1;
+                orderNum += count < 10 ? "0" + count.ToString() : count.ToString();
+                return orderNum;
+            }
+        }
+
         #endregion
     }
 }

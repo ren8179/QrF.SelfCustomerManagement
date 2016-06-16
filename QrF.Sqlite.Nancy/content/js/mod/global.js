@@ -3,10 +3,10 @@
         Hammer = require('hammer'),
         Vel = require('velocity');
     var startLoading = function () {
-        var html = '<div class="progress"><div class="indeterminate"></div></div>';
-        $(".container").prepend(html);
+        var html = '<div class="indeterminate"></div>';
+        $(".progress").removeClass("default").prepend(html);
     }, stopLoading=function () {
-        $(".container").find(".progress").remove();
+        $(".progress").addClass("default").find(".indeterminate").remove();
     },toast=function (message, displayLength, className, completeCallback) {
         className = className || "";
 

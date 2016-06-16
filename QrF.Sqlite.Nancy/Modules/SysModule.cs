@@ -10,6 +10,7 @@ using QrF.Sqlite.Contract;
 using QrF.Core.Service;
 using QrF.Framework.Contract;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace QrF.Sqlite.Nancy.Modules
 {
@@ -40,7 +41,9 @@ namespace QrF.Sqlite.Nancy.Modules
             {
                 var parentId = Request.Query["ParentId"];
                 var result = SqliteService.GetMenuList(new MenuRequest { ParentId = int.Parse(parentId) });
-                return this.Response.AsJson(from a in result select new {
+                return this.Response.AsJson(from a in result
+                                            select new
+                                            {
                                                 id = a.ID,
                                                 name = a.Name
                                             });
@@ -66,6 +69,38 @@ namespace QrF.Sqlite.Nancy.Modules
                                a.Orderby
                            }
                 });
+            });
+
+            Get("/menuGet", args =>
+            {
+                var id = Request.Query["id"];
+                Menu result = SqliteService.GetMenu(id);
+                return this.Response.AsJson(new
+                {
+                    result.ID,
+                    result.Name,
+                    result.Url,
+                    result.Info,
+                    result.Code,
+                    result.Permission,
+                    result.Icon,
+                    result.ParentId,
+                    result.Orderby
+                });
+            });
+
+            Post("/menuEdit", args =>
+            {
+                var model = this.Bind<Menu>();
+                SqliteService.SaveMenu(model);
+                return "操作成功";
+            });
+
+            Get("/menuDelete", args =>
+            {
+                var id = Request.Query["id"];
+                SqliteService.DeleteMenu(new List<int>() { id });
+                return "操作成功";
             });
         }
     }

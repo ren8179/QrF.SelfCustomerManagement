@@ -125,6 +125,7 @@
                 <!--breadcrumbs end-->
                 <!--start container-->
                 <div class="container">
+                    <div class="progress default"></div>
                     <div class="section">
                         <div class="row">
                             <form class="col s12 query_form">
@@ -142,25 +143,24 @@
                                         <button class="btn cyan waves-effect waves-light left query_btn" type="button" name="action">
                                             <i class="mdi-action-search"></i> 查询
                                         </button>
-                                        <a class="btn teal waves-effect waves-light right modal-trigger" href="#modal5">
+                                        <a class="btn teal waves-effect waves-light right modal-trigger" href="#modalEdit">
                                             <i class="mdi-content-add"></i> 新增
                                         </a>
                                     </div>
                                 </div>
                             </form>
                             <div class="col s12">
-                                <table class="responsive-table hoverable centered  striped table-data">
-
-                                </table>
+                                <table class="responsive-table hoverable centered  striped table-data"></table>
                             </div>
                             <div class="col s12">
-                                <div id="modal5" class="modal bottom-sheet">
+                                <div id="modalEdit" class="modal bottom-sheet">
                                     <div class="modal-content">
                                         <div class="row">
                                             <div class="col l8 offset-l2 m12 s12">
                                                 <h4>编辑菜单</h4>
                                                 <div class="card-panel">
-                                                    <form class="formValidate" id="formValidate" method="get" action="">
+                                                    <form class="formValidate" id="formValidate" method="post" action="/sys/menuEdit">
+                                                        <input type="hidden" id="ID" name="ID" value="0" />
                                                         <div class="row">
                                                             <div class="input-field col s6 l4">
                                                                 <label for="Name">菜单名称 *</label>
@@ -183,19 +183,17 @@
                                                                 <label for="Permission">认证编号</label>
                                                                 <input id="Permission" name="Permission" type="text">
                                                             </div>
+                                                            <div class="col s6 l4">
+                                                                <label for="ParentId">父级菜单</label>
+                                                                <select id="ParentId" name="ParentId">
+                                                                    <option disabled selected>所有菜单</option>
+                                                                </select>
+                                                            </div>
                                                             <div class="input-field col s6 l4">
                                                                 <label for="Icon">菜单图标</label>
                                                                 <input id="Icon" name="Icon" type="text">
                                                             </div>
-                                                            <div class="col s6 l4">
-                                                                <label for="ParentId">父级菜单 *</label>
-                                                                <select class="error browser-default" id="ParentId" name="ParentId" data-error=".errorTxt2">
-                                                                    <option value="1" selected>所有菜单</option>
-                                                                </select>
-                                                                <div class="input-field">
-                                                                    <div class="errorTxt2"></div>
-                                                                </div>
-                                                            </div>
+
                                                             <div class="input-field col s6 l4">
                                                                 <label for="Orderby">排列顺序</label>
                                                                 <input id="Orderby" name="Orderby" type="text">
@@ -230,7 +228,7 @@
     <script src="../../content/js/lib/sea.js"></script>
     <script src="../../content/js/common.js"></script>
     <script>
-        var menu=seajs.use('js/app/menu.js');
+        var menu = seajs.use('js/app/menu.js');
     </script>
 </body>
 </html>

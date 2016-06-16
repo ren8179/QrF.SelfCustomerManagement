@@ -72,7 +72,14 @@ namespace QrF.Sqlite.Service
         /// 查询列表(分页)
         /// </summary>
         IEnumerable<Menu> GetMenuPageList(MenuRequest request = null);
-
+        /// <summary>
+        /// 编辑保存
+        /// </summary>
+        void SaveMenu(Menu model);
+        /// <summary>
+        /// 删除
+        /// </summary>
+        void DeleteMenu(List<int> ids);
         #endregion
 
     }

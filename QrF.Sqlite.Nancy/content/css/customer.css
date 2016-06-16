@@ -1,10 +1,16 @@
 .nav-small {
     padding-top: 12px;
 }
-.margin-right-5{
-    margin-right:5px;
+
+.margin-right-5 {
+    margin-right: 5px;
 }
-.pagination-detail{
-    padding-left:10px;
-    padding-right:10px;
+
+.pagination-detail {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.progress.default {
+    background-color: transparent;
 }

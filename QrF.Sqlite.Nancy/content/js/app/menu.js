@@ -52,7 +52,7 @@
                     {
                         title: "操作",
                         formatter: function (value, row) {
-                            return Global.btnEdit('./views/integralwall/appinfo/appinfo-edit.html', row.id) + Global.btnDel(row.id);
+                            return Global.btnEdit('/sys/menuGet', row.iD) + Global.btnDel('/sys/menuDelete', row.iD);
                         }
                     },
                 ],
@@ -84,7 +84,67 @@
                 } else {
                     error.insertAfter(element);
                 }
+            },
+            submitHandler: function (form) {
+                try {
+                    var json = {};
+                    var formData = $(form).serializeArray();
+                    $.each(formData, function () {
+                        json[this.name] = this.value;
+                    });
+                }
+                catch (ex) {
+                }
+                Metronic.loadAjaxData('/sys/menuEdit', function (result) {
+                    $("#modalEdit").closeModal();
+                    $(".query_btn").click();
+                }, 'post', JSON.stringify(json));
+                return false;
             }
+        });
+
+        var options = {
+            dismissible: true, // Modal can be dismissed by clicking outside of the modal
+            opacity: .5, // Opacity of modal background
+            in_duration: 300, // Transition in duration
+            out_duration: 200, // Transition out duration
+            ready: function () {
+                $(".formValidate").find("input").removeClass("valid").removeClass("invalid").val("").siblings("label, i").removeClass("active");
+                $(".formValidate").find("input.select-dropdown").val($(".formValidate").find("option[selected]").text());
+                $("#ID").val(0);
+                $("#Orderby").parent().hide();
+            }
+        };
+        $('.modal-trigger').leanModal(options);
+
+        $(document).on('click', '.edit_btn', function (e) {
+            var $btn=$(this);
+            options.ready = function () {
+                Global.loadAjaxData($btn.attr("href"), function (result) {
+                    if (result) {
+                        $("#Orderby").parent().show();
+                        $("#Url").val(result.url).focus();
+                        $("#Info").val(result.info).focus();
+                        $("#Code").val(result.code).focus();
+                        $("#Permission").val(result.permission).focus();
+                        $("#Icon").val(result.icon).focus();
+                        $("#ParentId", $('.formValidate')).val(result.parentId).material_select();
+                        $("#Orderby").val(result.orderby).focus();
+                        $("#Name", $('.formValidate')).val(result.name).focus();
+                        $("#ID").val(result.iD);
+                    }
+                });
+            };
+            $("#modalEdit").openModal(options);
+            e.preventDefault();
+        });
+
+        $(document).on('click', '.delete_btn', function (e) {
+            var $btn = $(this);
+            Global.loadAjaxData($btn.attr("href"), function (result) {
+                $(".query_btn").click();
+            });
+            e.preventDefault();
         });
     });
 });

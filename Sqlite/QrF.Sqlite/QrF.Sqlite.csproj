@@ -82,6 +82,7 @@
     <Compile Include="Contract\Customer.cs" />
     <Compile Include="Contract\CustomHistory.cs" />
     <Compile Include="Contract\IEntity.cs" />
+    <Compile Include="Contract\Role.cs" />
     <Compile Include="Contract\Requests.cs" />
     <Compile Include="Contract\Menu.cs" />
     <Compile Include="Contract\User.cs" />

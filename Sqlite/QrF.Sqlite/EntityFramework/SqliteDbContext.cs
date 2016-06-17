@@ -34,5 +34,6 @@ namespace QrF.Sqlite.EntityFramework
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Menu> Menus { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    <title>QrF | 菜单管理</title>
+    <title>QrF | 角色管理</title>
     <!-- Favicons-->
     <link rel="shortcut icon" href="favicon.ico" />
     <!-- CORE CSS-->
@@ -20,6 +20,7 @@
     <!-- INCLUDED LIB CSS ON PAGE -->
     <link href="../../content/js/lib/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="../../content/js/lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="../../content/js/lib/jstree/themes/default/style.min.css" rel="stylesheet" />
 </head>
 <body>
     <!-- Start Page Loading -->
@@ -77,10 +78,10 @@
                                 <a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-action-settings"></i> 系统管理</a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li class="active">
+                                        <li>
                                             <a href="/sys/menu"><i class="mdi-navigation-menu"></i> 菜单管理</a>
                                         </li>
-                                        <li>
+                                        <li class="active">
                                             <a href="/sys/role"><i class="mdi-social-group"></i> 角色管理</a>
                                         </li>
                                         <li>
@@ -103,7 +104,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col s12 m12 l12">
-                                <h5 class="breadcrumbs-title">菜单管理</h5>
+                                <h5 class="breadcrumbs-title">角色管理</h5>
                                 <ol class="breadcrumbs">
                                     <li>
                                         <a href="index.html">首页</a>
@@ -111,7 +112,7 @@
                                     <li>
                                         <a href="#">系统管理</a>
                                     </li>
-                                    <li class="active">菜单管理</li>
+                                    <li class="active">角色管理</li>
                                 </ol>
                             </div>
                         </div>
@@ -126,15 +127,10 @@
                             <form class="col s12 query_form">
                                 <div class="row">
                                     <div class="input-field col s3">
-                                        <select name="ParentId">
-                                            <option disabled selected>所有菜单</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-field col s3">
                                         <input name="Name" type="text" class="validate">
-                                        <label for="icon_prefix3" class="">菜单名称</label>
+                                        <label for="icon_prefix3" class="">角色名称</label>
                                     </div>
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s9">
                                         <button class="btn cyan waves-effect waves-light left query_btn" type="button" name="action">
                                             <i class="mdi-action-search"></i> 查询
                                         </button>
@@ -152,46 +148,27 @@
                                     <div class="modal-content">
                                         <div class="row">
                                             <div class="col l8 offset-l2 m12 s12">
-                                                <h4>编辑菜单</h4>
+                                                <h4>编辑角色</h4>
                                                 <div class="card-panel">
-                                                    <form class="formValidate" id="formValidate" method="post" action="/sys/menuEdit">
+                                                    <form class="formValidate" id="formValidate">
                                                         <input type="hidden" id="ID" name="ID" value="0" />
+                                                        <input type="hidden" name="BusinessPermissionString" id="BusinessPermissionString" />
                                                         <div class="row">
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="Name">菜单名称 *</label>
+                                                            <div class="input-field col s6">
+                                                                <label for="Name">角色名 *</label>
                                                                 <input id="Name" name="Name" type="text" data-error=".errorTxt1">
                                                                 <div class="errorTxt1"></div>
                                                             </div>
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="Url">页面地址</label>
-                                                                <input id="Url" name="Url" type="text">
+                                                            <div class="input-field col s6">
+                                                                <label for="Info">描述 *</label>
+                                                                <input id="Info" name="Info" type="text" data-error=".errorTxt2">
+                                                                <div class="errorTxt2"></div>
                                                             </div>
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="Info">描述信息</label>
-                                                                <input id="Info" name="Info" type="text">
-                                                            </div>
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="Code">菜单编号</label>
-                                                                <input id="Code" name="Code" type="text">
-                                                            </div>
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="Permission">认证编号</label>
-                                                                <input id="Permission" name="Permission" type="text">
-                                                            </div>
-                                                            <div class="col s6 l4">
-                                                                <label for="ParentId">父级菜单</label>
-                                                                <select id="ParentId" name="ParentId">
-                                                                    <option disabled selected>所有菜单</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="Icon">菜单图标</label>
-                                                                <input id="Icon" name="Icon" type="text">
-                                                            </div>
-
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="Orderby">排列顺序</label>
-                                                                <input id="Orderby" name="Orderby" type="text">
+                                                            <div class="col s12">
+                                                                <label class="col s2">权限</label>
+                                                                <div class="col s10" style="overflow-y: auto; max-height: 300px;">
+                                                                    <div id="tree" style="min-height:150px;"></div>
+                                                                </div>
                                                             </div>
                                                             <div class="input-field col s12">
                                                                 <button class="btn waves-effect waves-light right submit" type="submit" name="action">
@@ -223,7 +200,7 @@
     <script src="../../content/js/lib/sea.js"></script>
     <script src="../../content/js/common.js"></script>
     <script>
-        var menu = seajs.use('js/app/menu.js');
+        var menu = seajs.use('js/app/role.js');
     </script>
 </body>
 </html>

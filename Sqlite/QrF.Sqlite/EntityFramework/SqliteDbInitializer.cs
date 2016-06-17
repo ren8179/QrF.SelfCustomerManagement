@@ -32,6 +32,8 @@ namespace QrF.Sqlite.EntityFramework
             context.Menus.Add(new Menu { ID = 4, Name = "角色管理", Url = "/sys/role", Info = "", Code = "", Permission = "", Icon = "mdi-social-group", ParentId = 2, Orderby = "10102", CreateTime = DateTime.Now });
             context.Menus.Add(new Menu { ID = 5, Name = "用户管理", Url = "/sys/user", Info = "", Code = "", Permission = "", Icon = "mdi-social-person", ParentId = 2, Orderby = "10103", CreateTime = DateTime.Now });
 
+            context.Roles.Add(new Role { ID = 1, Name = "系统管理员", Info = "系统管理员", BusinessPermissionString = "1,2,3,4,5", CreateTime = DateTime.Now });
+
             context.Customers.Add(new Customer
             {
                 BuyTime = DateTime.Now,

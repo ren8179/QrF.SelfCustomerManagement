@@ -16,4 +16,9 @@ namespace QrF.Sqlite.Contract
         public string Name { get; set; }
         public int? ParentId { get; set; }
     }
+    public class RoleRequest : Request
+    {
+        public int? pageNumber { get; set; }
+        public string Name { get; set; }
+    }
 }

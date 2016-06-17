@@ -247,7 +247,9 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                dbContext.Menus.Where(u => ids.Contains(u.ID)).Delete();
+                var model=dbContext.Menus.Where(u => ids.Contains(u.ID)).FirstOrDefault();
+                dbContext.Menus.Remove(model);
+                dbContext.SaveChanges();
             }
         }
 
@@ -265,6 +267,60 @@ namespace QrF.Sqlite.Service
             }
         }
 
+        #endregion
+
+        #region Role
+        public Role GetRole(int id)
+        {
+            using (var dbContext = new SqliteDbContext())
+            {
+                return dbContext.Roles.FirstOrDefault(o => o.ID == id);
+            }
+        }
+
+        public IEnumerable<Role> GetRolePageList(RoleRequest request = null)
+        {
+            request = request ?? new RoleRequest();
+            using (var dbContext = new SqliteDbContext())
+            {
+                IQueryable<Role> queryList = dbContext.Roles;
+
+                if (!string.IsNullOrEmpty(request.Name))
+                {
+                    queryList = queryList.Where(u => u.Name.Contains(request.Name));
+                }
+
+                return queryList.OrderByDescending(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
+            }
+        }
+
+        public void SaveRole(Role model)
+        {
+            using (var dbContext = new SqliteDbContext())
+            {
+                if (model.ID > 0)
+                {
+                    dbContext.Roles.Attach(model);
+                    dbContext.Entry(model).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    dbContext.Roles.Add(model);
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+
+        public void DeleteRole(List<int> ids)
+        {
+            using (var dbContext = new SqliteDbContext())
+            {
+                var model = dbContext.Roles.Where(u => ids.Contains(u.ID)).FirstOrDefault();
+                dbContext.Roles.Remove(model);
+                dbContext.SaveChanges();
+            }
+        }
         #endregion
     }
 }

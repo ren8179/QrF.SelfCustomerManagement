@@ -1,6 +1,6 @@
 html {
     position: relative;
-    background: #FF4081;
+    background: #00bcd4;
     font-family: "Microsoft YaHei","ËÎÌו","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
 }
 
@@ -117,7 +117,7 @@ body, html {
         font-weight: 400;
         font-size: 24px;
         text-align: center;
-        color: #FF4081;
+        color: #00bcd4;
         margin: 15px auto;
     }
 
@@ -125,7 +125,7 @@ body, html {
         display: inline-block;
         margin-top: 25px;
         text-decoration: none;
-        color: #FF4081;
+        color: #00bcd4;
         font-size: 14px;
     }
 
@@ -171,9 +171,9 @@ body, html {
 
         .form-group .form-control:focus, .form-group .form-control:valid {
             outline: none;
-            color: #FF4081;
-            box-shadow: 0 1px #FF4081;
-            border-color: #FF4081;
+            color: #00bcd4;
+            box-shadow: 0 1px #00bcd4;
+            border-color: #00bcd4;
         }
 
             .form-group .form-control:focus + .form-label, .form-group .form-control:valid + .form-label {
@@ -186,7 +186,7 @@ body, html {
             }
 
 .floating-btn {
-    background: #FF4081;
+    background: #00bcd4;
     width: 60px;
     height: 60px;
     border-radius: 50%;

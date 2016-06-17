@@ -247,6 +247,9 @@
     <Content Include="content\images\user-bg.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\app\role.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\app\menu.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -295,6 +298,48 @@
     <Content Include="content\js\lib\jquery.validate.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\lib\jstree\jstree.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\jstree.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default-dark\32px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default-dark\40px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default-dark\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default-dark\style.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default-dark\throbber.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default\32px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default\32px_line.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default\32px_original.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default\40px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default\style.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\lib\jstree\themes\default\throbber.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\lib\materialize\materialize.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -323,6 +368,9 @@
     <Content Include="content\js\lib\sweetalert\themes\google\google.css" />
     <Content Include="content\js\lib\sweetalert\themes\twitter\twitter.css" />
     <Content Include="content\js\lib\velocity.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\mod\sideNav.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\mod\leanModal.js">
@@ -399,6 +447,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Account\login.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Sys\role.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Sys\menu.html">

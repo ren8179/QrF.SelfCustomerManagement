@@ -14,3 +14,15 @@
 .progress.default {
     background-color: transparent;
 }
+.input-field div.error {
+    position: relative;
+    top: -1rem;
+    left: 0;
+    font-size: 0.8rem;
+    color: #FF4081;
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}

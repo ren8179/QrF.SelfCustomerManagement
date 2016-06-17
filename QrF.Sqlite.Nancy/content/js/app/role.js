@@ -12,53 +12,30 @@
     require('mod/leanModal')($);
     require('mod/collapsible')($);
     require('mod/formMaterialize')($);
-
-    $(window).load(function () {
-        setTimeout(function () {
-            $('body').addClass('loaded');
-        }, 200);
-    });
+    require('jstree');
 
     $(function () {
-        Global.loadAjaxData("/sys/parentList", function (result) {
-            var el = $("select[name='ParentId']");
-            if (result && result.length > 0) {
-                var html = '';
-                $.each(result, function (index, value) {
-                    html += '<option value="' + value.id + '">' + value.name + '</option>';
-                });
-                el.append(html).material_select();
-            }
-            else {
-                el.append('');
-            }
-        }, '', { "ParentId": 1 }, true);
-
+        bindJsTree();
+        
         $(".query_btn").on("click", function (e) {
             var args = {};
             $.each($(".query_form").serializeArray(), function () {
-                if (this.name == "ParentId")
-                    args[this.name] = Number(this.value);
-                else
                     args[this.name] = this.value;
             });
             Global.initBootstrapTable($(".table-data"), {
                 columns: [
-                    { field: "orderby", title: "编号", sortable: true },
-                    { field: "name", title: "菜单名称" },
-                    { field: "parent", title: "父级菜单" },
-                    { field: "url", title: "页面地址" },
-                    { field: "icon", title: "菜单图标", formatter: function (value, row) { return '<i class="' + value + ' small"></i>'; } },
+                    { field: "name", title: "角色名" },
+                    { field: "info", title: "说明" },
                     {
                         title: "操作",
                         formatter: function (value, row) {
-                            return Global.btnEdit('/sys/menuGet', row.iD) + Global.btnDel('/sys/menuDelete', row.iD);
+                            return Global.btnEdit('/sys/roleGet', row.iD) + Global.btnDel('/sys/roleDelete', row.iD);
                         }
                     },
                 ],
                 sidePagination: "server",
                 pagination: true,
-                url: "/sys/menuList",
+                url: "/sys/roleList",
                 queryParams: function (params) { return $.extend({}, args, params) }
             });
             e.preventDefault();
@@ -67,14 +44,12 @@
 
         $("#formValidate").validate({
             rules: {
-                Name: {
-                    required: true
-                }
+                Name: { required: true },
+                Info: { required: true }
             },
             messages: {
-                Name: {
-                    required: "请填写菜单名称"
-                }
+                Name: { required: "请填写角色名" },
+                Info: { required: "请填写说明" }
             },
             errorElement: 'div',
             errorPlacement: function (error, element) {
@@ -87,16 +62,18 @@
             },
             submitHandler: function (form) {
                 try {
+                    var selectList = $('#tree').jstree('get_selected');
+                    $("#BusinessPermissionString").val(selectList.join(','));
                     var json = {};
                     var formData = $(form).serializeArray();
                     $.each(formData, function () {
                         json[this.name] = (this.value && isNaN(this.value)) ? this.value : Number(this.value);
                     });
-                    json.Orderby = json.Orderby + "";
+                    json.BusinessPermissionString = json.BusinessPermissionString + "";
                 }
                 catch (ex) {
                 }
-                Global.loadAjaxData('/sys/menuEdit', function (result) {
+                Global.loadAjaxData('/sys/roleEdit', function (result) {
                     $("#modalEdit").closeModal();
                     $(".query_btn").click();
                 }, 'post', JSON.stringify(json));
@@ -111,9 +88,7 @@
             out_duration: 200, // Transition out duration
             ready: function () {
                 $(".formValidate").find("input").removeClass("valid").removeClass("invalid").val("").siblings("label, i").removeClass("active");
-                $(".formValidate").find("input.select-dropdown").val($(".formValidate").find("option[selected]").text());
                 $("#ID").val(0);
-                $("#Orderby").parent().hide();
             }
         };
         $('.modal-trigger').leanModal(options);
@@ -123,16 +98,11 @@
             options.ready = function () {
                 Global.loadAjaxData($btn.attr("href"), function (result) {
                     if (result) {
-                        $("#Orderby").parent().show();
-                        $("#Url").val(result.url).focus();
                         $("#Info").val(result.info).focus();
-                        $("#Code").val(result.code).focus();
-                        $("#Permission").val(result.permission).focus();
-                        $("#Icon").val(result.icon).focus();
-                        $("#ParentId", $('.formValidate')).val(result.parentId).material_select();
-                        $("#Orderby").val(result.orderby).focus();
+                        $("#BusinessPermissionString").val(result.businessPermissionString).focus()
                         $("#Name", $('.formValidate')).val(result.name).focus();
                         $("#ID").val(result.iD);
+                        bindJsTree(result.businessPermissionString);
                     }
                 });
             };
@@ -148,4 +118,29 @@
             e.preventDefault();
         });
     });
+    function bindJsTree(checkedItem) {
+        var control = $('#tree')
+        control.data('jstree', false);//清空数据，必须
+        Global.loadAjaxData('/sys/menuTree', function (result) {   //复选框树的初始化
+            if (result) {
+                control.jstree({
+                    'plugins': ["wholerow", "checkbox", "types"], //出现选择框
+                    'core': {
+                        'data': result,
+                        'themes': { "responsive": false }
+                    },
+                    'types': {
+                        'default': { 'icon': "glyphicon glyphicon-leaf" },
+                        'parent': { 'icon': "glyphicon glyphicon-folder-open" }
+                    }
+                }).bind('loaded.jstree', function () {
+                    if (checkedItem) {
+                        $.each(checkedItem.split(','), function (i, item) {
+                            control.jstree('check_node', item);//将节点选中 
+                        });
+                    }
+                });
+            }
+        });
+    }
 });

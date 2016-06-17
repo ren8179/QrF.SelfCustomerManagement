@@ -82,5 +82,11 @@ namespace QrF.Sqlite.Service
         void DeleteMenu(List<int> ids);
         #endregion
 
+        #region Role
+        Role GetRole(int id);
+        IEnumerable<Role> GetRolePageList(RoleRequest request = null);
+        void SaveRole(Role role);
+        void DeleteRole(List<int> ids);
+        #endregion
     }
 }

@@ -24,21 +24,21 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                return dbContext.Users.FirstOrDefault(o => o.ID == id);
+                return dbContext.Users.Include("Roles").FirstOrDefault(o => o.ID == id);
             }
         }
         public User GetUser(Guid id)
         {
             using (var dbContext = new SqliteDbContext())
             {
-                return dbContext.Users.ToList().FirstOrDefault(o => o.Token.ToString() == id.ToString());
+                return dbContext.Users.Include("Roles").ToList().FirstOrDefault(o => o.Token.ToString() == id.ToString());
             }
         }
         public User GetUser(string name, string password)
         {
             using (var dbContext = new SqliteDbContext())
             {
-                return dbContext.Users.FirstOrDefault(o => o.UserName == name && o.Password == password);
+                return dbContext.Users.Include("Roles").FirstOrDefault(o => o.LoginName == name && o.Password == password);
             }
         }
         /// <summary>
@@ -49,7 +49,13 @@ namespace QrF.Sqlite.Service
             request = request ?? new UserRequest();
             using (var dbContext = new SqliteDbContext())
             {
-                IQueryable<User> queryList = dbContext.Users;
+                IQueryable<User> queryList = dbContext.Users.Include("Roles").Where(o => o.IsActive);
+
+                if (!string.IsNullOrEmpty(request.LoginName))
+                    queryList = queryList.Where(u => u.LoginName.Contains(request.LoginName));
+
+                if (request.Role != null)
+                    queryList = queryList.Where(u => u.Roles.Count(o => o.ID == request.Role.ID) > 0);
 
                 return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
@@ -62,7 +68,13 @@ namespace QrF.Sqlite.Service
             request = request ?? new UserRequest();
             using (var dbContext = new SqliteDbContext())
             {
-                IQueryable<User> queryList = dbContext.Users;
+                IQueryable<User> queryList = dbContext.Users.Include("Roles").Where(o => o.IsActive);
+
+                if (!string.IsNullOrEmpty(request.LoginName))
+                    queryList = queryList.Where(u => u.LoginName.Contains(request.LoginName));
+
+                if (request.Role != null)
+                    queryList = queryList.Where(u => u.Roles.Count(o => o.ID == request.Role.ID) > 0);
 
                 return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
@@ -74,17 +86,29 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
+                var ids = model.RoleIds.Split(',').Select<string, int>(x => int.Parse(x)).ToList();
                 if (model.ID > 0)
                 {
-                    var set = dbContext.Set<User>();
-                    set.Attach(model);
+                    dbContext.Users.Attach(model);
                     dbContext.Entry<User>(model).State = EntityState.Modified;
+                    var roles = dbContext.Roles.Where(r => ids.Contains(r.ID)).ToList();
+                    model.Roles = roles;
                     dbContext.SaveChanges();
                 }
                 else
                 {
-                    dbContext.Set<User>().Add(model);
-                    dbContext.SaveChanges();
+                    var existUser = dbContext.Users.Where(u => u.LoginName == model.LoginName).ToList();
+                    if (existUser.Count > 0)
+                    {
+                        throw new BusinessException("LoginName", "此登录名已存在！");
+                    }
+                    else
+                    {
+                        dbContext.Users.Add(model);
+                        var roles = dbContext.Roles.Where(r => ids.Contains(r.ID)).ToList();
+                        model.Roles = roles;
+                        dbContext.SaveChanges();
+                    }
                 }
             }
         }
@@ -95,7 +119,8 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                dbContext.Users.Where(u => ids.Contains(u.ID)).Delete();
+                dbContext.Users.Include("Roles").Where(u => ids.Contains(u.ID)).ToList().ForEach(a => { a.Roles.Clear(); dbContext.Users.Remove(a); });
+                dbContext.SaveChanges();
             }
         }
         #endregion
@@ -227,8 +252,7 @@ namespace QrF.Sqlite.Service
                 model.ParentId = model.ParentId ?? _RootMenuId;
                 if (model.ID > 0)
                 {
-                    var set = dbContext.Set<Menu>();
-                    set.Attach(model);
+                    dbContext.Menus.Attach(model);
                     dbContext.Entry<Menu>(model).State = EntityState.Modified;
                     dbContext.SaveChanges();
                 }
@@ -316,8 +340,10 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                var model = dbContext.Roles.Where(u => ids.Contains(u.ID)).FirstOrDefault();
-                dbContext.Roles.Remove(model);
+                dbContext.Roles.Include("Users").Where(u => ids.Contains(u.ID)).ToList().ForEach(a => {
+                    a.Users.Clear();
+                    dbContext.Roles.Remove(a);
+                });
                 dbContext.SaveChanges();
             }
         }

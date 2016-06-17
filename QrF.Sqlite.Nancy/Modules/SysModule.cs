@@ -11,6 +11,7 @@ using QrF.Core.Service;
 using QrF.Framework.Contract;
 using System.Linq;
 using System.Collections.Generic;
+using QrF.Framework.Utility;
 
 namespace QrF.Sqlite.Nancy.Modules
 {
@@ -185,7 +186,81 @@ namespace QrF.Sqlite.Nancy.Modules
                 return Response.AsJson("操作成功");
             });
 
+            Get("/roleTree", args =>
+            {
+                var roles = SqliteService.GetRolePageList();
+                return Response.AsJson(
+                    from a in roles
+                    select new
+                    {
+                        id = a.ID,
+                        text = a.Name
+                    });
+            });
+
             #endregion
+
+            #region User
+
+            Get("/user", args =>
+            {
+                return View["user"];
+            });
+
+            Post("/userList", args =>
+            {
+                var request = this.Bind<UserRequest>();
+                request = request ?? new UserRequest() { };
+                request.PageIndex = request.pageNumber.Value;
+                var result = SqliteService.GetUserPageList(request) as PagedList<User>;
+                return this.Response.AsJson(new
+                {
+                    total = result.TotalItemCount,
+                    rows = from item in result
+                           select new
+                           {
+                               ID = item.ID,
+                               LoginName = item.LoginName,
+                               UserName = item.UserName,
+                               Email = item.Email,
+                               Mobile = item.Mobile,
+                               Roles = StringUtil.CutString(string.Join(",", item.Roles.Select(r => r.Name)), 40)
+                           }
+                });
+            });
+
+            Get("/userGet", args =>
+            {
+                var id = (int)Request.Query["id"];
+                User item = SqliteService.GetUser(id);
+                return Response.AsJson(new
+                {
+                    ID = item.ID,
+                    LoginName = item.LoginName,
+                    UserName = item.UserName,
+                    Email = item.Email,
+                    Mobile = item.Mobile,
+                    IsActive = item.IsActive,
+                    Password = item.Password,
+                    RoleIds = string.Join(",", item.Roles.Select(o => o.ID))
+                });
+            });
+
+            Post("/userEdit", args =>
+            {
+                var model = this.Bind<User>();
+                SqliteService.SaveUser(model);
+                return Response.AsJson("操作成功");
+            });
+
+            Get("/userDelete", args =>
+            {
+                var id = Request.Query["id"];
+                SqliteService.DeleteUser(new List<int>() { id });
+                return Response.AsJson("操作成功");
+            });
+
+            #endregion 
         }
     }
 }

@@ -19,8 +19,9 @@ namespace QrF.Sqlite.EntityFramework
         {
             context.Users.Add(new User
             {
-                UserName = "Admin",
-                Password = "123456",
+                UserName = "系统管理员",
+                LoginName = "Admin",
+                Password = "be05977add575832dc52655d4ad5c42e",
                 Token = Guid.NewGuid(),
                 CreateTime = DateTime.Now,
                 ID=1

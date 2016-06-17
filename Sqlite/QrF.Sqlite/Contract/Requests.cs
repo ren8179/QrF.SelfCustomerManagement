@@ -4,7 +4,9 @@ namespace QrF.Sqlite.Contract
 {
     public class UserRequest : Request
     {
-
+        public int? pageNumber { get; set; }
+        public string LoginName { get; set; }
+        public Role Role { get; set; }
     }
     public class CustomerRequest : Request
     {

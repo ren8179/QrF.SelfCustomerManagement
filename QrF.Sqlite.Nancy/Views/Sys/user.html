@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<!-- BEGIN HEAD -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <title>QrF | 用户管理</title>
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!-- CORE CSS-->
+    <link href="../../content/css/materialize.min.css" rel="stylesheet" />
+    <link href="../../content/css/style.min.css" rel="stylesheet" />
+
+    <link href="../../content/css/customer.css" rel="stylesheet" />
+    <!-- INCLUDED LIB CSS ON PAGE -->
+    <link href="../../content/js/lib/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../../content/js/lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="../../content/js/lib/jstree/themes/default/style.min.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Start Page Loading -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <!-- End Page Loading -->
+    <!-- START MAIN -->
+    <div id="main">
+        <!-- START WRAPPER -->
+        <div class="wrapper">
+            <!-- START LEFT SIDEBAR NAV-->
+            <aside id="left-sidebar-nav">
+                <!-- start header nav-->
+                <div class="side-nav fixed">
+                    <nav class="navbar-color">
+                        <div class="nav-wrapper nav-small">
+                            <h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="/content/images/materialize-logo.png" alt="materialize logo"></a> <span class="logo-text">Materialize</span></h1>
+                        </div>
+                    </nav>
+                </div>
+                <!-- end header nav-->
+                <ul id="slide-out" class="side-nav fixed leftside-navigation">
+                    <li class="user-details cyan darken-2">
+                        <div class="row">
+                            <div class="col col s4 m4 l4">
+                                <img src="/content/images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                            </div>
+                            <div class="col col s8 m8 l8">
+                                <ul id="profile-dropdown" class="dropdown-content">
+                                    <li>
+                                        <a href="#"><i class="mdi-action-face-unlock"></i> 个人信息</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="mdi-action-settings"></i> 设置</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="/login/logout"><i class="mdi-hardware-keyboard-tab"></i> 注销</a>
+                                    </li>
+                                </ul>
+                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">管理员<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                <p class="user-roal">系统管理员</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="bold">
+                        <a href="/" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> 首页</a>
+                    </li>
+                    <li class="no-padding">
+                        <ul class="collapsible collapsible-accordion">
+                            <li class="bold active">
+                                <a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-action-settings"></i> 系统管理</a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li>
+                                            <a href="/sys/menu"><i class="mdi-navigation-menu"></i> 菜单管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="/sys/role"><i class="mdi-social-group"></i> 角色管理</a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="/sys/user"><i class="mdi-social-person"></i> 用户管理</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="li-hover"><div class="divider"></div></li>
+                </ul>
+                <a href="#" data-activates="slide-out" class="sidebar-collapse btn btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
+            </aside>
+            <!-- END LEFT SIDEBAR NAV-->
+            <!-- START CONTENT -->
+            <section id="content">
+                <!--breadcrumbs start-->
+                <div id="breadcrumbs-wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s12 m12 l12">
+                                <h5 class="breadcrumbs-title">用户管理</h5>
+                                <ol class="breadcrumbs">
+                                    <li>
+                                        <a href="index.html">首页</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">系统管理</a>
+                                    </li>
+                                    <li class="active">用户管理</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--breadcrumbs end-->
+                <!--start container-->
+                <div class="container">
+                    <div class="progress default"></div>
+                    <div class="section">
+                        <div class="row">
+                            <form class="col s12 query_form">
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input name="loginName" type="text" class="validate">
+                                        <label for="loginName" class="">登录名称</label>
+                                    </div>
+                                    <div class="input-field col s9">
+                                        <button class="btn cyan waves-effect waves-light left query_btn" type="button" name="action">
+                                            <i class="mdi-action-search"></i> 查询
+                                        </button>
+                                        <a class="btn teal waves-effect waves-light right modal-trigger" href="#modalEdit">
+                                            <i class="mdi-content-add"></i> 新增
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col s12">
+                                <table class="responsive-table hoverable centered  striped table-data"></table>
+                            </div>
+                            <div class="col s12">
+                                <div id="modalEdit" class="modal bottom-sheet">
+                                    <div class="modal-content">
+                                        <div class="row">
+                                            <div class="col l8 offset-l2 m12 s12">
+                                                <h4>编辑用户</h4>
+                                                <div class="card-panel">
+                                                    <form class="formValidate" id="formValidate">
+                                                        <input type="hidden" id="ID" name="ID" value="0" />
+                                                        <input type="hidden" name="IsActive" id="IsActive" value="true">
+                                                        <input type="hidden" name="RoleIds" id="RoleIds" />
+                                                        <input type="hidden" name="Password" id="Password" />
+                                                        <div class="row">
+                                                            <div class="input-field col s6">
+                                                                <label for="LoginName">登录名 *</label>
+                                                                <input id="LoginName" name="LoginName" type="text" data-error=".errorTxt1">
+                                                                <div class="errorTxt1"></div>
+                                                            </div>
+                                                            <div class="input-field col s6">
+                                                                <label for="Pwd">密码 *</label>
+                                                                <input id="Pwd" name="Pwd" type="password" data-error=".errorTxt2">
+                                                                <div class="errorTxt2"></div>
+                                                            </div>
+                                                            <div class="input-field col s6 l4">
+                                                                <label for="UserName">姓名</label>
+                                                                <input id="UserName" name="UserName" type="text">
+                                                            </div>
+                                                            <div class="input-field col s6 l4">
+                                                                <label for="Email">邮箱</label>
+                                                                <input id="Email" name="Email" type="email">
+                                                            </div>
+                                                            <div class="input-field col s6 l4">
+                                                                <label for="Mobile">手机</label>
+                                                                <input id="Mobile" name="Mobile" type="text">
+                                                            </div>
+                                                            <div class="col s12">
+                                                                <label class="col s2">角色</label>
+                                                                <div class="col s10" style="overflow-y: auto; max-height: 300px;">
+                                                                    <div id="tree" style="min-height:150px;"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="input-field col s12">
+                                                                <button class="btn waves-effect waves-light right submit" type="submit" name="action">
+                                                                    <i class="mdi-content-send"></i>
+                                                                    提交
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end container-->
+            </section>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END WRAPPER -->
+    </div>
+    <!--[if lt IE 9]>
+    <script src="../../content/js/lib/respond.min.js"></script>
+    <script src="../../content/js/lib/excanvas.js"></script>
+        <![endif]-->
+    <script src="../../content/js/lib/sea.js"></script>
+    <script src="../../content/js/common.js"></script>
+    <script>
+        var menu = seajs.use('js/app/user.js');
+    </script>
+</body>
+</html>

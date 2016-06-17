@@ -86,6 +86,7 @@
     <Compile Include="Contract\Requests.cs" />
     <Compile Include="Contract\Menu.cs" />
     <Compile Include="Contract\User.cs" />
+    <Compile Include="EntityFramework\Map\UserMap.cs" />
     <Compile Include="EntityFramework\SqliteDbContext.cs" />
     <Compile Include="EntityFramework\SqliteDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

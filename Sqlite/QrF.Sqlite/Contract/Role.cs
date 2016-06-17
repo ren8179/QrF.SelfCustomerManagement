@@ -10,6 +10,8 @@ namespace QrF.Sqlite.Contract
         public string Name { get; set; }
         public string Info { get; set; }
         public string BusinessPermissionString { get; set; }
+        public virtual List<User> Users { get; set; }
+
         [NotMapped]
         public List<int> BusinessPermissionList
         {

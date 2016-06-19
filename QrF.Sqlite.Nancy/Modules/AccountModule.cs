@@ -14,6 +14,7 @@ namespace QrF.Sqlite.Nancy.Modules
             {
                 return View["login"];
             });
+
             Post("/", args =>
             {
                 var userGuid = UserModel.ValidateUser((string)this.Request.Form.Username, (string)this.Request.Form.Password);

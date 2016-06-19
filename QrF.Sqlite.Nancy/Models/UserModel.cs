@@ -24,7 +24,7 @@ namespace QrF.Sqlite.Demo.Models
 
             return userRecord == null
                        ? null
-                       : new ClaimsPrincipal(new GenericIdentity(userRecord.UserName));
+                       : new ClaimsPrincipal(new GenericIdentity(userRecord.LoginName));
         }
 
         public static Guid? ValidateUser(string username, string password)

@@ -37,6 +37,7 @@ namespace QrF.Sqlite.Nancy.Modules
 
             Get("/userMenus", args =>
             {
+                var name =this.Context.CurrentUser.Identity.Name;
                 return View["menu"];
             });
 

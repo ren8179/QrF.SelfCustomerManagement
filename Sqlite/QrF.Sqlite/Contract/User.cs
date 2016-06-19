@@ -11,6 +11,8 @@ namespace QrF.Sqlite.Contract
         {
             this.Roles = new List<Role>();
             this.IsActive = true;
+            this.CreateTime = DateTime.Now;
+            this.Token = Guid.NewGuid();
         }
         /// <summary>
         /// 登录名

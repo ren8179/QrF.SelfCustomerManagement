@@ -37,8 +37,18 @@ namespace QrF.Sqlite.Nancy.Modules
 
             Get("/userMenus", args =>
             {
+                var parentId = Request.Query["ParentId"];
                 var name =this.Context.CurrentUser.Identity.Name;
-                return View["menu"];
+                IList<Menu> result = SqliteService.UserMenus(name,int.Parse(parentId));
+                return Response.AsJson(from a in result
+                                       select new
+                                       {
+                                           a.ID,
+                                           a.Name,
+                                           a.Url,
+                                           a.Icon,
+                                           a.Code
+                                       });
             });
 
             Get("/parentList", args =>
@@ -261,6 +271,14 @@ namespace QrF.Sqlite.Nancy.Modules
                 return Response.AsJson("操作成功");
             });
 
+            Get("/userInfo", args => {
+                var user = SqliteService.GetUser(Context.CurrentUser.Identity.Name);
+                return Response.AsJson(new
+                {
+                    user.LoginName,
+                    user.UserName
+                });
+            });
             #endregion 
         }
     }

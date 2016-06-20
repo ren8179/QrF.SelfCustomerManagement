@@ -15,6 +15,7 @@ namespace QrF.Sqlite.Service
         /// </summary>
         User GetUser(int id);
         User GetUser(Guid id);
+        User GetUser(string name);
         User GetUser(string name, string password);
         /// <summary>
         /// 查询列表(未分页)
@@ -80,6 +81,10 @@ namespace QrF.Sqlite.Service
         /// 删除
         /// </summary>
         void DeleteMenu(List<int> ids);
+        /// <summary>
+        /// 获取用户权限
+        /// </summary>
+        IList<Menu> UserMenus(string name, int parendId);
         #endregion
 
         #region Role

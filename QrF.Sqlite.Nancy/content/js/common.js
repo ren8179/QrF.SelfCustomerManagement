@@ -9,6 +9,7 @@
         'jquery': 'lib/jquery.js?v=20160524',
         'jquery.validate': 'lib/jquery.validate.js?v=20160616',
         'jquery.md5': 'lib/jquery.md5.js?v=20160617',
+        'jquery.cookie': 'lib/jquery.cookie.min.js?v=20160620',
         'bootstrap-datepicker': 'lib/datepicker/bootstrap-datepicker.js?v=20160524',
         'bootstrap-datepicker.zh-CN': 'lib/datepicker/bootstrap-datepicker.zh-CN.js?v=20160524',
         'bootstrap-table': 'lib/bootstrap-table/bootstrap-table.js?v=20160610',

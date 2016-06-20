@@ -1,13 +1,15 @@
 ﻿define(function (require, exports, module) {
     var $ = require('jquery'),
         Hammer = require('hammer'),
-        Vel = require('velocity');
+        Vel = require('velocity'),
+        MenuParentId = 0,
+        MenuCode = "";
     var startLoading = function () {
         var html = '<div class="indeterminate"></div>';
         $(".progress").removeClass("default").prepend(html);
-    }, stopLoading=function () {
+    }, stopLoading = function () {
         $(".progress").addClass("default").find(".indeterminate").remove();
-    },toast=function (message, displayLength, className, completeCallback) {
+    }, toast = function (message, displayLength, className, completeCallback) {
         className = className || "";
 
         var container = document.getElementById('toast-container');
@@ -135,6 +137,35 @@
             });
             return toast;
         }
+    }, load = function (url, template, type, data, async) {
+        type = type || "GET";
+        startLoading();
+        $.ajax({
+            type: type,
+            contentType: "application/json; charset=UTF-8",
+            url: url,
+            async: !async,
+            data: data,
+            crossDomain: true,
+            dataType: "json",
+            success: function (result) {
+                stopLoading();
+                template(result);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                stopLoading();
+                if (thrownError === "Unauthorized")
+                    window.location.href = "/login.html";
+                var json = JSON.parse(xhr.responseText);
+                var message = thrownError;
+                if (json.message)
+                    message = json.message;
+                toast('错误详情：<small>' + message + '</small>', 4000);
+            }
+        });
+    }, menuCode = function (parendId, code) {
+        MenuParentId = parendId;
+        MenuCode = code;
     };
 
     $(window).load(function () {
@@ -142,7 +173,50 @@
             $('body').addClass('loaded');
         }, 200);
     });
+    $(function () {
+        load("/sys/userInfo", function (result) {
+            if (result) {
+                $(".user-details .user-name").prepend(result.loginName);
+                $(".user-details .user-roal").text(result.userName);
+            }
+        });
 
+        $(document).on("click", ".menu-parent", function (e) {
+            var $this = $(this);
+            var parentId = $this.data("parentid");
+            if ($this.next().find("ul>li").length)
+                return;
+            load("/sys/userMenus", function (result) {
+                if (result) {
+                    var html = '';
+                    $.each(result, function (i, v) {
+                        html += '<li class="' + (v.code == MenuCode ? 'active' : '') + '"><a href="' + v.url + '"><i class="' + v.icon + '"></i> ' + v.name + '</a></li>';
+                    });
+                    $this.next().find("ul").html(html);
+                }
+            }, "get", { "ParentId": parentId });
+        });
+
+        load("/sys/userMenus", function (result) {
+            if (result) {
+                var html = '';
+                $.each(result, function (i, v) {
+                    if (v.url) {
+                        html += '<li class="bold"><a href="' + v.url + '" class="waves-effect waves-cyan"><i class="' + v.icon + '"></i> ' + v.name + '</a></li>';
+                    } else {
+                        html += '<li class="no-padding"><ul class="collapsible collapsible-accordion"><li class="bold ' + (v.iD == MenuParentId ? 'active' : '') + '">';
+                        html += '<a class="collapsible-header waves-effect waves-cyan menu-parent ' + (v.iD == MenuParentId ?'active':'')+ '" data-parentId="' + v.iD + '"><i class="' + v.icon + '"></i> ' + v.name + '</a>';
+                        html += '<div class="collapsible-body"><ul></ul></div>';
+                        html += '</li></ul></li>';
+                    }
+                });
+                html += '<li class="li-hover"><div class="divider"></div></li>';
+                $("#slide-out").append(html);
+                $(".menu-parent.active").click();
+            }
+            $(".collapsible").collapsible();
+        }, "get", { "ParentId": 1 });
+    });
     return {
         guid: (function () {
             function s4() {
@@ -191,36 +265,10 @@
         btnDel: function (url, id) {
             return '<a class="btn-floating waves-effect waves-light red margin-right-5 delete_btn" href="' + url + '?id=' + id + '"><i class="mdi-action-delete"></i></a>';
         },
-
+        menuCode: menuCode,
         startLoading: startLoading,
         stopLoading: stopLoading,
         toast: toast,
-        loadAjaxData: function (url, template, type, data, async) {
-            type = type || "GET";
-            startLoading();
-            $.ajax({
-                type: type,
-                contentType: "application/json; charset=UTF-8",
-                url: url,
-                async: !async,
-                data: data,
-                crossDomain: true,
-                dataType: "json",
-                success: function (result) {
-                    stopLoading();
-                    template(result);
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    stopLoading();
-                    if (thrownError === "Unauthorized")
-                        window.location.href = "/login.html";
-                    var json = JSON.parse(xhr.responseText);
-                    var message = thrownError;
-                    if (json.message)
-                        message = json.message;
-                    toast('错误详情：<small>' + message + '</small>', 4000);
-                }
-            });
-        },
+        loadAjaxData: load,
     }
 });

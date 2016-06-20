@@ -15,6 +15,8 @@
     require('jstree');
 
     $(function () {
+        Global.menuCode(2, "role");
+
         bindJsTree();
         
         $(".query_btn").on("click", function (e) {

@@ -2,7 +2,6 @@
 
     //引入依赖的组件
     var $ = require('jquery'),
-        Url = require('mod/url'),
         Global = require('mod/global');
     require('jquery.validate')($);
     require('mod/easing')($);
@@ -13,13 +12,9 @@
     require('mod/collapsible')($);
     require('mod/formMaterialize')($);
 
-    $(window).load(function () {
-        setTimeout(function () {
-            $('body').addClass('loaded');
-        }, 200);
-    });
-
     $(function () {
+        Global.menuCode(2, "menu");
+
         Global.loadAjaxData("/sys/parentList", function (result) {
             var el = $("select[name='ParentId']");
             if (result && result.length > 0) {

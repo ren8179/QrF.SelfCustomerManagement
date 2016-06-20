@@ -34,6 +34,13 @@ namespace QrF.Sqlite.Service
                 return dbContext.Users.Include("Roles").ToList().FirstOrDefault(o => o.Token.ToString() == id.ToString());
             }
         }
+        public User GetUser(string name)
+        {
+            using (var dbContext = new SqliteDbContext())
+            {
+                return dbContext.Users.Include("Roles").FirstOrDefault(o =>o.LoginName==name);
+            }
+        }
         public User GetUser(string name, string password)
         {
             using (var dbContext = new SqliteDbContext())
@@ -275,6 +282,19 @@ namespace QrF.Sqlite.Service
                 dbContext.Menus.Remove(model);
                 dbContext.SaveChanges();
             }
+        }
+
+        public IList<Menu> UserMenus(string name,int parendId)
+        {
+            var user = GetUser(name);
+            if (user == null)
+                return new List<Menu>();
+            var ids = new List<int>();
+            foreach(var item in user.Roles)
+            {
+                ids.AddRange(item.BusinessPermissionList);
+            }
+            return ids.Distinct().Select(o => GetMenu(o)).Where(o=>o.ParentId==parendId).OrderBy(o=>o.Orderby).ToList();
         }
 
         /// <summary>

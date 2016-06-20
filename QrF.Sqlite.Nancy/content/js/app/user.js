@@ -16,6 +16,8 @@
     require('jstree');
 
     $(function () {
+        Global.menuCode(2, "user");
+
         bindJsTree();
         
         $(".query_btn").on("click", function (e) {

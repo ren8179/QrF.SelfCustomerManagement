@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    <title>QrF | 用户管理</title>
+    <title>QrF | 客户信息</title>
     <!-- Favicons-->
     <link rel="shortcut icon" href="favicon.ico" />
     <!-- CORE CSS-->
@@ -83,15 +83,15 @@
                     <div class="container">
                         <div class="row">
                             <div class="col s12 m12 l12">
-                                <h5 class="breadcrumbs-title">用户管理</h5>
+                                <h5 class="breadcrumbs-title">客户信息</h5>
                                 <ol class="breadcrumbs">
                                     <li>
                                         <a href="index.html">首页</a>
                                     </li>
                                     <li>
-                                        <a href="#">系统管理</a>
+                                        <a href="#">客户管理</a>
                                     </li>
-                                    <li class="active">用户管理</li>
+                                    <li class="active">客户信息</li>
                                 </ol>
                             </div>
                         </div>
@@ -106,8 +106,8 @@
                             <form class="col s12 query_form">
                                 <div class="row">
                                     <div class="input-field col s3">
-                                        <input name="loginName" type="text" class="validate">
-                                        <label for="loginName" class="">登录名称</label>
+                                        <input name="Name" type="text" class="validate">
+                                        <label for="icon_prefix3" class="">客户名称</label>
                                     </div>
                                     <div class="input-field col s9">
                                         <button class="btn cyan waves-effect waves-light left query_btn" type="button" name="action">
@@ -127,40 +127,63 @@
                                     <div class="modal-content">
                                         <div class="row">
                                             <div class="col l8 offset-l2 m12 s12">
-                                                <h4>编辑用户</h4>
+                                                <h4>编辑客户</h4>
                                                 <div class="card-panel">
                                                     <form class="formValidate" id="formValidate">
                                                         <input type="hidden" id="ID" name="ID" value="0" />
-                                                        <input type="hidden" name="RoleIds" id="RoleIds" />
-                                                        <input type="hidden" name="Password" id="Password" />
                                                         <div class="row">
                                                             <div class="input-field col s6">
-                                                                <label for="LoginName">登录名 *</label>
-                                                                <input id="LoginName" name="LoginName" type="text" data-error=".errorTxt1">
+                                                                <label for="BuyTime">购买日期 *</label>
+                                                                <input id="BuyTime" name="BuyTime" type="text" data-error=".errorTxt1">
                                                                 <div class="errorTxt1"></div>
                                                             </div>
                                                             <div class="input-field col s6">
-                                                                <label for="Pwd">密码 *</label>
-                                                                <input id="Pwd" name="Pwd" type="password" data-error=".errorTxt2">
+                                                                <label for="Name">客户姓名 *</label>
+                                                                <input id="Name" name="Name" type="text" data-error=".errorTxt2">
                                                                 <div class="errorTxt2"></div>
                                                             </div>
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="UserName">姓名</label>
-                                                                <input id="UserName" name="UserName" type="text">
+                                                            <div class="input-field col s6">
+                                                                <label for="Days">购买天数 *</label>
+                                                                <input id="Days" name="Days" type="number" data-error=".errorTxt3">
+                                                                <div class="errorTxt3"></div>
                                                             </div>
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="Email">邮箱</label>
-                                                                <input id="Email" name="Email" type="email">
+                                                            <div class="input-field col s6">
+                                                                <label for="Money">金额 *</label>
+                                                                <input id="Money" name="Money" type="number" data-error=".errorTxt4">
+                                                                <div class="errorTxt4"></div>
                                                             </div>
-                                                            <div class="input-field col s6 l4">
-                                                                <label for="Mobile">手机</label>
-                                                                <input id="Mobile" name="Mobile" type="text">
+                                                            <div class="input-field col s6">
+                                                                <label for="Product">产品名称 *</label>
+                                                                <input id="Product" name="Product" type="text" data-error=".errorTxt5">
+                                                                <div class="errorTxt5"></div>
                                                             </div>
-                                                            <div class="col s12">
-                                                                <label class="col s2">角色</label>
-                                                                <div class="col s10" style="overflow-y: auto; max-height: 300px;">
-                                                                    <div id="tree" style="min-height:150px;"></div>
-                                                                </div>
+                                                            <div class="input-field col s6">
+                                                                <label for="Card">卡号</label>
+                                                                <input id="Card" name="Card" type="text">
+                                                            </div>
+                                                            <div class="input-field col s6">
+                                                                <label for="Contact">联系方式</label>
+                                                                <input id="Contact" name="Contact" type="text">
+                                                            </div>
+                                                            <div class="input-field col s6">
+                                                                <label for="YieldRate">收益率</label>
+                                                                <input id="YieldRate" name="YieldRate" type="text">
+                                                            </div>
+                                                            <div class="input-field col s6">
+                                                                <label for="Expected">预期收益</label>
+                                                                <input id="Expected" name="Expected" type="text">
+                                                            </div>
+                                                            <div class="input-field col s6">
+                                                                <label for="CarrayDate">起息日期</label>
+                                                                <input id="CarrayDate" name="CarrayDate" type="text">
+                                                            </div>
+                                                            <div class="input-field col s6">
+                                                                <label for="DueDate">到期日期</label>
+                                                                <input id="DueDate" name="DueDate" type="text">
+                                                            </div>
+                                                            <div class="input-field col s6">
+                                                                <label for="Remark">备注说明</label>
+                                                                <textarea id="Remark" name="Remark" class="materialize-textarea"></textarea>
                                                             </div>
                                                             <div class="input-field col s12">
                                                                 <button class="btn waves-effect waves-light right submit" type="submit" name="action">
@@ -192,7 +215,7 @@
     <script src="../../content/js/lib/sea.js"></script>
     <script src="../../content/js/common.js"></script>
     <script>
-        var menu = seajs.use('js/app/user.js');
+        var menu = seajs.use('js/app/info.js');
     </script>
 </body>
 </html>

@@ -10,7 +10,8 @@ namespace QrF.Sqlite.Contract
     }
     public class CustomerRequest : Request
     {
-
+        public int? pageNumber { get; set; }
+        public string Name { get; set; }
     }
     public class MenuRequest : Request
     {

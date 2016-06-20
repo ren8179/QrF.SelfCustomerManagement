@@ -133,6 +133,7 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Modules\AccountModule.cs" />
     <Compile Include="Modules\BaseNancyModule.cs" />
+    <Compile Include="Modules\CustomerModule.cs" />
     <Compile Include="Modules\SysModule.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="NancySelfHost.cs" />
@@ -206,9 +207,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Customer\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Config\CacheConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -240,13 +239,13 @@
     <Content Include="content\font\material-design-icons\Material-Design-Icons.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\images\avatar.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="content\images\materialize-logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\images\user-bg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\app\info.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\app\user.js">
@@ -454,6 +453,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="favicon.ico" />
+    <Content Include="Views\Customer\info.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Home\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

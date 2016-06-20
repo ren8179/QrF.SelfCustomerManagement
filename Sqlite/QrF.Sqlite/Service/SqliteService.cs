@@ -153,6 +153,11 @@ namespace QrF.Sqlite.Service
             {
                 IQueryable<Customer> queryList = dbContext.Customers;
 
+                if (!string.IsNullOrEmpty(request.Name))
+                {
+                    queryList = queryList.Where(u => u.Name.Contains(request.Name));
+                }
+
                 return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
@@ -165,6 +170,11 @@ namespace QrF.Sqlite.Service
             using (var dbContext = new SqliteDbContext())
             {
                 IQueryable<Customer> queryList = dbContext.Customers;
+
+                if (!string.IsNullOrEmpty(request.Name))
+                {
+                    queryList = queryList.Where(u => u.Name.Contains(request.Name));
+                }
 
                 return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }

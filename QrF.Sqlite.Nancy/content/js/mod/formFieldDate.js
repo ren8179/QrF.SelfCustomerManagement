@@ -7,7 +7,7 @@ define(function (require, exports, module) {
         pickerdate = require('mod/picker.date');
 
     var DEFAULTS = $.extend({}, FormCtrlBase.DEFAULTS),
-       DATEPICKER_DEFAULTS = $.extend($.fn.datepicker.defaults, {
+       DATEPICKER_DEFAULTS = $.extend($.fn.pickadate.defaults, {
            selectMonths: true, // Creates a dropdown to control month
            selectYears: 15 // Creates a dropdown of 15 years to control year
        });

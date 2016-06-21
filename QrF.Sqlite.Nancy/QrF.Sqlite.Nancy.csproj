@@ -199,6 +199,15 @@
     <None Include="content\font\roboto\Roboto-Regular.woff2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="content\font\roboto\Roboto-Thin.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Thin.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="content\font\roboto\Roboto-Thin.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="content\js\lib\sweetalert\themes\facebook\facebook.scss" />
     <None Include="content\js\lib\sweetalert\themes\google\google.scss" />
     <None Include="content\js\lib\sweetalert\themes\twitter\twitter.scss" />

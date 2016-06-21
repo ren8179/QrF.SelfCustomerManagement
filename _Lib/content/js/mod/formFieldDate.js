@@ -2,18 +2,15 @@ define(function (require, exports, module) {
     var $ = require('jquery'),
         FormCtrlBase = require('mod/formFieldBase'),
         hasOwn = Object.prototype.hasOwnProperty,
-        Class = require('mod/class');
-
-    //引入picker组件
-    require('mod/datepicker');
+        Class = require('mod/class'),
+        picker = require('mod/picker'),
+        pickerdate = require('mod/picker.date');
 
     var DEFAULTS = $.extend({}, FormCtrlBase.DEFAULTS),
-        DATEPICKER_DEFAULTS = $.extend($.fn.datepicker.defaults, {
-            autoclose: true,
-            language: 'zh-CN',
-            format: 'yyyy-mm-dd',
-            todayHighlight: true
-        });
+       DATEPICKER_DEFAULTS = $.extend($.fn.pickadate.defaults, {
+           selectMonths: true, // Creates a dropdown to control month
+           selectYears: 15 // Creates a dropdown of 15 years to control year
+       });
 
     function getPickerOptions(options) {
         var opts = {};
@@ -59,7 +56,7 @@ define(function (require, exports, module) {
                 });
 
                 //初始化datepicker组件
-                $element.datepicker(this.pickerOptions);
+                $element.pickadate(this.pickerOptions);
 
                 this.triggerInit();
             },
@@ -71,7 +68,7 @@ define(function (require, exports, module) {
                 trigger !== false && this.$element.trigger('change');
             },
             setFieldValue: function (value) {
-                this.$element.val(value).datepicker('update').blur();
+                this.$element.val(value).pickadate('set', 'select', value, { format: 'yyyy-mm-dd' });
             },
             getValue: function () {
                 return this.$element.val();
@@ -79,10 +76,10 @@ define(function (require, exports, module) {
             disable: function () {
                 //datapicker组件没有disable的方法
                 //所以禁用和启用只能通过destroy后重新初始化来实现
-                this.$element.addClass('disabled').prop('readonly', true).datepicker('destroy');
+                this.$element.addClass('disabled').prop('readonly', true).pickadate('stop');
             },
             enable: function () {
-                this.$element.removeClass('disabled').prop('readonly', false).datepicker(this.pickerOptions);
+                this.$element.removeClass('disabled').prop('readonly', false).pickadate('start');
             },
             reset: function () {
                 this.setFieldValue(this.initValue);

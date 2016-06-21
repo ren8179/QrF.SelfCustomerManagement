@@ -2,6 +2,8 @@
 
     //引入依赖的组件
     var $ = require('jquery'),
+        bootstrap = require('bootstrap'),
+        Form = require('mod/form'),
         Url = require('mod/url'),
         Global = require('mod/global');
     require('jquery.validate')($);
@@ -12,6 +14,51 @@
     require('mod/leanModal')($);
     require('mod/collapsible')($);
     require('mod/formMaterialize')($);
+
+    //定义常量及组件初始化
+    var API = {
+        save: '/customer/infoEdit',
+        query: '/customer/infoGet'
+    },
+       BUTTONS = {
+           SAVE: $('#btn-save')
+       },
+       appForm = new Form('#formValidate', {
+           ajaxMethod: 'post',
+           mode: Url.getParam('mode'),
+           postUrl: API.save,
+           putUrl: API.save,
+           queryUrl: API.query,
+           defaultData: {
+               id: "",
+               name: "这是新增模式为name字段设置的初始值，后面的也是",
+               birthday: "1991-06-21",
+               hobby: "电影",
+               gender: "男",
+               work: "前端开发",
+               industry: "互联网",
+               desc: "这是新增模式为desc字段设置的初始值",
+               detailDesc: "这是新增模式为detailDesc字段设置的初始值"
+           },
+           key: Url.getParam('id'),
+           keyName: 'id',
+           parseData: function (data) {
+               //假设后台男女存的分别是1,2，前端需要的是男女，就可通过这个来解析
+               if (data.gender) {
+                   data.gender = data.gender == 1 ? '男' : '女';
+               }
+           },
+           onInit: function () {
+               alert('Form组件实例的init事件触发了!');
+           },
+           onBeforeSave: function (e, formData) {
+               if (formData.name == '这是新增模式为name字段设置的初始值，后面的也是') {
+                   alert('这是通过onBeforeSave添加的校验，名字没有发生改变，不允许保存！');
+                   e.preventDefault();
+               }
+           }
+       });
+
 
     $(function () {
         Global.menuCode(6, "info");
@@ -109,8 +156,17 @@
             options.ready = function () {
                 Global.loadAjaxData($btn.attr("href"), function (result) {
                     if (result) {
-                        $("#Info").val(result.info).focus();
-                        $("#BusinessPermissionString").val(result.businessPermissionString).focus()
+                        $("#BuyTime").val(result.buyTime).focus();
+                        $("#Days").val(result.days).focus();
+                        $("#Money").val(result.money).focus();
+                        $("#Product").val(result.product).focus();
+                        $("#Card").val(result.card).focus();
+                        $("#Contact").val(result.contact).focus();
+                        $("#YieldRate").val(result.yieldRate).focus();
+                        $("#Expected").val(result.expected).focus();
+                        $("#CarrayDate").val(result.carrayDate).focus();
+                        $("#DueDate").val(result.dueDate).focus();
+                        $("#Remark").val(result.remark).focus();
                         $("#Name", $('.formValidate')).val(result.name).focus();
                         $("#ID").val(result.iD);
                         bindJsTree(result.businessPermissionString);

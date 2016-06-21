@@ -1764,7 +1764,7 @@ define(function (require, exports, module) {
 
         var defaults = $.fn.datepicker.defaults = {
             assumeNearbyYear: false,
-            autoclose: false,
+            autoclose: true,
             beforeShowDay: $.noop,
             beforeShowMonth: $.noop,
             beforeShowYear: $.noop,
@@ -1778,9 +1778,9 @@ define(function (require, exports, module) {
             datesDisabled: [],
             endDate: Infinity,
             forceParse: true,
-            format: 'mm/dd/yyyy',
+            format: 'yyyy-mm-dd',
             keyboardNavigation: true,
-            language: 'en',
+            language: 'cn',
             minViewMode: 0,
             maxViewMode: 4,
             multidate: false,
@@ -1790,7 +1790,7 @@ define(function (require, exports, module) {
             startDate: -Infinity,
             startView: 0,
             todayBtn: false,
-            todayHighlight: false,
+            todayHighlight: true,
             weekStart: 0,
             disableTouchKeyboard: false,
             enableOnReadonly: true,
@@ -1820,6 +1820,18 @@ define(function (require, exports, module) {
                 today: "Today",
                 clear: "Clear",
                 titleFormat: "MM yyyy"
+            },
+            cn: {
+                days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+                daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+                daysMin: ["日", "一", "二", "三", "四", "五", "六"],
+                months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                monthsShort: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                today: "今天",
+                clear: "清除",
+                format: "yyyy-mm-dd",
+                titleFormat: "yyyy-mm",
+                weekStart: 1
             }
         };
 

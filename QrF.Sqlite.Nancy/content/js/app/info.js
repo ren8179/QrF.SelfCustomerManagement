@@ -2,9 +2,6 @@
 
     //引入依赖的组件
     var $ = require('jquery'),
-        bootstrap = require('bootstrap'),
-        Form = require('mod/form'),
-        Url = require('mod/url'),
         Global = require('mod/global');
     require('jquery.validate')($);
     require('mod/easing')($);
@@ -14,59 +11,6 @@
     require('mod/leanModal')($);
     require('mod/collapsible')($);
     require('mod/formMaterialize')($);
-
-    //定义常量及组件初始化
-    var API = {
-        save: '/customer/infoEdit',
-        query: '/customer/infoGet'
-    },BUTTONS = {
-           SAVE: $('#btn-save')
-    },formOptions = {
-        ajaxMethod: 'post',
-        mode: 1,
-        postUrl: API.save,
-        putUrl: API.save,
-        queryUrl: API.query,
-        onInit: function () {
-            $("#formValidate").validate({
-                rules: {
-                    buyTime: { required: true },
-                    name: { required: true },
-                    days: { required: true },
-                    money: { required: true },
-                    product: { required: true }
-                },
-                messages: {
-                    buyTime: { required: "请选择购买日期" },
-                    name: { required: "请填写客户姓名" },
-                    days: { required: "请填写购买天数" },
-                    money: { required: "请填写购买金额" },
-                    product: { required: "请填写产品名称" }
-                },
-                errorElement: 'div',
-                errorPlacement: function (error, element) {
-                    var placement = $(element).data('error');
-                    if (placement) {
-                        $(placement).append(error)
-                    } else {
-                        error.insertAfter(element);
-                    }
-                }
-            });
-        },
-        onBeforeSave: function (e, formData) { }
-    },appForm = {};
-
-    //业务逻辑
-    BUTTONS.SAVE.click(function () {
-        var _a = appForm.save();
-        _a && _a.done(function (res) {
-            if (res.code == 200) {
-                $("#modalEdit").closeModal();
-                $(".query_btn").click();
-            }
-        });
-    });
 
     $(function () {
         Global.menuCode(6, "info");
@@ -105,6 +49,47 @@
         });
         $(".query_btn").click();
 
+        $("#formValidate").validate({
+            rules: {
+                BuyTime: { required: true },
+                Name: { required: true },
+                Days: { required: true },
+                Money: { required: true },
+                Product: { required: true }
+            },
+            messages: {
+                BuyTime: { required: "请选择购买日期" },
+                Name: { required: "请填写客户姓名" },
+                Days: { required: "请填写购买天数" },
+                Money: { required: "请填写购买金额" },
+                Product: { required: "请填写产品名称" }
+            },
+            errorElement: 'div',
+            errorPlacement: function (error, element) {
+                var placement = $(element).data('error');
+                if (placement) {
+                    $(placement).append(error)
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function (form) {
+                try {
+                    var json = {};
+                    var formData = $(form).serializeArray();
+                    $.each(formData, function () {
+                        json[this.name] = (this.value && isNaN(this.value)) ? this.value : Number(this.value);
+                    });
+                }
+                catch (ex) {
+                }
+                Global.loadAjaxData('/customer/infoEdit', function (result) {
+                    $("#modalEdit").closeModal();
+                    $(".query_btn").click();
+                }, 'post', JSON.stringify(json));
+                return false;
+            }
+        });
 
         var options = {
             dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -112,18 +97,32 @@
             in_duration: 300, // Transition in duration
             out_duration: 200, // Transition out duration
             ready: function () {
-                appForm = new Form('#formValidate', formOptions);
+                $(".formValidate").find("input").removeClass("valid").removeClass("invalid").val("").siblings("label, i").removeClass("active");
+                $("#ID").val(0);
             }
         };
         $('.modal-trigger').leanModal(options);
 
         $(document).on('click', '.edit_btn', function (e) {
-            var $this = $(this);
+            var $btn = $(this);
             options.ready = function () {
-                formOptions.mode = 2;
-                formOptions.key = $this.data("id");
-                formOptions.keyName = 'id';
-                appForm = new Form('#formValidate', formOptions);
+                Global.loadAjaxData($btn.attr("href"), function (result) {
+                    if (result) {
+                        $("#BuyTime").val(result.buyTime).focus();
+                        $("#Days").val(result.days).focus();
+                        $("#Money").val(result.money).focus();
+                        $("#Product").val(result.product).focus();
+                        $("#Card").val(result.card).focus();
+                        $("#Contact").val(result.contact).focus();
+                        $("#YieldRate").val(result.yieldRate).focus();
+                        $("#Expected").val(result.expected).focus();
+                        $("#CarrayDate").val(result.carrayDate).focus();
+                        $("#DueDate").val(result.dueDate).focus();
+                        $("#Remark").val(result.remark).focus();
+                        $("#Name", $('.formValidate')).val(result.name).focus();
+                        $("#ID").val(result.iD);
+                    }
+                });
             };
             $("#modalEdit").openModal(options);
             e.preventDefault();

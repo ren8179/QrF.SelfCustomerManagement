@@ -69,10 +69,7 @@ namespace QrF.Sqlite.Nancy.Modules
                 Customer result = SqliteService.GetCustomer(id);
                 return Response.AsJson(new
                 {
-                    code=200,
-                    data = new
-                    {
-                        result.ID,
+                    result.ID,
                         BuyTime = result.BuyTime.ToString(),
                         result.Name,
                         result.Days,
@@ -84,7 +81,6 @@ namespace QrF.Sqlite.Nancy.Modules
                         result.Expected,
                         CarrayDate = result.CarrayDate.ToString(),
                         DueDate = result.DueDate.ToString()
-                    }
                 });
             });
 

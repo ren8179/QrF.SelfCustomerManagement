@@ -259,7 +259,7 @@
         },
         //编辑按钮
         btnEdit: function (url, id) {
-            return '<a class="btn-floating waves-effect waves-light teal margin-right-5 edit_btn" href="' + url + '?id=' + id + '"><i class="mdi-image-edit"></i></a>';
+            return '<a class="btn-floating waves-effect waves-light teal margin-right-5 edit_btn" href="' + url + '?id=' + id + '" data-id="'+id+'" ><i class="mdi-image-edit"></i></a>';
         },
         //删除按钮
         btnDel: function (url, id) {

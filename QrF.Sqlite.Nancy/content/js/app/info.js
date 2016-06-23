@@ -27,32 +27,21 @@
         postUrl: API.save,
         putUrl: API.save,
         queryUrl: API.query,
-        defaultData: {
-            ID: 0,
-            Name: "",
-            BuyTime: "",
-            Days: 0,
-            Money: 0,
-            Product: "",
-            Card: ""
-        },
-        key: Url.getParam('id'),
-        keyName: 'id',
         onInit: function () {
             $("#formValidate").validate({
                 rules: {
-                    BuyTime: { required: true },
-                    Name: { required: true },
-                    Days: { required: true },
-                    Money: { required: true },
-                    Product: { required: true }
+                    buyTime: { required: true },
+                    name: { required: true },
+                    days: { required: true },
+                    money: { required: true },
+                    product: { required: true }
                 },
                 messages: {
-                    BuyTime: { required: "请选择购买日期" },
-                    Name: { required: "请填写客户姓名" },
-                    Days: { required: "请填写购买天数" },
-                    Money: { required: "请填写购买金额" },
-                    Product: { required: "请填写产品名称" }
+                    buyTime: { required: "请选择购买日期" },
+                    name: { required: "请填写客户姓名" },
+                    days: { required: "请填写购买天数" },
+                    money: { required: "请填写购买金额" },
+                    product: { required: "请填写产品名称" }
                 },
                 errorElement: 'div',
                 errorPlacement: function (error, element) {
@@ -129,8 +118,11 @@
         $('.modal-trigger').leanModal(options);
 
         $(document).on('click', '.edit_btn', function (e) {
+            var $this = $(this);
             options.ready = function () {
-                formOptions.mode=2;
+                formOptions.mode = 2;
+                formOptions.key = $this.data("id");
+                formOptions.keyName = 'id';
                 appForm = new Form('#formValidate', formOptions);
             };
             $("#modalEdit").openModal(options);

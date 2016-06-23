@@ -117,7 +117,7 @@ define(function (require, exports, module) {
                 if (value === $.trim(this.getValue())) return;
 
                 //将input的值设置成value
-                this.setFieldValue(value);
+                this.setFieldValue(value).focus();
 
                 this._setValue(value, trigger);
             },

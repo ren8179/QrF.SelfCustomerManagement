@@ -68,7 +68,7 @@ define(function (require, exports, module) {
                 trigger !== false && this.$element.trigger('change');
             },
             setFieldValue: function (value) {
-                this.$element.val(value).pickadate('set', 'select', value, { format: 'yyyy-mm-dd' });
+                this.$element.val(value).focus().pickadate('set', 'select', value, { format: 'yyyy-mm-dd' });
             },
             getValue: function () {
                 return this.$element.val();

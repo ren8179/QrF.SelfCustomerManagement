@@ -69,18 +69,22 @@ namespace QrF.Sqlite.Nancy.Modules
                 Customer result = SqliteService.GetCustomer(id);
                 return Response.AsJson(new
                 {
-                    result.ID,
-                    BuyTime = result.BuyTime.ToString(),
-                    result.Name,
-                    result.Days,
-                    result.Money,
-                    result.Product,
-                    result.Card,
-                    result.Contact,
-                    result.YieldRate,
-                    result.Expected,
-                    CarrayDate = result.CarrayDate.ToString(),
-                    DueDate = result.DueDate.ToString()
+                    code=200,
+                    data = new
+                    {
+                        result.ID,
+                        BuyTime = result.BuyTime.ToString(),
+                        result.Name,
+                        result.Days,
+                        result.Money,
+                        result.Product,
+                        result.Card,
+                        result.Contact,
+                        result.YieldRate,
+                        result.Expected,
+                        CarrayDate = result.CarrayDate.ToString(),
+                        DueDate = result.DueDate.ToString()
+                    }
                 });
             });
 

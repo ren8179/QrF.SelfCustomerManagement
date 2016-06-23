@@ -1340,26 +1340,26 @@ define(function (require, exports, module) {
             return {
 
                 // The title label to use for the month nav buttons
-                labelMonthNext: 'Next month',
-                labelMonthPrev: 'Previous month',
+                labelMonthNext: '下个月',
+                labelMonthPrev: '上个月',
 
                 // The title label to use for the dropdown selectors
-                labelMonthSelect: 'Select a month',
-                labelYearSelect: 'Select a year',
+                labelMonthSelect: '选择月',
+                labelYearSelect: '选择年',
 
                 // Months and weekdays
-                monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                monthsFull: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                monthsShort: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
+                weekdaysFull: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+                weekdaysShort: ['日', '一', '二', '三', '四', '五', '六'],
 
                 // Materialize modified
                 weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
 
                 // Today and clear
-                today: 'Today',
-                clear: 'Clear',
-                close: 'Close',
+                today: '今天',
+                clear: '清空',
+                close: '关闭',
 
                 // The format to show on the `input` element
                 format: 'd mmmm, yyyy',

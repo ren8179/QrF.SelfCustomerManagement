@@ -53,7 +53,7 @@ define(function (require, exports, module) {
                     elementDom.value = v;
                     elementDom.value = v.substring(1);
                 } else {
-                    $element.val(value);
+                    $element.val(value).focus();
                 }
             },
             getValue: function () {

@@ -127,6 +127,7 @@
                         $("#ParentId", $('.formValidate')).val(result.parentId).material_select();
                         $("#Orderby").val(result.orderby).focus();
                         $("#Name", $('.formValidate')).val(result.name).focus();
+                        $("#CreateTime").val(result.createTime);
                         $("#ID").val(result.iD);
                     }
                 });

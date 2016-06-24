@@ -188,8 +188,7 @@ namespace QrF.Sqlite.Service
             {
                 if (model.ID > 0)
                 {
-                    var set = dbContext.Set<Customer>();
-                    set.Attach(model);
+                    dbContext.Customers.Attach(model);
                     dbContext.Entry<Customer>(model).State = EntityState.Modified;
                     dbContext.SaveChanges();
                 }
@@ -207,7 +206,9 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                dbContext.Customers.Where(u => ids.Contains(u.ID)).Delete();
+                var model = dbContext.Customers.Where(u => ids.Contains(u.ID)).FirstOrDefault();
+                dbContext.Customers.Remove(model);
+                dbContext.SaveChanges();
             }
         }
         #endregion

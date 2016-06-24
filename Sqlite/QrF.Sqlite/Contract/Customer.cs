@@ -4,6 +4,10 @@ namespace QrF.Sqlite.Contract
 {
     public class Customer : IEntity
     {
+        public Customer()
+        {
+            CreateTime = DateTime.Now;
+        }
         /// <summary>
         /// 购买日期
         /// </summary>

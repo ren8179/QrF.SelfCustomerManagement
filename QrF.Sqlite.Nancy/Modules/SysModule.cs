@@ -92,6 +92,7 @@ namespace QrF.Sqlite.Nancy.Modules
                 return this.Response.AsJson(new
                 {
                     result.ID,
+                    CreateTime = result.CreateTime.ToString("yyyy-MM-dd HH:mm"),
                     result.Name,
                     result.Url,
                     result.Info,
@@ -177,6 +178,7 @@ namespace QrF.Sqlite.Nancy.Modules
                 return Response.AsJson(new
                 {
                     result.ID,
+                    CreateTime = result.CreateTime.ToString("yyyy-MM-dd HH:mm"),
                     result.Name,
                     result.Info,
                     result.BusinessPermissionString
@@ -247,6 +249,7 @@ namespace QrF.Sqlite.Nancy.Modules
                 return Response.AsJson(new
                 {
                     ID = item.ID,
+                    CreateTime = item.CreateTime.ToString("yyyy-MM-dd HH:mm"),
                     LoginName = item.LoginName,
                     UserName = item.UserName,
                     Email = item.Email,

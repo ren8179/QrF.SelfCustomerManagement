@@ -104,6 +104,7 @@
                         $("#BusinessPermissionString").val(result.businessPermissionString).focus()
                         $("#Name", $('.formValidate')).val(result.name).focus();
                         $("#ID").val(result.iD);
+                        $("#CreateTime").val(result.createTime);
                         bindJsTree(result.businessPermissionString);
                     }
                 });

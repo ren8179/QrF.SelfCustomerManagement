@@ -4,6 +4,10 @@ namespace QrF.Sqlite.Contract
 {
     public class Menu : IEntity
     {
+        public Menu()
+        {
+            CreateTime = DateTime.Now;
+        }
         /// <summary>
         /// 菜单名称
         /// </summary>

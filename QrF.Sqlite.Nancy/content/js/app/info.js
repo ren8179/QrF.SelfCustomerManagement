@@ -2,6 +2,7 @@
 
     //引入依赖的组件
     var $ = require('jquery'),
+        SweetAlert = require('sweetalert'),
         Global = require('mod/global');
     require('jquery.validate')($);
     require('mod/easing')($);
@@ -13,7 +14,40 @@
     require('mod/formMaterialize')($);
 
     $(function () {
-        Global.menuCode(6, "info");
+        Global.init(6, "info",function (result) {
+            if (result) {
+                $("#BuyTime").val(result.buyTime).focus();
+                $("#Days").val(result.days).focus();
+                $("#Money").val(result.money).focus();
+                $("#Product").val(result.product).focus();
+                $("#Card").val(result.card).focus();
+                $("#Contact").val(result.contact).focus();
+                $("#YieldRate").val(result.yieldRate).focus();
+                $("#Expected").val(result.expected).focus();
+                $("#CarrayDate").val(result.carrayDate).focus();
+                $("#DueDate").val(result.dueDate).focus();
+                $("#Remark").val(result.remark).focus();
+                $("#Name", $('.formValidate')).val(result.name).focus();
+                $("#ID").val(result.iD);
+                $("#CreateTime").val(result.createTime);
+            }
+        });
+        Global.initFormValidate('/customer/infoEdit', {
+            rules: {
+                BuyTime: { required: true },
+                Name: { required: true },
+                Days: { required: true },
+                Money: { required: true },
+                Product: { required: true }
+            },
+            messages: {
+                BuyTime: { required: "请选择购买日期" },
+                Name: { required: "请填写客户姓名" },
+                Days: { required: "请填写购买天数" },
+                Money: { required: "请填写购买金额" },
+                Product: { required: "请填写产品名称" }
+            }
+        });
 
         $(".query_btn").on("click", function (e) {
             var args = {};
@@ -48,92 +82,5 @@
             e.preventDefault();
         });
         $(".query_btn").click();
-
-        $("#formValidate").validate({
-            rules: {
-                BuyTime: { required: true },
-                Name: { required: true },
-                Days: { required: true },
-                Money: { required: true },
-                Product: { required: true }
-            },
-            messages: {
-                BuyTime: { required: "请选择购买日期" },
-                Name: { required: "请填写客户姓名" },
-                Days: { required: "请填写购买天数" },
-                Money: { required: "请填写购买金额" },
-                Product: { required: "请填写产品名称" }
-            },
-            errorElement: 'div',
-            errorPlacement: function (error, element) {
-                var placement = $(element).data('error');
-                if (placement) {
-                    $(placement).append(error)
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            submitHandler: function (form) {
-                try {
-                    var json = {};
-                    var formData = $(form).serializeArray();
-                    $.each(formData, function () {
-                        json[this.name] = (this.value && isNaN(this.value)) ? this.value : Number(this.value);
-                    });
-                }
-                catch (ex) {
-                }
-                Global.loadAjaxData('/customer/infoEdit', function (result) {
-                    $("#modalEdit").closeModal();
-                    $(".query_btn").click();
-                }, 'post', JSON.stringify(json));
-                return false;
-            }
-        });
-
-        var options = {
-            dismissible: true, // Modal can be dismissed by clicking outside of the modal
-            opacity: .5, // Opacity of modal background
-            in_duration: 300, // Transition in duration
-            out_duration: 200, // Transition out duration
-            ready: function () {
-                $(".formValidate").find("input").removeClass("valid").removeClass("invalid").val("").siblings("label, i").removeClass("active");
-                $("#ID").val(0);
-            }
-        };
-        $('.modal-trigger').leanModal(options);
-
-        $(document).on('click', '.edit_btn', function (e) {
-            var $btn = $(this);
-            options.ready = function () {
-                Global.loadAjaxData($btn.attr("href"), function (result) {
-                    if (result) {
-                        $("#BuyTime").val(result.buyTime).focus();
-                        $("#Days").val(result.days).focus();
-                        $("#Money").val(result.money).focus();
-                        $("#Product").val(result.product).focus();
-                        $("#Card").val(result.card).focus();
-                        $("#Contact").val(result.contact).focus();
-                        $("#YieldRate").val(result.yieldRate).focus();
-                        $("#Expected").val(result.expected).focus();
-                        $("#CarrayDate").val(result.carrayDate).focus();
-                        $("#DueDate").val(result.dueDate).focus();
-                        $("#Remark").val(result.remark).focus();
-                        $("#Name", $('.formValidate')).val(result.name).focus();
-                        $("#ID").val(result.iD);
-                    }
-                });
-            };
-            $("#modalEdit").openModal(options);
-            e.preventDefault();
-        });
-
-        $(document).on('click', '.delete_btn', function (e) {
-            var $btn = $(this);
-            Global.loadAjaxData($btn.attr("href"), function (result) {
-                $(".query_btn").click();
-            });
-            e.preventDefault();
-        });
     });
 });

@@ -12,6 +12,8 @@ using QrF.Framework.Contract;
 using System.Linq;
 using System.Collections.Generic;
 using QrF.Framework.Utility;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace QrF.Sqlite.Nancy.Modules
 {
@@ -48,7 +50,7 @@ namespace QrF.Sqlite.Nancy.Modules
                            select new
                            {
                                a.ID,
-                               BuyTime =a.BuyTime.ToString(),
+                               BuyTime = a.BuyTime.ToString("yyyy-MM-dd HH:mm"),
                                a.Name,
                                a.Days,
                                a.Money,
@@ -57,8 +59,8 @@ namespace QrF.Sqlite.Nancy.Modules
                                a.Contact,
                                a.YieldRate,
                                a.Expected,
-                               CarrayDate=a.CarrayDate.ToString(),
-                               DueDate=a.DueDate.ToString()
+                               CarrayDate = a.CarrayDate.ToString("yyyy-MM-dd HH:mm"),
+                               DueDate = a.DueDate.ToString("yyyy-MM-dd HH:mm")
                            }
                 });
             });
@@ -66,27 +68,30 @@ namespace QrF.Sqlite.Nancy.Modules
             Get("/infoGet", args =>
             {
                 var id = Request.Query["id"];
-                Customer result = SqliteService.GetCustomer(id);
+                Customer result = SqliteService.GetCustomer(id)??new Customer();
                 return Response.AsJson(new
                 {
                     result.ID,
-                        BuyTime = result.BuyTime.ToString(),
-                        result.Name,
-                        result.Days,
-                        result.Money,
-                        result.Product,
-                        result.Card,
-                        result.Contact,
-                        result.YieldRate,
-                        result.Expected,
-                        CarrayDate = result.CarrayDate.ToString(),
-                        DueDate = result.DueDate.ToString()
+                    CreateTime = result.CreateTime.ToString("yyyy-MM-dd HH:mm"),
+                    BuyTime = result.BuyTime.ToString("yyyy-MM-dd HH:mm"),
+                    result.Name,
+                    result.Days,
+                    result.Money,
+                    result.Product,
+                    result.Card,
+                    result.Contact,
+                    result.YieldRate,
+                    result.Expected,
+                    CarrayDate = result.CarrayDate.ToString("yyyy-MM-dd HH:mm"),
+                    DueDate = result.DueDate.ToString("yyyy-MM-dd HH:mm")
                 });
             });
 
             Post("/infoEdit", args =>
             {
-                var model = this.Bind<Customer>();
+                var reader = new StreamReader(Request.Body);
+                string text = reader.ReadToEnd();
+                var model = JsonConvert.DeserializeObject<Customer>(text);
                 SqliteService.SaveCustomer(model);
                 return Response.AsJson("操作成功");
             });
@@ -97,9 +102,9 @@ namespace QrF.Sqlite.Nancy.Modules
                 SqliteService.DeleteCustomer(new List<int>() { id });
                 return Response.AsJson("操作成功");
             });
-            
+
             #endregion
-            
+
         }
     }
 }

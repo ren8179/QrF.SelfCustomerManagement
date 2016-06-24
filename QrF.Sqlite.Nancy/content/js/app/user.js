@@ -115,6 +115,7 @@
                         $("#IsActive").val(result.isActive);
                         $("#LoginName", $('.formValidate')).val(result.loginName).attr("readonly", "readonly").focus();
                         $("#ID").val(result.iD);
+                        $("#CreateTime").val(result.createTime);
                         bindJsTree(result.roleIds);
                     }
                 });

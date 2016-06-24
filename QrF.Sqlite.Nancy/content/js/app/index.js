@@ -7,4 +7,7 @@
     require('mod/waves')($);
     require('mod/collapsible')($);
     var Global = require('mod/global');
+    $(function () {
+        Global.init();
+    });
 });

@@ -1,79 +1,58 @@
 ﻿define(function (require, exports, module) {
     var $ = require('jquery'),
-        Hammer = require('hammer'),
-        Vel = require('velocity'),
-        MenuParentId = 0,
-        MenuCode = "";
-    var startLoading = function () {
+    Hammer = require('hammer'),
+    Vel = require('velocity'),
+    startLoading = function () {
         var html = '<div class="indeterminate"></div>';
         $(".progress").removeClass("default").prepend(html);
-    }, stopLoading = function () {
+    },
+    stopLoading = function () {
         $(".progress").addClass("default").find(".indeterminate").remove();
-    }, toast = function (message, displayLength, className, completeCallback) {
+    },
+    toast = function (message, displayLength, className, completeCallback) {
         className = className || "";
-
         var container = document.getElementById('toast-container');
-
-        // Create toast container if it does not exist
-        if (container === null) {
-            // create notification container
-            container = document.createElement('div');
+        if (container === null) {// Create toast container if it does not exist
+            container = document.createElement('div');// create notification container
             container.id = 'toast-container';
             document.body.appendChild(container);
         }
-
-        // Select and append toast
-        var newToast = createToast(message);
-
-        // only append toast if message is not undefined
-        if (message) {
+        var newToast = createToast(message);// Select and append toast
+        if (message) {// only append toast if message is not undefined
             container.appendChild(newToast);
         }
-
         newToast.style.top = '35px';
         newToast.style.opacity = 0;
-
-        // Animate toast in
-        Vel(newToast, { "top": "0px", opacity: 1 }, {
+        Vel(newToast, { "top": "0px", opacity: 1 }, {// Animate toast in
             duration: 300,
             easing: 'easeOutCubic',
             queue: false
         });
-        // Allows timer to be pause while being panned
-        var timeLeft = displayLength;
+        var timeLeft = displayLength;// Allows timer to be pause while being panned
         var counterInterval = setInterval(function () {
-            if (newToast.parentNode === null)
-                window.clearInterval(counterInterval);
-            // If toast is not being dragged, decrease its time remaining
-            if (!newToast.classList.contains('panning')) {
+            if (newToast.parentNode === null) window.clearInterval(counterInterval);
+            if (!newToast.classList.contains('panning')) {// If toast is not being dragged, decrease its time remaining
                 timeLeft -= 20;
             }
-            if (timeLeft <= 0) {
-                // Animate toast out
+            if (timeLeft <= 0) {// Animate toast out
                 Vel(newToast, { "opacity": 0, marginTop: '-40px' }, {
                     duration: 375,
                     easing: 'easeOutExpo',
                     queue: false,
                     complete: function () {
-                        // Call the optional callback
-                        if (typeof (completeCallback) === "function")
+                        if (typeof (completeCallback) === "function")// Call the optional callback
                             completeCallback();
-                        // Remove toast after it times out
-                        this[0].parentNode.removeChild(this[0]);
+                        this[0].parentNode.removeChild(this[0]);// Remove toast after it times out
                     }
                 });
                 window.clearInterval(counterInterval);
             }
         }, 20);
-
         function createToast(html) {
-
-            // Create toast
-            var toast = document.createElement('div');
+            var toast = document.createElement('div');// Create toast
             toast.classList.add('toast');
             if (className) {
                 var classes = className.split(' ');
-
                 for (var i = 0, count = classes.length; i < count; i++) {
                     toast.classList.add(classes[i]);
                 }
@@ -83,38 +62,26 @@
                 toast.appendChild(html);
             }
             else if (html instanceof jQuery) {
-                // Check if it is jQuery object
-                toast.appendChild(html[0]);
+                toast.appendChild(html[0]);// Check if it is jQuery object
             }
             else {
-                // Insert as text;
-                toast.innerHTML = html;
+                toast.innerHTML = html;// Insert as text;
             }
-            // Bind hammer
-            var hammerHandler = new Hammer(toast, { prevent_default: false });
+            var hammerHandler = new Hammer(toast, { prevent_default: false });// Bind hammer
             hammerHandler.on('pan', function (e) {
                 var deltaX = e.deltaX;
                 var activationDistance = 80;
-
-                // Change toast state
-                if (!toast.classList.contains('panning')) {
+                if (!toast.classList.contains('panning')) {// Change toast state
                     toast.classList.add('panning');
                 }
-
                 var opacityPercent = 1 - Math.abs(deltaX / activationDistance);
-                if (opacityPercent < 0)
-                    opacityPercent = 0;
-
+                if (opacityPercent < 0) opacityPercent = 0;
                 Vel(toast, { left: deltaX, opacity: opacityPercent }, { duration: 50, queue: false, easing: 'easeOutQuad' });
-
             });
-
             hammerHandler.on('panend', function (e) {
                 var deltaX = e.deltaX;
                 var activationDistance = 80;
-
-                // If toast dragged past activation point
-                if (Math.abs(deltaX) > activationDistance) {
+                if (Math.abs(deltaX) > activationDistance) {// If toast dragged past activation point
                     Vel(toast, { marginTop: '-40px' }, {
                         duration: 375,
                         easing: 'easeOutExpo',
@@ -137,7 +104,8 @@
             });
             return toast;
         }
-    }, load = function (url, template, type, data, async) {
+    },
+    load = function (url, template, type, data, async) {
         type = type || "GET";
         startLoading();
         $.ajax({
@@ -163,9 +131,6 @@
                 toast('错误详情：<small>' + message + '</small>', 4000);
             }
         });
-    }, menuCode = function (parendId, code) {
-        MenuParentId = parendId;
-        MenuCode = code;
     };
 
     $(window).load(function () {
@@ -173,62 +138,17 @@
             $('body').addClass('loaded');
         }, 200);
     });
-    $(function () {
-        load("/sys/userInfo", function (result) {
-            if (result) {
-                $(".user-details .user-name").prepend(result.loginName);
-                $(".user-details .user-roal").text(result.userName);
-            }
-        });
 
-        $(document).on("click", ".menu-parent", function (e) {
-            var $this = $(this);
-            var parentId = $this.data("parentid");
-            if ($this.next().find("ul>li").length)
-                return;
-            load("/sys/userMenus", function (result) {
-                if (result) {
-                    var html = '';
-                    $.each(result, function (i, v) {
-                        html += '<li class="' + (v.code == MenuCode ? 'active' : '') + '"><a href="' + v.url + '"><i class="' + v.icon + '"></i> ' + v.name + '</a></li>';
-                    });
-                    $this.next().find("ul").html(html);
-                }
-            }, "get", { "ParentId": parentId });
-        });
-
-        load("/sys/userMenus", function (result) {
-            if (result) {
-                var html = '';
-                $.each(result, function (i, v) {
-                    if (v.url) {
-                        html += '<li class="bold"><a href="' + v.url + '" class="waves-effect waves-cyan"><i class="' + v.icon + '"></i> ' + v.name + '</a></li>';
-                    } else {
-                        html += '<li class="no-padding"><ul class="collapsible collapsible-accordion"><li class="bold ' + (v.iD == MenuParentId ? 'active' : '') + '">';
-                        html += '<a class="collapsible-header waves-effect waves-cyan menu-parent ' + (v.iD == MenuParentId ?'active':'')+ '" data-parentId="' + v.iD + '"><i class="' + v.icon + '"></i> ' + v.name + '</a>';
-                        html += '<div class="collapsible-body"><ul></ul></div>';
-                        html += '</li></ul></li>';
-                    }
-                });
-                html += '<li class="li-hover"><div class="divider"></div></li>';
-                $("#slide-out").append(html);
-                $(".menu-parent.active").click();
-            }
-            $(".collapsible").collapsible();
-        }, "get", { "ParentId": 1 });
-    });
     return {
-        guid: (function () {
-            function s4() {
-                return Math.floor((1 + Math.random()) * 0x10000)
-                  .toString(16)
-                  .substring(1);
-            }
-            return function () {
-                return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-                       s4() + '-' + s4() + s4() + s4();
-            };
-        })(),
+        //删除按钮
+        btnDel: function (url, id) {
+            return '<a class="btn-floating waves-effect waves-light red margin-right-5 delete_btn" href="' + url + '?id=' + id + '"><i class="mdi-action-delete"></i></a>';
+        },
+        //编辑按钮
+        btnEdit: function (url, id) {
+            return '<a class="btn-floating waves-effect waves-light teal margin-right-5 edit_btn" href="' + url + '?id=' + id + '" data-id="'+id+'" ><i class="mdi-image-edit"></i></a>';
+        },
+        //判断是否全屏
         elementOrParentIsFixed: function (element) {
             var $element = $(element);
             var $checkElements = $element.add($element.parents());
@@ -241,6 +161,106 @@
             });
             return isFixed;
         },
+        //生成GUID
+        guid: (function () {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                  .toString(16)
+                  .substring(1);
+            }
+            return function () {
+                return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                       s4() + '-' + s4() + s4() + s4();
+            };
+        })(),
+        //初始化页面（使用Global后必须调用一次）
+        init: function (parendId, menuCode, initModel) {
+            parendId = parendId || 0;
+            menuCode = menuCode || "";
+            initModel = initModel || function (result) {
+                if (result) {
+                    $("#ID").val(result.iD);
+                    $("#CreateTime").val(result.createTime);
+                }
+            };
+
+            load("/sys/userInfo", function (result) {
+                if (result) {
+                    $(".user-details .user-name").prepend(result.loginName);
+                    $(".user-details .user-roal").text(result.userName);
+                }
+            });
+
+            load("/sys/userMenus", function (result) {
+                if (result) {
+                    var html = '';
+                    $.each(result, function (i, v) {
+                        if (v.url) {
+                            html += '<li class="bold"><a href="' + v.url + '" class="waves-effect waves-cyan"><i class="' + v.icon + '"></i> ' + v.name + '</a></li>';
+                        } else {
+                            html += '<li class="no-padding"><ul class="collapsible collapsible-accordion"><li class="bold ' + (v.iD == parendId ? 'active' : '') + '">';
+                            html += '<a class="collapsible-header waves-effect waves-cyan menu-parent ' + (v.iD == parendId ? 'active' : '') + '" data-parentId="' + v.iD + '"><i class="' + v.icon + '"></i> ' + v.name + '</a>';
+                            html += '<div class="collapsible-body"><ul></ul></div>';
+                            html += '</li></ul></li>';
+                        }
+                    });
+                    html += '<li class="li-hover"><div class="divider"></div></li>';
+                    $("#slide-out").append(html);
+                    $(".menu-parent.active").click();
+                }
+                $(".collapsible").collapsible();
+            }, "get", { "ParentId": 1 });
+
+            $(document).on("click", ".menu-parent", function (e) {
+                var $this = $(this);
+                var parentId = $this.data("parentid");
+                if ($this.next().find("ul>li").length)
+                    return;
+                load("/sys/userMenus", function (result) {
+                    if (result) {
+                        var html = '';
+                        $.each(result, function (i, v) {
+                            html += '<li class="' + (v.code == menuCode ? 'active' : '') + '"><a href="' + v.url + '"><i class="' + v.icon + '"></i> ' + v.name + '</a></li>';
+                        });
+                        $this.next().find("ul").html(html);
+                    }
+                }, "get", { "ParentId": parentId });
+            });
+
+            $(document).on('click', '.delete_btn', function (e) {
+                var $btn = $(this);
+                SweetAlert({
+                    title: "提示",
+                    text: "确定要删除该条数据？",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "取消",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "删除"
+                }, function () {
+                    Global.loadAjaxData($btn.attr("href"), function (result) {
+                        $(".query_btn").click();
+                    });
+                });
+                e.preventDefault();
+            });
+
+            $(document).on('click', '.edit_btn', function (e) {
+                var $btn = $(this);
+                var options = {
+                    dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                    opacity: .5, // Opacity of modal background
+                    in_duration: 300, // Transition in duration
+                    out_duration: 200, // Transition out duration
+                    ready: function () {
+                        Global.loadAjaxData($btn.attr("href"), initModel);
+                    }
+                };
+                $("#modalEdit").openModal(options);
+                e.preventDefault();
+            });
+        },
+        //初始化表格控件
         initBootstrapTable: function (el, options) {
             if ($.fn.bootstrapTable) {
                 el.bootstrapTable('destroy').bootstrapTable($.extend({}, {
@@ -257,18 +277,44 @@
                 el.bootstrapTable('resetView');
             }
         },
-        //编辑按钮
-        btnEdit: function (url, id) {
-            return '<a class="btn-floating waves-effect waves-light teal margin-right-5 edit_btn" href="' + url + '?id=' + id + '" data-id="'+id+'" ><i class="mdi-image-edit"></i></a>';
+        //初始化表单验证控件
+        initFormValidate: function (url,options) {
+            if ($.fn.validate) {
+                $("#formValidate").validate($.extend({}, {
+                    errorElement: 'div',
+                    errorPlacement: function (error, element) {
+                        var placement = $(element).data('error');
+                        if (placement) {
+                            $(placement).append(error)
+                        } else {
+                            error.insertAfter(element);
+                        }
+                    },
+                    submitHandler: function (form) {
+                        try {
+                            var json = {};
+                            var formData = $(form).serializeArray();
+                            $.each(formData, function () {
+                                json[this.name] = (!this.value || isNaN(this.value)) ? this.value : Number(this.value);
+                            });
+                        }
+                        catch (ex) {}
+                        Global.loadAjaxData(url, function (result) {
+                            $("#modalEdit").closeModal();
+                            $(".query_btn").click();
+                        }, 'post', JSON.stringify(json));
+                        return false;
+                    }
+                }, options));
+            }
         },
-        //删除按钮
-        btnDel: function (url, id) {
-            return '<a class="btn-floating waves-effect waves-light red margin-right-5 delete_btn" href="' + url + '?id=' + id + '"><i class="mdi-action-delete"></i></a>';
-        },
-        menuCode: menuCode,
-        startLoading: startLoading,
-        stopLoading: stopLoading,
-        toast: toast,
+        //异步加载数据
         loadAjaxData: load,
+        //显示加载状态
+        startLoading: startLoading,
+        //停止加载状态
+        stopLoading: stopLoading,
+        //消息提示
+        toast: toast,
     }
 });

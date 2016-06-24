@@ -113,7 +113,7 @@
                                         <button class="btn cyan waves-effect waves-light left query_btn" type="button" name="action">
                                             <i class="mdi-action-search"></i> 查询
                                         </button>
-                                        <a class="btn teal waves-effect waves-light right modal-trigger" href="#modalEdit">
+                                        <a class="btn teal waves-effect waves-light right edit_btn" href="/customer/infoEdit?id=-1">
                                             <i class="mdi-content-add"></i> 新增
                                         </a>
                                     </div>
@@ -131,6 +131,7 @@
                                                 <div class="card-panel">
                                                     <form class="formValidate" id="formValidate">
                                                         <input type="hidden" id="ID" name="ID" value="0" />
+                                                        <input type="hidden" id="CreateTime" name="CreateTime" value="" />
                                                         <div class="row">
                                                             <div class="input-field col s6">
                                                                 <label for="BuyTime">购买日期 *</label>

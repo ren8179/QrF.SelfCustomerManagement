@@ -7,6 +7,9 @@ namespace QrF.Sqlite.Contract
         public Customer()
         {
             CreateTime = DateTime.Now;
+            BuyTime = DateTime.Now;
+            CarrayDate = DateTime.Now;
+            DueDate = DateTime.Now;
         }
         /// <summary>
         /// 购买日期

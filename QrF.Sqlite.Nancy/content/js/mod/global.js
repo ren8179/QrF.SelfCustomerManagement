@@ -1,7 +1,18 @@
 ﻿define(function (require, exports, module) {
-    var $ = require('jquery'),
-    Hammer = require('hammer'),
+    var $ = require('jquery');
+    
+    require('jquery.validate')($);
+    require('mod/easing')($);
+    require('mod/waves')($);
+    require('bootstrap-table')($);
+    require('mod/dropdown')($);
+    require('mod/leanModal')($);
+    require('mod/collapsible')($);
+    require('mod/formMaterialize')($);
+
+    var Hammer = require('hammer'),
     Vel = require('velocity'),
+    SweetAlert = require('sweetalert'),
     startLoading = function () {
         var html = '<div class="indeterminate"></div>';
         $(".progress").removeClass("default").prepend(html);
@@ -132,13 +143,11 @@
             }
         });
     };
-
     $(window).load(function () {
         setTimeout(function () {
             $('body').addClass('loaded');
         }, 200);
     });
-
     return {
         //删除按钮
         btnDel: function (url, id) {
@@ -238,7 +247,7 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "删除"
                 }, function () {
-                    Global.loadAjaxData($btn.attr("href"), function (result) {
+                    load($btn.attr("href"), function (result) {
                         $(".query_btn").click();
                     });
                 });
@@ -253,12 +262,15 @@
                     in_duration: 300, // Transition in duration
                     out_duration: 200, // Transition out duration
                     ready: function () {
-                        Global.loadAjaxData($btn.attr("href"), initModel);
+                        load($btn.attr("href"), initModel);
                     }
                 };
                 $("#modalEdit").openModal(options);
                 e.preventDefault();
             });
+
+            $('select').material_select();
+
         },
         //初始化表格控件
         initBootstrapTable: function (el, options) {
@@ -281,6 +293,12 @@
         initFormValidate: function (url,options) {
             if ($.fn.validate) {
                 $("#formValidate").validate($.extend({}, {
+                    rules: {
+                        Name: { required: true }
+                    },
+                    messages: {
+                        Name: { required: "请填写名称" }
+                    },
                     errorElement: 'div',
                     errorPlacement: function (error, element) {
                         var placement = $(element).data('error');
@@ -299,7 +317,7 @@
                             });
                         }
                         catch (ex) {}
-                        Global.loadAjaxData(url, function (result) {
+                        load(url, function (result) {
                             $("#modalEdit").closeModal();
                             $(".query_btn").click();
                         }, 'post', JSON.stringify(json));

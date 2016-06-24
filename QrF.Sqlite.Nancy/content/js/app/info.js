@@ -2,16 +2,7 @@
 
     //引入依赖的组件
     var $ = require('jquery'),
-        SweetAlert = require('sweetalert'),
         Global = require('mod/global');
-    require('jquery.validate')($);
-    require('mod/easing')($);
-    require('mod/waves')($);
-    require('bootstrap-table')($);
-    require('mod/dropdown')($);
-    require('mod/leanModal')($);
-    require('mod/collapsible')($);
-    require('mod/formMaterialize')($);
 
     $(function () {
         Global.init(6, "info",function (result) {

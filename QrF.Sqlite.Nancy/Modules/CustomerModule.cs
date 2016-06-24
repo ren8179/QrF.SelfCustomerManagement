@@ -83,7 +83,8 @@ namespace QrF.Sqlite.Nancy.Modules
                     result.YieldRate,
                     result.Expected,
                     CarrayDate = result.CarrayDate.ToString("yyyy-MM-dd HH:mm"),
-                    DueDate = result.DueDate.ToString("yyyy-MM-dd HH:mm")
+                    DueDate = result.DueDate.ToString("yyyy-MM-dd HH:mm"),
+                    result.Remark
                 });
             });
 

@@ -3,17 +3,24 @@
     //引入依赖的组件
     var $ = require('jquery'),
         Global = require('mod/global');
-    require('jquery.validate')($);
-    require('mod/easing')($);
-    require('mod/waves')($);
-    require('bootstrap-table')($);
-    require('mod/dropdown')($);
-    require('mod/leanModal')($);
-    require('mod/collapsible')($);
-    require('mod/formMaterialize')($);
 
     $(function () {
-        Global.menuCode(2, "menu");
+        Global.init(2, "menu", function (result) {
+            if (result) {
+                $("#Orderby").parent().show();
+                $("#Url").val(result.url).focus();
+                $("#Info").val(result.info).focus();
+                $("#Code").val(result.code).focus();
+                $("#Permission").val(result.permission).focus();
+                $("#Icon").val(result.icon).focus();
+                $("#ParentId", $('.formValidate')).val(result.parentId).material_select();
+                $("#Orderby").val(result.orderby).focus();
+                $("#Name", $('.formValidate')).val(result.name).focus();
+                $("#CreateTime").val(result.createTime);
+                $("#ID").val(result.iD);
+            }
+        });
+        Global.initFormValidate('/sys/menuEdit');
 
         Global.loadAjaxData("/sys/parentList", function (result) {
             var el = $("select[name='ParentId']");
@@ -60,88 +67,5 @@
         });
         $(".query_btn").click();
 
-        $("#formValidate").validate({
-            rules: {
-                Name: {
-                    required: true
-                }
-            },
-            messages: {
-                Name: {
-                    required: "请填写菜单名称"
-                }
-            },
-            errorElement: 'div',
-            errorPlacement: function (error, element) {
-                var placement = $(element).data('error');
-                if (placement) {
-                    $(placement).append(error)
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            submitHandler: function (form) {
-                try {
-                    var json = {};
-                    var formData = $(form).serializeArray();
-                    $.each(formData, function () {
-                        json[this.name] = (this.value && isNaN(this.value)) ? this.value : Number(this.value);
-                    });
-                    json.Orderby = json.Orderby + "";
-                }
-                catch (ex) {
-                }
-                Global.loadAjaxData('/sys/menuEdit', function (result) {
-                    $("#modalEdit").closeModal();
-                    $(".query_btn").click();
-                }, 'post', JSON.stringify(json));
-                return false;
-            }
-        });
-
-        var options = {
-            dismissible: true, // Modal can be dismissed by clicking outside of the modal
-            opacity: .5, // Opacity of modal background
-            in_duration: 300, // Transition in duration
-            out_duration: 200, // Transition out duration
-            ready: function () {
-                $(".formValidate").find("input").removeClass("valid").removeClass("invalid").val("").siblings("label, i").removeClass("active");
-                $(".formValidate").find("input.select-dropdown").val($(".formValidate").find("option[selected]").text());
-                $("#ID").val(0);
-                $("#Orderby").parent().hide();
-            }
-        };
-        $('.modal-trigger').leanModal(options);
-
-        $(document).on('click', '.edit_btn', function (e) {
-            var $btn=$(this);
-            options.ready = function () {
-                Global.loadAjaxData($btn.attr("href"), function (result) {
-                    if (result) {
-                        $("#Orderby").parent().show();
-                        $("#Url").val(result.url).focus();
-                        $("#Info").val(result.info).focus();
-                        $("#Code").val(result.code).focus();
-                        $("#Permission").val(result.permission).focus();
-                        $("#Icon").val(result.icon).focus();
-                        $("#ParentId", $('.formValidate')).val(result.parentId).material_select();
-                        $("#Orderby").val(result.orderby).focus();
-                        $("#Name", $('.formValidate')).val(result.name).focus();
-                        $("#CreateTime").val(result.createTime);
-                        $("#ID").val(result.iD);
-                    }
-                });
-            };
-            $("#modalEdit").openModal(options);
-            e.preventDefault();
-        });
-
-        $(document).on('click', '.delete_btn', function (e) {
-            var $btn = $(this);
-            Global.loadAjaxData($btn.attr("href"), function (result) {
-                $(".query_btn").click();
-            });
-            e.preventDefault();
-        });
     });
 });

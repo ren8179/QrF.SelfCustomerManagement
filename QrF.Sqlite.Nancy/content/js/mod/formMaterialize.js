@@ -1,206 +1,592 @@
 ﻿define(function (require, exports, moudles) {
-    var Global = require('mod/global');
     return function (jquery) {
-        (function(a) {
-                a(document).ready(function() {
-                    function b(b) {
-                        var c = b.css("font-family"), e = b.css("font-size");
-                        e && d.css("font-size", e), c && d.css("font-family", c), "off" === b.attr("wrap") && d.css("overflow-wrap", "normal").css("white-space", "pre"), 
-                        d.text(b.val() + "\n");
-                        var f = d.html().replace(/\n/g, "<br>");
-                        d.html(f), b.is(":visible") ? d.css("width", b.width()) : d.css("width", a(window).width() / 2), 
-                        b.css("height", d.height());
-                    }
-                    var c = "input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea";
-                    a("input[autofocus]").siblings("label, i").addClass("active"), a(document).on("change", c, function() {
-                        (0 !== a(this).val().length || void 0 !== a(this).attr("placeholder")) && a(this).siblings("label").addClass("active"), 
-                        validate_field(a(this));
-                    }), a(document).ready(function() {
-                        var b = "input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea";
-                        a(b).each(function (b, c) {
-                            a(c).val().length > 0 || void 0 !== a(this).attr("placeholder") || a(c)[0].validity.badInput === !0 ? a(this).siblings("label").addClass("active") : a(this).siblings("label, i").removeClass("active");
-                        });
-                    }), a(document).on("reset", function(b) {
-                        var d = a(b.target);
-                        d.is("form") && (d.find(c).removeClass("valid").removeClass("invalid"), d.find(c).each(function() {
-                            "" === a(this).attr("value") && a(this).siblings("label, i").removeClass("active");
-                        }), d.find("select.initialized").each(function() {
-                            var a = d.find("option[selected]").text();
-                            d.siblings("input.select-dropdown").val(a);
-                        }));
-                    }), a(document).on("focus", c, function() {
-                        a(this).siblings("label, i").addClass("active");
-                    }), a(document).on("blur", c, function() {
-                        var b = a(this);
-                        0 === b.val().length && b[0].validity.badInput !== !0 && void 0 === b.attr("placeholder") && b.siblings("label, i").removeClass("active"), 
-                        0 === b.val().length && b[0].validity.badInput !== !0 && void 0 !== b.attr("placeholder") && b.siblings("i").removeClass("active"), 
-                        validate_field(b);
-                    }), window.validate_field = function(a) {
-                        var b = void 0 !== a.attr("length"), c = parseInt(a.attr("length")), d = a.val().length;
-                        0 === a.val().length && a[0].validity.badInput === !1 ? a.hasClass("validate") && (a.removeClass("valid"), 
-                        a.removeClass("invalid")) : a.hasClass("validate") && (a.is(":valid") && b && c >= d || a.is(":valid") && !b ? (a.removeClass("invalid"), 
-                        a.addClass("valid")) : (a.removeClass("valid"), a.addClass("invalid")));
-                    };
-                    var d = a(".hiddendiv").first();
-                    d.length || (d = a('<div class="hiddendiv common"></div>'), a("body").append(d));
-                    var e = ".materialize-textarea";
-                    a(e).each(function() {
-                        var c = a(this);
-                        c.val().length && b(c);
-                    }), a("body").on("keyup keydown autoresize", e, function() {
-                        b(a(this));
-                    }), a(document).on("change", '.file-field input[type="file"]', function() {
-                        for (var b = a(this).closest(".file-field"), c = b.find("input.file-path"), d = a(this)[0].files, e = [], f = 0; f < d.length; f++) e.push(d[f].name);
-                        c.val(e.join(", ")), c.trigger("change");
-                    });
-                    var f, g = "input[type=range]", h = !1;
-                    a(g).each(function() {
-                        var b = a('<span class="thumb"><span class="value"></span></span>');
-                        a(this).after(b);
-                    });
-                    var i = ".range-field";
-                    a(document).on("change", g, function(b) {
-                        var c = a(this).siblings(".thumb");
-                        c.find(".value").html(a(this).val());
-                    }), a(document).on("input mousedown touchstart", g, function(b) {
-                        var c = a(this).siblings(".thumb");
-                        c.length <= 0 && (c = a('<span class="thumb"><span class="value"></span></span>'), 
-                        a(this).append(c)), c.find(".value").html(a(this).val()), h = !0, a(this).addClass("active"), 
-                        c.hasClass("active") || c.velocity({
-                            height: "30px",
-                            width: "30px",
-                            top: "-20px",
-                            marginLeft: "-15px"
-                        }, {
-                            duration: 300,
-                            easing: "easeOutExpo"
-                        }), f = void 0 === b.pageX || null === b.pageX ? b.originalEvent.touches[0].pageX - a(this).offset().left : b.pageX - a(this).offset().left;
-                        var d = a(this).outerWidth();
-                        0 > f ? f = 0 : f > d && (f = d), c.addClass("active").css("left", f), c.find(".value").html(a(this).val());
-                    }), a(document).on("mouseup touchend", i, function() {
-                        h = !1, a(this).removeClass("active");
-                    }), a(document).on("mousemove touchmove", i, function(b) {
-                        var c, d = a(this).children(".thumb");
-                        if (h) {
-                            d.hasClass("active") || d.velocity({
-                                height: "30px",
-                                width: "30px",
-                                top: "-20px",
-                                marginLeft: "-15px"
-                            }, {
-                                duration: 300,
-                                easing: "easeOutExpo"
-                            }), c = void 0 === b.pageX || null === b.pageX ? b.originalEvent.touches[0].pageX - a(this).offset().left : b.pageX - a(this).offset().left;
-                            var e = a(this).outerWidth();
-                            0 > c ? c = 0 : c > e && (c = e), d.addClass("active").css("left", c), d.find(".value").html(d.siblings(g).val());
+        (function ($) {
+            $(document).ready(function () {
+                // Function to update labels of text fields
+                var updateTextFields = function () {
+                    var input_selector = 'input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea';
+                    $(input_selector).each(function (index, element) {
+                        if ($(element).val().length > 0 || $(this).attr('placeholder') !== undefined || $(element)[0].validity.badInput === true) {
+                            $(this).siblings('label').addClass('active');
                         }
-                    }), a(document).on("mouseout touchleave", i, function() {
-                        if (!h) {
-                            var b = a(this).children(".thumb");
-                            b.hasClass("active") && b.velocity({
-                                height: "0",
-                                width: "0",
-                                top: "10px",
-                                marginLeft: "-6px"
-                            }, {
-                                duration: 100
-                            }), b.removeClass("active");
-                        }
-                    });
-                }), a.fn.material_select = function(b) {
-                    function c(a, b, c) {
-                        var e = a.indexOf(b);
-                        -1 === e ? a.push(b) : a.splice(e, 1), c.siblings("ul.dropdown-content").find("li").eq(b).toggleClass("active"), 
-                        c.find("option").eq(b).prop("selected", !0), d(a, c);
-                    }
-                    function d(a, b) {
-                        for (var c = "", d = 0, e = a.length; e > d; d++) {
-                            var f = b.find("option").eq(a[d]).text();
-                            c += 0 === d ? f : ", " + f;
-                        }
-                        "" === c && (c = b.find("option:disabled").eq(0).text()), b.siblings("input.select-dropdown").val(c);
-                    }
-                    a(this).each(function() {
-                        var d = a(this);
-                        if (!d.hasClass("browser-default")) {
-                            var e = d.attr("multiple") ? !0 : !1, f = d.data("select-id");
-                            if (f && (d.parent().find("span.caret").remove(), d.parent().find("input").remove(), 
-                            d.unwrap(), a("ul#select-options-" + f).remove()), "destroy" === b) return void d.data("select-id", null).removeClass("initialized");
-                            var g = Global.guid();
-                            d.data("select-id", g);
-                            var h = a('<div class="select-wrapper"></div>');
-                            h.addClass(d.attr("class"));
-                            var i, j = a('<ul id="select-options-' + g + '" class="dropdown-content select-dropdown ' + (e ? "multiple-select-dropdown" : "") + '"></ul>'), k = d.children("option"), l = [], m = !1;
-                            i = void 0 !== d.find("option:selected") ? d.find("option:selected") : j.first(), 
-                            k.each(function() {
-                                e ? j.append(a('<li class="' + (a(this).is(":disabled") ? "disabled" : "") + '"><span><input type="checkbox"' + (a(this).is(":disabled") ? "disabled" : "") + "/><label></label>" + a(this).html() + "</span></li>")) : j.append(a('<li class="' + (a(this).is(":disabled") ? "disabled" : "") + '"><span>' + a(this).html() + "</span></li>"));
-                            }), j.find("li").each(function(f) {
-                                var g = d;
-                                a(this).click(function(d) {
-                                    a(this).hasClass("disabled") || (e ? (a('input[type="checkbox"]', this).prop("checked", function(a, b) {
-                                        return !b;
-                                    }), c(l, a(this).index(), g), p.trigger("focus")) : (j.find("li").removeClass("active"), 
-                                    a(this).toggleClass("active"), g.siblings("input.select-dropdown").val(a(this).text())), 
-                                    activateOption(j, a(this)), g.find("option").eq(f).prop("selected", !0), g.trigger("change"), 
-                                    "undefined" != typeof b && b()), d.stopPropagation();
-                                });
-                            }), d.wrap(h);
-                            var n = a('<span class="caret">&#9660;</span>');
-                            d.is(":disabled") && n.addClass("disabled");
-                            var o = i.html() && i.html().replace(/"/g, "&quot;"), p = a('<input type="text" class="select-dropdown" readonly="true" ' + (d.is(":disabled") ? "disabled" : "") + ' data-activates="select-options-' + g + '" value="' + o + '"/>');
-                            d.before(p), p.before(n), a("body").append(j), d.is(":disabled") || p.dropdown({
-                                hover: !1,
-                                closeOnClick: !1
-                            }), d.attr("tabindex") && a(p[0]).attr("tabindex", d.attr("tabindex")), d.addClass("initialized"), 
-                            p.on({
-                                focus: function() {
-                                    j.is(":visible") || a(this).trigger("open"), a("ul.select-dropdown").not(j[0]).is(":visible") && a("input.select-dropdown").trigger("close");
-                                },
-                                click: function(a) {
-                                    a.stopPropagation();
-                                }
-                            }), p.on("blur", function() {
-                                e || a(this).trigger("close"), j.find("li.selected").removeClass("selected");
-                            }), j.hover(function() {
-                                m = !0;
-                            }, function() {
-                                m = !1;
-                            }), a(window).on({
-                                click: function(a) {
-                                    e && (m || p.trigger("close"));
-                                }
-                            }), activateOption = function(b, c) {
-                                b.find("li.selected").removeClass("selected"), a(c).addClass("selected");
-                            };
-                            var q = [], r = function(b) {
-                                if (9 == b.which) return void p.trigger("close");
-                                if (40 == b.which && !j.is(":visible")) return void p.trigger("open");
-                                if (13 != b.which || j.is(":visible")) {
-                                    b.preventDefault();
-                                    var c = String.fromCharCode(b.which).toLowerCase(), d = [ 9, 13, 27, 38, 40 ];
-                                    if (c && -1 === d.indexOf(b.which)) {
-                                        q.push(c);
-                                        var f = q.join(""), g = j.find("li").filter(function() {
-                                            return 0 === a(this).text().toLowerCase().indexOf(f);
-                                        })[0];
-                                        g && activateOption(j, g);
-                                    }
-                                    if (13 == b.which) {
-                                        var h = j.find("li.selected:not(.disabled)")[0];
-                                        h && (a(h).trigger("click"), e || p.trigger("close"));
-                                    }
-                                    40 == b.which && (g = j.find("li.selected").length ? j.find("li.selected").next("li:not(.disabled)")[0] : j.find("li:not(.disabled)")[0], 
-                                    activateOption(j, g)), 27 == b.which && p.trigger("close"), 38 == b.which && (g = j.find("li.selected").prev("li:not(.disabled)")[0], 
-                                    g && activateOption(j, g)), setTimeout(function() {
-                                        q = [];
-                                    }, 1e3);
-                                }
-                            };
-                            p.on("keydown", r);
+                        else {
+                            $(this).siblings('label, i').removeClass('active');
                         }
                     });
                 };
-                a(function () { $('select').material_select(); });
+                updateTextFields();
+                // Text based inputs
+                var input_selector = 'input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea';
+
+                // Handle HTML5 autofocus
+                $('input[autofocus]').siblings('label, i').addClass('active');
+
+                // Add active if form auto complete
+                $(document).on('change', input_selector, function () {
+                    if ($(this).val().length !== 0 || $(this).attr('placeholder') !== undefined) {
+                        $(this).siblings('label').addClass('active');
+                    }
+                    validate_field($(this));
+                });
+
+                // HTML DOM FORM RESET handling
+                $(document).on('reset', function (e) {
+                    var formReset = $(e.target);
+                    if (formReset.is('form')) {
+                        formReset.find(input_selector).removeClass('valid').removeClass('invalid');
+                        formReset.find(input_selector).each(function () {
+                            if ($(this).attr('value') === '') {
+                                $(this).siblings('label, i').removeClass('active');
+                            }
+                        });
+
+                        // Reset select
+                        formReset.find('select.initialized').each(function () {
+                            var reset_text = formReset.find('option[selected]').text();
+                            formReset.siblings('input.select-dropdown').val(reset_text);
+                        });
+                    }
+                });
+
+                // Add active when element has focus
+                $(document).on('focus', input_selector, function () {
+                    $(this).siblings('label, i').addClass('active');
+                });
+
+                $(document).on('blur', input_selector, function () {
+                    var $inputElement = $(this);
+                    if ($inputElement.val().length === 0 && $inputElement[0].validity.badInput !== true && $inputElement.attr('placeholder') === undefined) {
+                        $inputElement.siblings('label, i').removeClass('active');
+                    }
+
+                    if ($inputElement.val().length === 0 && $inputElement[0].validity.badInput !== true && $inputElement.attr('placeholder') !== undefined) {
+                        $inputElement.siblings('i').removeClass('active');
+                    }
+                    validate_field($inputElement);
+                });
+
+                window.validate_field = function (object) {
+                    var hasLength = object.attr('length') !== undefined;
+                    var lenAttr = parseInt(object.attr('length'));
+                    var len = object.val().length;
+
+                    if (object.val().length === 0 && object[0].validity.badInput === false) {
+                        if (object.hasClass('validate')) {
+                            object.removeClass('valid');
+                            object.removeClass('invalid');
+                        }
+                    }
+                    else {
+                        if (object.hasClass('validate')) {
+                            // Check for character counter attributes
+                            if ((object.is(':valid') && hasLength && (len <= lenAttr)) || (object.is(':valid') && !hasLength)) {
+                                object.removeClass('invalid');
+                                object.addClass('valid');
+                            }
+                            else {
+                                object.removeClass('valid');
+                                object.addClass('invalid');
+                            }
+                        }
+                    }
+                };
+
+
+                // Textarea Auto Resize
+                var hiddenDiv = $('.hiddendiv').first();
+                if (!hiddenDiv.length) {
+                    hiddenDiv = $('<div class="hiddendiv common"></div>');
+                    $('body').append(hiddenDiv);
+                }
+                var text_area_selector = '.materialize-textarea';
+
+                function textareaAutoResize($textarea) {
+                    // Set font properties of hiddenDiv
+
+                    var fontFamily = $textarea.css('font-family');
+                    var fontSize = $textarea.css('font-size');
+
+                    if (fontSize) { hiddenDiv.css('font-size', fontSize); }
+                    if (fontFamily) { hiddenDiv.css('font-family', fontFamily); }
+
+                    if ($textarea.attr('wrap') === "off") {
+                        hiddenDiv.css('overflow-wrap', "normal")
+                                 .css('white-space', "pre");
+                    }
+
+                    hiddenDiv.text($textarea.val() + '\n');
+                    var content = hiddenDiv.html().replace(/\n/g, '<br>');
+                    hiddenDiv.html(content);
+
+
+                    // When textarea is hidden, width goes crazy.
+                    // Approximate with half of window size
+
+                    if ($textarea.is(':visible')) {
+                        hiddenDiv.css('width', $textarea.width());
+                    }
+                    else {
+                        hiddenDiv.css('width', $(window).width() / 2);
+                    }
+
+                    $textarea.css('height', hiddenDiv.height());
+                }
+
+                $(text_area_selector).each(function () {
+                    var $textarea = $(this);
+                    if ($textarea.val().length) {
+                        textareaAutoResize($textarea);
+                    }
+                });
+
+                $('body').on('keyup keydown autoresize', text_area_selector, function () {
+                    textareaAutoResize($(this));
+                });
+
+                // File Input Path
+                $(document).on('change', '.file-field input[type="file"]', function () {
+                    var file_field = $(this).closest('.file-field');
+                    var path_input = file_field.find('input.file-path');
+                    var files = $(this)[0].files;
+                    var file_names = [];
+                    for (var i = 0; i < files.length; i++) {
+                        file_names.push(files[i].name);
+                    }
+                    path_input.val(file_names.join(", "));
+                    path_input.trigger('change');
+                });
+
+                /****************
+                *  Range Input  *
+                ****************/
+
+                var range_type = 'input[type=range]';
+                var range_mousedown = false;
+                var left;
+
+                $(range_type).each(function () {
+                    var thumb = $('<span class="thumb"><span class="value"></span></span>');
+                    $(this).after(thumb);
+                });
+
+                var range_wrapper = '.range-field';
+                $(document).on('change', range_type, function (e) {
+                    var thumb = $(this).siblings('.thumb');
+                    thumb.find('.value').html($(this).val());
+                });
+
+                $(document).on('input mousedown touchstart', range_type, function (e) {
+                    var thumb = $(this).siblings('.thumb');
+                    var width = $(this).outerWidth();
+
+                    // If thumb indicator does not exist yet, create it
+                    if (thumb.length <= 0) {
+                        thumb = $('<span class="thumb"><span class="value"></span></span>');
+                        $(this).after(thumb);
+                    }
+
+                    // Set indicator value
+                    thumb.find('.value').html($(this).val());
+
+                    range_mousedown = true;
+                    $(this).addClass('active');
+
+                    if (!thumb.hasClass('active')) {
+                        thumb.velocity({ height: "30px", width: "30px", top: "-20px", marginLeft: "-15px" }, { duration: 300, easing: 'easeOutExpo' });
+                    }
+
+                    if (e.type !== 'input') {
+                        if (e.pageX === undefined || e.pageX === null) {//mobile
+                            left = e.originalEvent.touches[0].pageX - $(this).offset().left;
+                        }
+                        else { // desktop
+                            left = e.pageX - $(this).offset().left;
+                        }
+                        if (left < 0) {
+                            left = 0;
+                        }
+                        else if (left > width) {
+                            left = width;
+                        }
+                        thumb.addClass('active').css('left', left);
+                    }
+
+                    thumb.find('.value').html($(this).val());
+                });
+
+                $(document).on('mouseup touchend', range_wrapper, function () {
+                    range_mousedown = false;
+                    $(this).removeClass('active');
+                });
+
+                $(document).on('mousemove touchmove', range_wrapper, function (e) {
+                    var thumb = $(this).children('.thumb');
+                    var left;
+                    if (range_mousedown) {
+                        if (!thumb.hasClass('active')) {
+                            thumb.velocity({ height: '30px', width: '30px', top: '-20px', marginLeft: '-15px' }, { duration: 300, easing: 'easeOutExpo' });
+                        }
+                        if (e.pageX === undefined || e.pageX === null) { //mobile
+                            left = e.originalEvent.touches[0].pageX - $(this).offset().left;
+                        }
+                        else { // desktop
+                            left = e.pageX - $(this).offset().left;
+                        }
+                        var width = $(this).outerWidth();
+
+                        if (left < 0) {
+                            left = 0;
+                        }
+                        else if (left > width) {
+                            left = width;
+                        }
+                        thumb.addClass('active').css('left', left);
+                        thumb.find('.value').html(thumb.siblings(range_type).val());
+                    }
+                });
+
+                $(document).on('mouseout touchleave', range_wrapper, function () {
+                    if (!range_mousedown) {
+
+                        var thumb = $(this).children('.thumb');
+
+                        if (thumb.hasClass('active')) {
+                            thumb.velocity({ height: '0', width: '0', top: '10px', marginLeft: '-6px' }, { duration: 100 });
+                        }
+                        thumb.removeClass('active');
+                    }
+                });
+            }); // End of $(document).ready
+
+            /*******************
+             *  Select Plugin  *
+             ******************/
+            $.fn.material_select = function (callback) {
+                $(this).each(function () {
+                    var $select = $(this);
+
+                    if ($select.hasClass('browser-default')) {
+                        return; // Continue to next (return false breaks out of entire loop)
+                    }
+
+                    var multiple = $select.attr('multiple') ? true : false,
+                        lastID = $select.data('select-id'); // Tear down structure if Select needs to be rebuilt
+
+                    if (lastID) {
+                        $select.parent().find('span.caret').remove();
+                        $select.parent().find('input').remove();
+
+                        $select.unwrap();
+                        $('ul#select-options-' + lastID).remove();
+                    }
+
+                    // If destroying the select, remove the selelct-id and reset it to it's uninitialized state.
+                    if (callback === 'destroy') {
+                        $select.data('select-id', null).removeClass('initialized');
+                        return;
+                    }
+                    function s4() {
+                        return Math.floor((1 + Math.random()) * 0x10000)
+                          .toString(16)
+                          .substring(1);
+                    }
+                    var guid = function () {
+                        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                               s4() + '-' + s4() + s4() + s4();
+                    };
+                    var uniqueID = guid();
+                    $select.data('select-id', uniqueID);
+                    var wrapper = $('<div class="select-wrapper"></div>');
+                    wrapper.addClass($select.attr('class'));
+                    var options = $('<ul id="select-options-' + uniqueID + '" class="dropdown-content select-dropdown ' + (multiple ? 'multiple-select-dropdown' : '') + '"></ul>'),
+                        selectOptions = $select.children('option'),
+                        selectOptGroups = $select.children('optgroup'),
+                        valuesSelected = [],
+                        optionsHover = false;
+
+                    if ($select.find('option:selected').length > 0) {
+                        label = $select.find('option:selected');
+                    } else {
+                        label = selectOptions.first();
+                    }
+
+                    // Function that renders and appends the option taking into
+                    // account type and possible image icon.
+                    var appendOptionWithIcon = function (select, option, type) {
+                        // Add disabled attr if disabled
+                        var disabledClass = (option.is(':disabled')) ? 'disabled ' : '';
+
+                        // add icons
+                        var icon_url = option.data('icon');
+                        var classes = option.attr('class');
+                        if (!!icon_url) {
+                            var classString = '';
+                            if (!!classes) classString = ' class="' + classes + '"';
+
+                            // Check for multiple type.
+                            if (type === 'multiple') {
+                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '"' + classString + '><span><input type="checkbox"' + disabledClass + '/><label></label>' + option.html() + '</span></li>'));
+                            } else {
+                                options.append($('<li class="' + disabledClass + '"><img src="' + icon_url + '"' + classString + '><span>' + option.html() + '</span></li>'));
+                            }
+                            return true;
+                        }
+
+                        // Check for multiple type.
+                        if (type === 'multiple') {
+                            options.append($('<li class="' + disabledClass + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + option.html() + '</span></li>'));
+                        } else {
+                            options.append($('<li class="' + disabledClass + '"><span>' + option.html() + '</span></li>'));
+                        }
+                    };
+
+                    /* Create dropdown structure. */
+                    if (selectOptGroups.length) {
+                        // Check for optgroup
+                        selectOptGroups.each(function () {
+                            selectOptions = $(this).children('option');
+                            options.append($('<li class="optgroup"><span>' + $(this).attr('label') + '</span></li>'));
+
+                            selectOptions.each(function () {
+                                appendOptionWithIcon($select, $(this));
+                            });
+                        });
+                    } else {
+                        selectOptions.each(function () {
+                            if (multiple) {
+                                appendOptionWithIcon($select, $(this), 'multiple');
+
+                            } else {
+                                appendOptionWithIcon($select, $(this));
+                            }
+                        });
+                    }
+
+                    options.find('li:not(.optgroup)').each(function (i) {
+                        $(this).click(function (e) {
+                            // Check if option element is disabled
+                            if (!$(this).hasClass('disabled') && !$(this).hasClass('optgroup')) {
+                                var selected = true;
+
+                                if (multiple) {
+                                    $('input[type="checkbox"]', this).prop('checked', function (i, v) { return !v; });
+                                    selected = toggleEntryFromArray(valuesSelected, $(this).index(), $select);
+                                    $newSelect.trigger('focus');
+                                } else {
+                                    options.find('li').removeClass('active');
+                                    $(this).toggleClass('active');
+                                    $newSelect.val($(this).text());
+                                }
+
+                                activateOption(options, $(this));
+                                $select.find('option').eq(i).prop('selected', selected);
+                                // Trigger onchange() event
+                                $select.trigger('change');
+                                if (typeof callback !== 'undefined') callback();
+                            }
+
+                            e.stopPropagation();
+                        });
+                    });
+
+                    // Wrap Elements
+                    $select.wrap(wrapper);
+                    // Add Select Display Element
+                    var dropdownIcon = $('<span class="caret">&#9660;</span>');
+                    if ($select.is(':disabled'))
+                        dropdownIcon.addClass('disabled');
+
+                    // escape double quotes
+                    var sanitizedLabelHtml = label.html() && label.html().replace(/"/g, '&quot;');
+
+                    var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + (($select.is(':disabled')) ? 'disabled' : '') + ' data-activates="select-options-' + uniqueID + '" value="' + sanitizedLabelHtml + '"/>');
+                    $select.before($newSelect);
+                    $newSelect.before(dropdownIcon);
+
+                    $newSelect.after(options);
+                    // Check if section element is disabled
+                    if (!$select.is(':disabled')) {
+                        $newSelect.dropdown({ 'hover': false, 'closeOnClick': false });
+                    }
+
+                    // Copy tabindex
+                    if ($select.attr('tabindex')) {
+                        $($newSelect[0]).attr('tabindex', $select.attr('tabindex'));
+                    }
+
+                    $select.addClass('initialized');
+
+                    $newSelect.on({
+                        'focus': function () {
+                            if ($('ul.select-dropdown').not(options[0]).is(':visible')) {
+                                $('input.select-dropdown').trigger('close');
+                            }
+                            if (!options.is(':visible')) {
+                                $(this).trigger('open', ['focus']);
+                                var label = $(this).val();
+                                var selectedOption = options.find('li').filter(function () {
+                                    return $(this).text().toLowerCase() === label.toLowerCase();
+                                })[0];
+                                activateOption(options, selectedOption);
+                            }
+                        },
+                        'click': function (e) {
+                            e.stopPropagation();
+                        }
+                    });
+
+                    $newSelect.on('blur', function () {
+                        if (!multiple) {
+                            $(this).trigger('close');
+                        }
+                        options.find('li.selected').removeClass('selected');
+                    });
+
+                    options.hover(function () {
+                        optionsHover = true;
+                    }, function () {
+                        optionsHover = false;
+                    });
+
+                    $(window).on({
+                        'click': function () {
+                            multiple && (optionsHover || $newSelect.trigger('close'));
+                        }
+                    });
+
+                    // Add initial multiple selections.
+                    if (multiple) {
+                        $select.find("option:selected:not(:disabled)").each(function () {
+                            var index = $(this).index();
+
+                            toggleEntryFromArray(valuesSelected, index, $select);
+                            options.find("li").eq(index).find(":checkbox").prop("checked", true);
+                        });
+                    }
+
+                    // Make option as selected and scroll to selected position
+                    activateOption = function (collection, newOption) {
+                        if (newOption) {
+                            collection.find('li.selected').removeClass('selected');
+                            var option = $(newOption);
+                            option.addClass('selected');
+                            options.scrollTo(option);
+                        }
+                    };
+
+                    // Allow user to search by typing
+                    // this array is cleared after 1 second
+                    var filterQuery = [],
+                        onKeyDown = function (e) {
+                            // TAB - switch to another input
+                            if (e.which == 9) {
+                                $newSelect.trigger('close');
+                                return;
+                            }
+
+                            // ARROW DOWN WHEN SELECT IS CLOSED - open select options
+                            if (e.which == 40 && !options.is(':visible')) {
+                                $newSelect.trigger('open');
+                                return;
+                            }
+
+                            // ENTER WHEN SELECT IS CLOSED - submit form
+                            if (e.which == 13 && !options.is(':visible')) {
+                                return;
+                            }
+
+                            e.preventDefault();
+
+                            // CASE WHEN USER TYPE LETTERS
+                            var letter = String.fromCharCode(e.which).toLowerCase(),
+                                nonLetters = [9, 13, 27, 38, 40];
+                            if (letter && (nonLetters.indexOf(e.which) === -1)) {
+                                filterQuery.push(letter);
+
+                                var string = filterQuery.join(''),
+                                    newOption = options.find('li').filter(function () {
+                                        return $(this).text().toLowerCase().indexOf(string) === 0;
+                                    })[0];
+
+                                if (newOption) {
+                                    activateOption(options, newOption);
+                                }
+                            }
+
+                            // ENTER - select option and close when select options are opened
+                            if (e.which == 13) {
+                                var activeOption = options.find('li.selected:not(.disabled)')[0];
+                                if (activeOption) {
+                                    $(activeOption).trigger('click');
+                                    if (!multiple) {
+                                        $newSelect.trigger('close');
+                                    }
+                                }
+                            }
+
+                            // ARROW DOWN - move to next not disabled option
+                            if (e.which == 40) {
+                                if (options.find('li.selected').length) {
+                                    newOption = options.find('li.selected').next('li:not(.disabled)')[0];
+                                } else {
+                                    newOption = options.find('li:not(.disabled)')[0];
+                                }
+                                activateOption(options, newOption);
+                            }
+
+                            // ESC - close options
+                            if (e.which == 27) {
+                                $newSelect.trigger('close');
+                            }
+
+                            // ARROW UP - move to previous not disabled option
+                            if (e.which == 38) {
+                                newOption = options.find('li.selected').prev('li:not(.disabled)')[0];
+                                if (newOption)
+                                    activateOption(options, newOption);
+                            }
+
+                            // Automaticaly clean filter query so user can search again by starting letters
+                            setTimeout(function () { filterQuery = []; }, 1000);
+                        };
+
+                    $newSelect.on('keydown', onKeyDown);
+                });
+
+                function toggleEntryFromArray(entriesArray, entryIndex, select) {
+                    var index = entriesArray.indexOf(entryIndex),
+                        notAdded = index === -1;
+
+                    if (notAdded) {
+                        entriesArray.push(entryIndex);
+                    } else {
+                        entriesArray.splice(index, 1);
+                    }
+
+                    select.siblings('ul.dropdown-content').find('li').eq(entryIndex).toggleClass('active');
+                    select.find('option').eq(entryIndex).prop('selected', true);
+                    setValueToInput(entriesArray, select);
+
+                    return notAdded;
+                }
+
+                function setValueToInput(entriesArray, select) {
+                    var value = '';
+
+                    for (var i = 0, count = entriesArray.length; i < count; i++) {
+                        var text = select.find('option').eq(entriesArray[i]).text();
+
+                        i === 0 ? value += text : value += ', ' + text;
+                    }
+
+                    if (value === '') {
+                        value = select.find('option:disabled').eq(0).text();
+                    }
+
+                    select.siblings('input.select-dropdown').val(value);
+                }
+            };
+
         })(jquery);
     }
 })

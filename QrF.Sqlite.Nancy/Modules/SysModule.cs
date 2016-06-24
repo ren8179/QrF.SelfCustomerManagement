@@ -88,7 +88,7 @@ namespace QrF.Sqlite.Nancy.Modules
             Get("/menuGet", args =>
             {
                 var id = Request.Query["id"];
-                Menu result = SqliteService.GetMenu(id);
+                Menu result = SqliteService.GetMenu(id)??new Menu();
                 return this.Response.AsJson(new
                 {
                     result.ID,
@@ -174,7 +174,7 @@ namespace QrF.Sqlite.Nancy.Modules
             Get("/roleGet", args =>
             {
                 var id = Request.Query["id"];
-                Role result = SqliteService.GetRole(id);
+                Role result = SqliteService.GetRole(id)??new Role();
                 return Response.AsJson(new
                 {
                     result.ID,
@@ -245,7 +245,7 @@ namespace QrF.Sqlite.Nancy.Modules
             Get("/userGet", args =>
             {
                 var id = (int)Request.Query["id"];
-                User item = SqliteService.GetUser(id);
+                User item = SqliteService.GetUser(id)??new User();
                 return Response.AsJson(new
                 {
                     ID = item.ID,

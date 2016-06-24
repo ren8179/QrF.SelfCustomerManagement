@@ -7,6 +7,9 @@ namespace QrF.Sqlite.Contract
 {
     public class Role : IEntity
     {
+        public Role() {
+            CreateTime = DateTime.Now;
+        }
         public string Name { get; set; }
         public string Info { get; set; }
         public string BusinessPermissionString { get; set; }

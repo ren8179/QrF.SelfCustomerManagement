@@ -27,6 +27,6 @@
         }
     });
     $(function () {
-        INPUTS.USERNAME.val(Url.getParam('username'));
+        INPUTS.USERNAME.val(Url.getParam('username')).focus();
     });
 });

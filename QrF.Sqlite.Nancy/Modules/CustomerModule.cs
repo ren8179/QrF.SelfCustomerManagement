@@ -90,9 +90,7 @@ namespace QrF.Sqlite.Nancy.Modules
 
             Post("/infoEdit", args =>
             {
-                var reader = new StreamReader(Request.Body);
-                string text = reader.ReadToEnd();
-                var model = JsonConvert.DeserializeObject<Customer>(text);
+                var model = JsonConvert.DeserializeObject<Customer>(new StreamReader(Request.Body).ReadToEnd());
                 SqliteService.SaveCustomer(model);
                 return Response.AsJson("操作成功");
             });

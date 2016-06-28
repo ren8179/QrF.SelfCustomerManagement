@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <title>QrF | 角色管理</title>
     <!-- Favicons-->
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <!-- CORE CSS-->
     <link href="../../content/css/materialize.min.css" rel="stylesheet" />
     <link href="../../content/css/style.min.css" rel="stylesheet" />
@@ -113,7 +113,7 @@
                                         <button class="btn cyan waves-effect waves-light left query_btn" type="button" name="action">
                                             <i class="mdi-action-search"></i> 查询
                                         </button>
-                                        <a class="btn teal waves-effect waves-light right modal-trigger" href="#modalEdit">
+                                        <a class="btn teal waves-effect waves-light right edit_btn" href="/sys/roleGet?id=-1">
                                             <i class="mdi-content-add"></i> 新增
                                         </a>
                                     </div>
@@ -180,7 +180,7 @@
     <script src="../../content/js/lib/sea.js"></script>
     <script src="../../content/js/common.js"></script>
     <script>
-        var menu = seajs.use('js/app/role.js');
+        seajs.use('js/app/role.js');
     </script>
 </body>
 </html>

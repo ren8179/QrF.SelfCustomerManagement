@@ -12,6 +12,8 @@ using QrF.Framework.Contract;
 using System.Linq;
 using System.Collections.Generic;
 using QrF.Framework.Utility;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace QrF.Sqlite.Nancy.Modules
 {
@@ -106,7 +108,7 @@ namespace QrF.Sqlite.Nancy.Modules
 
             Post("/menuEdit", args =>
             {
-                var model = this.Bind<Menu>();
+                var model = JsonConvert.DeserializeObject<Menu>(new StreamReader(Request.Body).ReadToEnd());
                 SqliteService.SaveMenu(model);
                 return Response.AsJson("操作成功");
             });
@@ -187,7 +189,7 @@ namespace QrF.Sqlite.Nancy.Modules
 
             Post("/roleEdit", args =>
             {
-                var model = this.Bind<Role>();
+                var model = JsonConvert.DeserializeObject<Role>(new StreamReader(Request.Body).ReadToEnd());
                 SqliteService.SaveRole(model);
                 return Response.AsJson("操作成功");
             });
@@ -262,7 +264,7 @@ namespace QrF.Sqlite.Nancy.Modules
 
             Post("/userEdit", args =>
             {
-                var model = this.Bind<User>();
+                var model = JsonConvert.DeserializeObject<User>(new StreamReader(Request.Body).ReadToEnd());
                 SqliteService.SaveUser(model);
                 return Response.AsJson("操作成功");
             });

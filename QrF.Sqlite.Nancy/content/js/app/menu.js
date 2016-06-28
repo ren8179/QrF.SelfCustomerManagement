@@ -7,7 +7,10 @@
     $(function () {
         Global.init(2, "menu", function (result) {
             if (result) {
-                $("#Orderby").parent().show();
+                if (result.iD <= 0)
+                    $("#Orderby").parent().hide();
+                else
+                    $("#Orderby").parent().show();
                 $("#Url").val(result.url).focus();
                 $("#Info").val(result.info).focus();
                 $("#Code").val(result.code).focus();

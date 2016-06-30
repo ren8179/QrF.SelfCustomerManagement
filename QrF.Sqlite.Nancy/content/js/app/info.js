@@ -3,8 +3,13 @@
     //引入依赖的组件
     var $ = require('jquery'),
         Global = require('mod/global');
+        require('mod/picker.date');
 
     $(function () {
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
         Global.init(6, "info",function (result) {
             if (result) {
                 $("#BuyTime").val(result.buyTime).focus();

@@ -265,7 +265,15 @@ namespace QrF.Sqlite.Nancy.Modules
             Post("/userEdit", args =>
             {
                 var model = JsonConvert.DeserializeObject<User>(new StreamReader(Request.Body).ReadToEnd());
-                SqliteService.SaveUser(model);
+                var user = SqliteService.GetUser(model.ID) ?? new User();
+                user.LoginName = model.LoginName;
+                user.UserName = model.UserName;
+                user.Password = model.Password;
+                user.Email = model.Email;
+                user.Mobile = model.Mobile;
+                user.IsActive = model.IsActive;
+                user.RoleIds = model.RoleIds;
+                SqliteService.SaveUser(user);
                 return Response.AsJson("操作成功");
             });
 

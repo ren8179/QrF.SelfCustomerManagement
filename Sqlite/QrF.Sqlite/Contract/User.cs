@@ -43,20 +43,5 @@ namespace QrF.Sqlite.Contract
         [NotMapped]
         public string RoleIds { get; set; }
 
-        [NotMapped]
-        public List<int> BusinessPermissionList
-        {
-            get
-            {
-                var permissions = new List<int>();
-
-                foreach (var role in Roles)
-                {
-                    permissions.AddRange(role.BusinessPermissionList);
-                }
-
-                return permissions.Distinct().ToList();
-            }
-        }
     }
 }

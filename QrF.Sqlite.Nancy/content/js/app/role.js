@@ -2,7 +2,8 @@
 
     //引入依赖的组件
     var $ = require('jquery'),
-        Global = require('mod/global');
+        Global = require('mod/global'),
+        tree = $('#tree');
     require('jstree')($);
 
     $(function () {
@@ -13,7 +14,27 @@
                 $("#Name", $('.formValidate')).val(result.name).focus();
                 $("#ID").val(result.iD);
                 $("#CreateTime").val(result.createTime);
-                bindJsTree(result.businessPermissionString);
+                tree.jstree("uncheck_all");//清空
+                if (result.businessPermissionString) {
+                    $.each(result.businessPermissionString.split(','), function (i, item) {
+                        tree.jstree('check_node', item);//将节点选中 
+                    });
+                }
+            }
+        });
+        Global.loadAjaxData('/sys/menuTree', function (result) {   //复选框树的初始化
+            if (result) {
+                tree.jstree({
+                    'plugins': ["wholerow", "checkbox", "types"], //出现选择框
+                    'core': {
+                        'data': result,
+                        'themes': { "responsive": false }
+                    },
+                    'types': {
+                        'default': { 'icon': "glyphicon glyphicon-leaf" },
+                        'parent': { 'icon': "glyphicon glyphicon-folder-open" }
+                    }
+                });
             }
         });
         Global.initFormValidate('/sys/roleEdit', {
@@ -69,31 +90,5 @@
             e.preventDefault();
         });
         $(".query_btn").click();
-
     });
-    function bindJsTree(checkedItem) {
-        var control = $('#tree'), items = checkedItem;
-        control.data('jstree', false);//清空数据，必须
-        Global.loadAjaxData('/sys/menuTree', function (result) {   //复选框树的初始化
-            if (result) {
-                control.jstree({
-                    'plugins': ["wholerow", "checkbox", "types"], //出现选择框
-                    'core': {
-                        'data': result,
-                        'themes': { "responsive": false }
-                    },
-                    'types': {
-                        'default': { 'icon': "glyphicon glyphicon-leaf" },
-                        'parent': { 'icon': "glyphicon glyphicon-folder-open" }
-                    }
-                }).bind('loaded.jstree', function () {
-                    if (items) {
-                        $.each(items.split(','), function (i, item) {
-                            control.jstree('check_node', item);//将节点选中 
-                        });
-                    }
-                });
-            }
-        });
-    }
 });

@@ -93,18 +93,18 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                var ids = model.RoleIds.Split(',').Select<string, int>(x => int.Parse(x)).ToList();
+                var ids =string.IsNullOrEmpty(model.RoleIds)?new List<int>(): model.RoleIds.Split(',').Select<string, int>(x => int.Parse(x)).ToList();
                 if (model.ID > 0)
                 {
                     dbContext.Users.Attach(model);
-                    dbContext.Entry<User>(model).State = EntityState.Modified;
+                    dbContext.Entry(model).State = EntityState.Modified;
                     var roles = dbContext.Roles.Where(r => ids.Contains(r.ID)).ToList();
                     model.Roles = roles;
                     dbContext.SaveChanges();
                 }
                 else
                 {
-                    var existUser = dbContext.Users.Where(u => u.LoginName == model.LoginName).ToList();
+                    var existUser = dbContext.Users.Include("Roles").Where(u => u.LoginName == model.LoginName).ToList();
                     if (existUser.Count > 0)
                     {
                         throw new BusinessException("LoginName", "此登录名已存在！");
@@ -126,7 +126,15 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                dbContext.Users.Include("Roles").Where(u => ids.Contains(u.ID)).ToList().ForEach(a => { a.Roles.Clear(); dbContext.Users.Remove(a); });
+                dbContext.Users.Include("Roles").Where(u => ids.Contains(u.ID)).ToList().ForEach(a => {
+                    var roles = new List<Role>();
+                    roles.AddRange(a.Roles.Select(x => x));
+                    foreach (var role in roles)
+                    {
+                        a.Roles.Remove(role);
+                    }
+                    dbContext.Users.Remove(a);
+                });
                 dbContext.SaveChanges();
             }
         }
@@ -372,7 +380,12 @@ namespace QrF.Sqlite.Service
             using (var dbContext = new SqliteDbContext())
             {
                 dbContext.Roles.Include("Users").Where(u => ids.Contains(u.ID)).ToList().ForEach(a => {
-                    a.Users.Clear();
+                    var users = new List<User>();
+                    users.AddRange(a.Users.Select(x => x));
+                    foreach (var user in users)
+                    {
+                        a.Users.Remove(user);
+                    }
                     dbContext.Roles.Remove(a);
                 });
                 dbContext.SaveChanges();

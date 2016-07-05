@@ -3,7 +3,7 @@
     //引入依赖的组件
     var $ = require('jquery'),
         Global = require('mod/global');
-        require('mod/picker.date');
+    require('picker.date');
 
     $(function () {
         $('.datepicker').pickadate({

@@ -1,16 +1,15 @@
 /*!
- * Date picker for pickadate.js v3.5.0
+ * Date picker for pickadate.js v3.5.6
  * http://amsul.github.io/pickadate.js/date.htm
  */
 define(function (require, exports, module) {
-    var $ = require('jquery'),
-        Picker = require('mod/picker');
+    var $ = require('jquery'), Picker = require('picker');
     /**
      * Globals and constants
      */
     var DAYS_IN_WEEK = 7,
         WEEKS_IN_CALENDAR = 6,
-        _ = Picker._;
+        _ = Picker._
 
     /**
      * The date picker constructor
@@ -66,7 +65,10 @@ define(function (require, exports, module) {
         // When there’s a value, set the `select`, which in turn
         // also sets the `highlight` and `view`.
         if (valueString) {
-            calendar.set('select', valueString, { format: formatString })
+            calendar.set('select', valueString, {
+                format: formatString,
+                defaultValue: true
+            })
         }
 
             // If there’s no value, default to highlighting “today”.
@@ -170,12 +172,14 @@ define(function (require, exports, module) {
         return calendar
     } //DatePicker.prototype.set
 
+
     /**
      * Get a datepicker item object.
      */
     DatePicker.prototype.get = function (type) {
         return this.item[type]
     } //DatePicker.prototype.get
+
 
     /**
      * Create a picker date object.
@@ -227,6 +231,7 @@ define(function (require, exports, module) {
         }
     } //DatePicker.prototype.create
 
+
     /**
      * Create a range limit object using an array, date object,
      * literal “true”, or integer relative to another time.
@@ -263,6 +268,7 @@ define(function (require, exports, module) {
         }
     } //DatePicker.prototype.createRange
 
+
     /**
      * Check if a date unit falls within a date range object.
      */
@@ -270,6 +276,7 @@ define(function (require, exports, module) {
         range = this.createRange(range.from, range.to)
         return dateUnit.pick >= range.from.pick && dateUnit.pick <= range.to.pick
     }
+
 
     /**
      * Check if two date range objects overlap.
@@ -286,6 +293,7 @@ define(function (require, exports, module) {
             calendar.withinRange(two, one.from) || calendar.withinRange(two, one.to)
     }
 
+
     /**
      * Get the date today.
      */
@@ -296,6 +304,7 @@ define(function (require, exports, module) {
         }
         return this.normalize(value, options)
     }
+
 
     /**
      * Navigate to next/prev month.
@@ -353,6 +362,7 @@ define(function (require, exports, module) {
         return value
     } //DatePicker.prototype.navigate
 
+
     /**
      * Normalize a date by setting the hours to midnight.
      */
@@ -360,6 +370,7 @@ define(function (require, exports, module) {
         value.setHours(0, 0, 0, 0)
         return value
     }
+
 
     /**
      * Measure the range of dates.
@@ -386,12 +397,14 @@ define(function (require, exports, module) {
         return value
     } ///DatePicker.prototype.measure
 
+
     /**
      * Create a viewset object based on navigation.
      */
     DatePicker.prototype.viewset = function (type, dateObject/*, options*/) {
         return this.create([dateObject.year, dateObject.month, 1])
     }
+
 
     /**
      * Validate a date as enabled and shift if needed.
@@ -447,7 +460,7 @@ define(function (require, exports, module) {
         // • Not inverted and date enabled.
         // • Inverted and all dates disabled.
         // • ..and anything else.
-        if (!options || !options.nav) if (
+        if (!options || (!options.nav && !options.defaultValue)) if (
             /* 1 */ (!isFlippedBase && calendar.disabled(dateObject)) ||
             /* 2 */ (isFlippedBase && calendar.disabled(dateObject) && (hasEnabledWeekdays || hasEnabledBeforeTarget || hasEnabledAfterTarget)) ||
             /* 3 */ (!isFlippedBase && (dateObject.pick <= minLimitObject.pick || dateObject.pick >= maxLimitObject.pick))
@@ -515,6 +528,7 @@ define(function (require, exports, module) {
         return dateObject
     } //DatePicker.prototype.validate
 
+
     /**
      * Check if a date is disabled.
      */
@@ -555,6 +569,7 @@ define(function (require, exports, module) {
             dateToVerify.pick > calendar.item.max.pick
 
     } //DatePicker.prototype.disabled
+
 
     /**
      * Parse a string into a usable type.
@@ -604,6 +619,7 @@ define(function (require, exports, module) {
         ]
     } //DatePicker.prototype.parse
 
+
     /**
      * Various formats to display the object in.
      */
@@ -613,7 +629,8 @@ define(function (require, exports, module) {
         function getWordLengthFromCollection(string, collection, dateObject) {
 
             // Grab the first word from the string.
-            var word = string.match(/\w+/)[0]
+            // Regex pattern from http://stackoverflow.com/q/150033
+            var word = string.match(/[^\x00-\x7F]+|\w+/)[0]
 
             // If there's no month index, add it to the date object
             if (!dateObject.mm && !dateObject.m) {
@@ -709,6 +726,9 @@ define(function (require, exports, module) {
         }
     })() //DatePicker.prototype.formats
 
+
+
+
     /**
      * Check if two date units are the exact.
      */
@@ -740,6 +760,7 @@ define(function (require, exports, module) {
         return false
     }
 
+
     /**
      * Check if two date units overlap.
      */
@@ -766,6 +787,7 @@ define(function (require, exports, module) {
         return false
     }
 
+
     /**
      * Flip the “enabled” state.
      */
@@ -773,6 +795,7 @@ define(function (require, exports, module) {
         var itemObject = this.item
         itemObject.enable = val || (itemObject.enable == -1 ? 1 : -1)
     }
+
 
     /**
      * Mark a collection of dates as “disabled”.
@@ -831,6 +854,7 @@ define(function (require, exports, module) {
         // Return the updated collection.
         return disabledItems
     } //DatePicker.prototype.deactivate
+
 
     /**
      * Mark a collection of dates as “enabled”.
@@ -922,6 +946,7 @@ define(function (require, exports, module) {
         // Return the updated collection.
         return disabledItems.filter(function (val) { return val != null })
     } //DatePicker.prototype.activate
+
 
     /**
      * Create a string for the nodes in the picker.
@@ -1294,6 +1319,8 @@ define(function (require, exports, module) {
             ) //endreturn
     } //DatePicker.prototype.nodes
 
+
+
     /**
      * The date picker defaults.
      */
@@ -1324,15 +1351,14 @@ define(function (require, exports, module) {
             close: '关闭',
 
             // The format to show on the `input` element
-            format: 'd mmmm, yyyy',
-
+            format: 'yyyy-mm-dd',
+            container: 'body',
             // Classes
             klass: {
 
                 table: prefix + 'table',
 
                 header: prefix + 'header',
-
 
                 // Materialize Added klasses
                 date_display: prefix + 'date-display',
@@ -1341,8 +1367,6 @@ define(function (require, exports, module) {
                 year_display: prefix + 'year-display',
                 calendar_container: prefix + 'calendar-container',
                 // end
-
-
 
                 navPrev: prefix + 'nav--prev',
                 navNext: prefix + 'nav--next',
@@ -1371,11 +1395,13 @@ define(function (require, exports, module) {
                 buttonClose: prefix + 'button--close'
             }
         }
-    })(Picker.klasses().picker + '__');
+    })(Picker.klasses().picker + '__')
 
     /**
      * Extend the picker to add the date picker.
      */
-    Picker.extend('pickadate', DatePicker);
+    Picker.extend('pickadate', DatePicker)
 });
+
+
 

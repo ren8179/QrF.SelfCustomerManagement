@@ -1,14 +1,10 @@
-﻿using EntityFramework.Extensions;
-using QrF.Framework.Contract;
+﻿using QrF.Framework.Contract;
 using QrF.Sqlite.Contract;
 using QrF.Sqlite.EntityFramework;
-using QrF.Sqlite.Service;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QrF.Sqlite.Service
 {
@@ -38,7 +34,7 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                return dbContext.Users.Include("Roles").FirstOrDefault(o =>o.LoginName==name);
+                return dbContext.Users.Include("Roles").FirstOrDefault(o => o.LoginName == name);
             }
         }
         public User GetUser(string name, string password)
@@ -64,7 +60,7 @@ namespace QrF.Sqlite.Service
                 if (request.Role != null)
                     queryList = queryList.Where(u => u.Roles.Count(o => o.ID == request.Role.ID) > 0);
 
-                return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
+                return queryList.OrderByDescending(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
         /// <summary>
@@ -83,7 +79,7 @@ namespace QrF.Sqlite.Service
                 if (request.Role != null)
                     queryList = queryList.Where(u => u.Roles.Count(o => o.ID == request.Role.ID) > 0);
 
-                return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
+                return queryList.OrderByDescending(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
         /// <summary>
@@ -93,7 +89,7 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                var ids =string.IsNullOrEmpty(model.RoleIds)?new List<int>(): model.RoleIds.Split(',').Select<string, int>(x => int.Parse(x)).ToList();
+                var ids = string.IsNullOrEmpty(model.RoleIds) ? new List<int>() : model.RoleIds.Split(',').Select<string, int>(x => int.Parse(x)).ToList();
                 if (model.ID > 0)
                 {
                     dbContext.Users.Attach(model);
@@ -126,7 +122,8 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                dbContext.Users.Include("Roles").Where(u => ids.Contains(u.ID)).ToList().ForEach(a => {
+                dbContext.Users.Include("Roles").Where(u => ids.Contains(u.ID)).ToList().ForEach(a =>
+                {
                     var roles = new List<Role>();
                     roles.AddRange(a.Roles.Select(x => x));
                     foreach (var role in roles)
@@ -166,7 +163,7 @@ namespace QrF.Sqlite.Service
                     queryList = queryList.Where(u => u.Name.Contains(request.Name));
                 }
 
-                return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
+                return queryList.OrderByDescending(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
         /// <summary>
@@ -183,8 +180,17 @@ namespace QrF.Sqlite.Service
                 {
                     queryList = queryList.Where(u => u.Name.Contains(request.Name));
                 }
+                if (!string.IsNullOrEmpty(request.CreateUser))
+                {
+                    queryList = queryList.Where(u => u.CreateUser == request.CreateUser);
+                }
+                if (request.QueryDate.HasValue)
+                {
+                    var maxDate = request.QueryDate.Value.AddDays(1);
+                    queryList = queryList.Where(u => u.BuyTime >= request.QueryDate.Value && u.BuyTime < maxDate);
+                }
 
-                return queryList.OrderBy(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
+                return queryList.OrderByDescending(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
         /// <summary>
@@ -297,23 +303,23 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                var model=dbContext.Menus.Where(u => ids.Contains(u.ID)).FirstOrDefault();
+                var model = dbContext.Menus.Where(u => ids.Contains(u.ID)).FirstOrDefault();
                 dbContext.Menus.Remove(model);
                 dbContext.SaveChanges();
             }
         }
 
-        public IList<Menu> UserMenus(string name,int parendId)
+        public IList<Menu> UserMenus(string name, int parendId)
         {
             var user = GetUser(name);
             if (user == null)
                 return new List<Menu>();
             var ids = new List<int>();
-            foreach(var item in user.Roles)
+            foreach (var item in user.Roles)
             {
                 ids.AddRange(item.BusinessPermissionList);
             }
-            return ids.Distinct().Select(o => GetMenu(o)).Where(o=>o.ParentId==parendId).OrderBy(o=>o.Orderby).ToList();
+            return ids.Distinct().Select(o => GetMenu(o)).Where(o => o.ParentId == parendId).OrderBy(o => o.Orderby).ToList();
         }
 
         /// <summary>
@@ -379,7 +385,8 @@ namespace QrF.Sqlite.Service
         {
             using (var dbContext = new SqliteDbContext())
             {
-                dbContext.Roles.Include("Users").Where(u => ids.Contains(u.ID)).ToList().ForEach(a => {
+                dbContext.Roles.Include("Users").Where(u => ids.Contains(u.ID)).ToList().ForEach(a =>
+                {
                     var users = new List<User>();
                     users.AddRange(a.Users.Select(x => x));
                     foreach (var user in users)

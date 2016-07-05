@@ -293,10 +293,10 @@
     <Content Include="content\js\lib\datepicker\bootstrap-datepicker.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\js\mod\picker.date.js">
+    <Content Include="content\js\lib\pickadate\picker.date.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\js\mod\picker.js">
+    <Content Include="content\js\lib\pickadate\picker.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\lib\excanvas.js">

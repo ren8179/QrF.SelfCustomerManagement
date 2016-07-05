@@ -63,5 +63,9 @@ namespace QrF.Sqlite.Contract
         /// 备注说明
         /// </summary>
         public string Remark { get; set; }
+        /// <summary>
+        /// 操作人
+        /// </summary>
+        public string CreateUser { get; set; }
     }
 }

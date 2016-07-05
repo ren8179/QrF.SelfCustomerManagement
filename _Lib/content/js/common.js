@@ -17,6 +17,8 @@
         'sweetalert': 'lib/sweetalert/sweetalert-dev.js?v=20160525',
         'hammer': 'lib/hammer.min.js?v=20160615',
         'velocity': 'lib/velocity.min.js?v=20160615',
-        'jstree': 'lib/jstree/jstree.js?v=20160617'
+        'jstree': 'lib/jstree/jstree.js?v=20160617',
+        'picker': 'lib/pickadate/picker.js?v=20160705',
+        'picker.date': 'lib/pickadate/picker.date.js?v=20160705',
     }
 });

@@ -1,4 +1,5 @@
 ﻿using QrF.Framework.Contract;
+using System;
 
 namespace QrF.Sqlite.Contract
 {
@@ -12,6 +13,8 @@ namespace QrF.Sqlite.Contract
     {
         public int? pageNumber { get; set; }
         public string Name { get; set; }
+        public DateTime? QueryDate { get; set; }
+        public string CreateUser { get; set; }
     }
     public class MenuRequest : Request
     {

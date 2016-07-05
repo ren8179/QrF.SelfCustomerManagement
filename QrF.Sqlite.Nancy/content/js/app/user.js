@@ -66,7 +66,8 @@
                     $("#RoleIds").val(selectList.join(','));
                     var loginName = $("#LoginName").val();
                     var pwd = $("#Pwd").val();
-                    $("#Password").val($.md5(loginName + pwd));
+                    if (pwd)
+                        $("#Password").val($.md5(loginName + pwd));
                     var json = {};
                     var formData = $(form).serializeArray();
                     $.each(formData, function () {
@@ -86,7 +87,7 @@
         $(".query_btn").on("click", function (e) {
             var args = {};
             $.each($(".query_form").serializeArray(), function () {
-                    args[this.name] = this.value;
+                args[this.name] = this.value;
             });
             Global.initBootstrapTable($(".table-data"), {
                 columns: [

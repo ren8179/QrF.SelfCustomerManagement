@@ -10,6 +10,7 @@ namespace QrF.Sqlite.Contract
             BuyTime = DateTime.Now;
             CarrayDate = DateTime.Now;
             DueDate = DateTime.Now;
+            IsActive = true;
         }
         /// <summary>
         /// 购买日期
@@ -67,5 +68,7 @@ namespace QrF.Sqlite.Contract
         /// 操作人
         /// </summary>
         public string CreateUser { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

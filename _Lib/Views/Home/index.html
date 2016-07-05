@@ -90,20 +90,79 @@
                 <!--start container-->
                 <div class="container">
                     <div class="section">
-                        <p class="caption">快捷入口</p>
-                        <div class="divider"></div>
-                        <div class="row">
-                            <div class="col s12 m12 l12">
-
-                            </div>
-                        </div>
-                        <p class="caption">待办事项</p>
-                        <div class="divider"></div>
-                        <div class="row">
-                            <div class="col s12 m12 l12">
-
-                            </div>
-                        </div>
+                        <ul class="collapsible popout collapsible-accordion" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header"><i class="mdi-content-send"></i>快捷入口</div>
+                                <div class="collapsible-body row">
+                                    <div class="col s3 offset-s1 center-align">
+                                        <a class="btn btn-floating btn-large btn-flat waves-effect waves-light pink accent-2 white-text" href="/customer/info">
+                                            <i class="mdi-action-credit-card"></i>
+                                        </a>
+                                        <p> 客户信息</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header active"><i class="mdi-social-notifications-on"></i>即将到期客户</div>
+                                <div class="collapsible-body">
+                                    <ul id="task-card" class="collection with-header">
+                                        <li class="collection-header cyan">
+                                            <h4 class="task-card-title">显示即将到期的十条客户信息</h4>
+                                        </li>
+                                        <li class="collection-item dismissable">
+                                            <input type="checkbox" id="task1" />
+                                            <label for="task1">
+                                                <span class="">客户姓名：XXX</span><span class="">联系方式：XXX</span><span class="">购买产品：XXX</span>
+                                                <a href="#" class="secondary-content"><span class="ultra-small">今天过期</span></a>
+                                            </label>
+                                            <span class="task-cat pink">即将过期</span>
+                                        </li>
+                                        <li class="collection-item dismissable">
+                                            <input type="checkbox" id="task2" />
+                                            <label for="task2">
+                                                <span class="">客户姓名：XXX</span><span class="">联系方式：XXX</span><span class="">购买产品：XXX</span>
+                                                <a href="#" class="secondary-content"><span class="ultra-small">3天后过期</span></a>
+                                            </label>
+                                            <span class="task-cat pink">即将过期</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="mdi-social-notifications-off"></i>已过期客户</div>
+                                <div class="collapsible-body">
+                                    <ul id="task-card" class="collection with-header">
+                                        <li class="collection-header cyan">
+                                            <h4 class="task-card-title">显示最近过期的十条客户信息</h4>
+                                        </li>
+                                        <li class="collection-item dismissable">
+                                            <input type="checkbox" id="task11" checked="checked" disabled="disabled" />
+                                            <label for="task2">
+                                                <span class="chip">客户姓名：XXX</span><span class="chip">联系方式：XXX</span><span class="chip">购买产品：XXX</span>
+                                                <a href="#" class="secondary-content"><span class="ultra-small">已过期XX天</span></a>
+                                            </label>
+                                                <span class="task-cat purple">已过期</span>
+                                        </li>
+                                        <li class="collection-item dismissable">
+                                            <input type="checkbox" id="task11" checked="checked" disabled="disabled" />
+                                            <label for="task2">
+                                                <span class="chip">客户姓名：XXX</span><span class="chip">联系方式：XXX</span><span class="chip">购买产品：XXX</span>
+                                                <a href="#" class="secondary-content"><span class="ultra-small">已过期XX天</span></a>
+                                            </label>
+                                            <span class="task-cat purple">已过期</span>
+                                        </li>
+                                        <li class="collection-item dismissable">
+                                            <input type="checkbox" id="task11" checked="checked" disabled="disabled" />
+                                            <label for="task2">
+                                                <span class="chip">客户姓名：XXX</span><span class="chip">联系方式：XXX</span><span class="chip">购买产品：XXX</span>
+                                                <a href="#" class="secondary-content"><span class="ultra-small">已过期XX天</span></a>
+                                            </label>
+                                            <span class="task-cat purple">已过期</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <!--end container-->

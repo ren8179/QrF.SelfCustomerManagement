@@ -148,6 +148,28 @@ namespace QrF.Sqlite.Service
                 return dbContext.Customers.FirstOrDefault(o => o.ID == id);
             }
         }
+
+        private IQueryable<Customer> GetCustomerQuery(SqliteDbContext db, CustomerRequest request)
+        {
+            var queryList = db.Customers.Where(o => o.IsActive);
+
+            if (!string.IsNullOrEmpty(request.Name))
+            {
+                queryList = queryList.Where(u => u.Name.Contains(request.Name));
+            }
+            if (!string.IsNullOrEmpty(request.CreateUser))
+            {
+                queryList = queryList.Where(u => u.CreateUser == request.CreateUser);
+            }
+            if (request.QueryDate.HasValue)
+            {
+                var maxDate = request.QueryDate.Value.AddDays(1);
+                queryList = queryList.Where(u => u.BuyTime >= request.QueryDate.Value && u.BuyTime < maxDate);
+            }
+
+            return queryList;
+        }
+
         /// <summary>
         /// 查询列表(未分页)
         /// </summary>
@@ -156,13 +178,7 @@ namespace QrF.Sqlite.Service
             request = request ?? new CustomerRequest();
             using (var dbContext = new SqliteDbContext())
             {
-                IQueryable<Customer> queryList = dbContext.Customers;
-
-                if (!string.IsNullOrEmpty(request.Name))
-                {
-                    queryList = queryList.Where(u => u.Name.Contains(request.Name));
-                }
-
+                IQueryable<Customer> queryList = GetCustomerQuery(dbContext, request);
                 return queryList.OrderByDescending(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
@@ -174,22 +190,7 @@ namespace QrF.Sqlite.Service
             request = request ?? new CustomerRequest();
             using (var dbContext = new SqliteDbContext())
             {
-                IQueryable<Customer> queryList = dbContext.Customers;
-
-                if (!string.IsNullOrEmpty(request.Name))
-                {
-                    queryList = queryList.Where(u => u.Name.Contains(request.Name));
-                }
-                if (!string.IsNullOrEmpty(request.CreateUser))
-                {
-                    queryList = queryList.Where(u => u.CreateUser == request.CreateUser);
-                }
-                if (request.QueryDate.HasValue)
-                {
-                    var maxDate = request.QueryDate.Value.AddDays(1);
-                    queryList = queryList.Where(u => u.BuyTime >= request.QueryDate.Value && u.BuyTime < maxDate);
-                }
-
+                IQueryable<Customer> queryList = GetCustomerQuery(dbContext, request);
                 return queryList.OrderByDescending(u => u.ID).ToPagedList(request.PageIndex, request.PageSize);
             }
         }
